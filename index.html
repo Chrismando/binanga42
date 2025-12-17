@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2c3e50">
+    <title>Assemblée des Saints Réunis - Bar Bilanga 42</title>
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --gold-color: #d4af37;
+            --purple-color: #8e44ad;
+            --light-color: #f9f9f9;
+            --dark-color: #1a252f;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* En-tête */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "✝";
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold-color);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+            color: white;
+        }
+
+        .header h2 {
+            font-size: 1.1rem;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .church-address {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .gospel-message {
+            background: rgba(212, 175, 55, 0.2);
+            border-left: 4px solid var(--gold-color);
+            padding: 0.8rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            flex: 1;
+            padding: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Boutons d'action principaux */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-prayer {
+            background: linear-gradient(135deg, var(--purple-color), #9b59b6);
+            color: white;
+        }
+
+        .btn-prayer:hover {
+            background: linear-gradient(135deg, #7d3c98, #8e44ad);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
+        }
+
+        .btn-bible {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71);
+            color: white;
+        }
+
+        .btn-bible:hover {
+            background: linear-gradient(135deg, #219653, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-pastor {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-pastor:hover {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+            transform: translateY(-2px);
+        }
+
+        .btn-admin {
+            background: linear-gradient(135deg, var(--accent-color), #c0392b);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .btn-admin:hover {
+            background: linear-gradient(135deg, #c0392b, var(--accent-color));
+            transform: translateY(-2px);
+        }
+
+        .btn-program {
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            color: white;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-program:hover {
+            background: linear-gradient(135deg, #2980b9, var(--secondary-color));
+            transform: translateY(-2px);
+        }
+
+        /* Sections de contenu (masquées par défaut) */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-right: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        /* Contenu des cartes */
+        .program-item {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .program-item:hover {
+            transform: translateX(5px);
+        }
+
+        .program-item h3 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .program-item p {
+            margin-bottom: 0.3rem;
+            padding-left: 1.5rem;
+        }
+
+        .program-time {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Section prière du jour */
+        .prayer-section {
+            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .prayer-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .prayer-topic {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--purple-color);
+            display: none;
+        }
+
+        .prayer-topic.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .verse {
+            font-style: italic;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold-color);
+        }
+
+        .timer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .timer.warning {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .prayer-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--purple-color), #9b59b6);
+            color: white;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-pause {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-resume {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-finish {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .prayer-progress {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #9b59b6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Section quiz biblique */
+        .quiz-section {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .level-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .level-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+
+        .level-dot.active {
+            background: var(--success-color);
+        }
+
+        .level-dot.completed {
+            background: var(--secondary-color);
+        }
+
+        .question-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .options-container {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .option {
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .quiz-timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .answer-feedback {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .answer-feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .answer-feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* Section enregistrements admin */
+        .admin-section {
+            border: 2px solid var(--accent-color);
+        }
+
+        .recorder-container {
+            margin-top: 1rem;
+        }
+
+        .recorder-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-record {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71);
+            color: white;
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, var(--accent-color), #c0392b);
+            color: white;
+        }
+
+        .recording-status {
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+
+        .pulse {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 400px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .btn-close {
+            background: transparent;
+            color: white;
+            font-size: 1.8rem;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            width: 100%;
+            padding: 0.9rem;
+        }
+
+        /* Pied de page */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .app-version {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .creator {
+            font-size: 0.8rem;
+            color: var(--gold-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Utilitaires */
+        .hidden {
+            display: none !important;
+        }
+
+        .visible {
+            display: block !important;
+        }
+
+        .active-section {
+            display: block !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+
+        .reminder {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--warning-color);
+            text-align: center;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+            transform: translateY(-2px);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--success-color);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .prayer-controls, .quiz-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">✝</div>
+                <h1>Assemblée des Saints Réunis</h1>
+                <h2>Bar Bilanga 42</h2>
+                <div class="church-address">
+                    Avenue Binanga 42, Quartier ONL<br>
+                    Commune de Kasa-Vubu, Kinshasa - RDC
+                </div>
+                <div class="gospel-message">
+                    "Car je n'ai pas eu la pensée de savoir parmi vous autre chose que Jésus-Christ, et Jésus-Christ crucifié."<br>
+                    <em>1 Corinthiens 2:2</em>
+                </div>
+            </div>
+            <div class="admin-access">
+                <button id="adminBtn" class="btn-admin">🔐 Accès administrateur</button>
+            </div>
+        </header>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Boutons d'action principaux -->
+            <div class="action-buttons">
+                <button id="prayerBtn" class="btn-prayer">
+                    <span class="icon">🙏</span> Prière du jour
+                </button>
+                <button id="bibleQuizBtn" class="btn-bible">
+                    <span class="icon">📖</span> Je connais la Bible
+                </button>
+            </div>
+
+            <!-- Boutons secondaires -->
+            <button id="programBtn" class="btn-program">
+                <span class="icon">📅</span> Voir les programmes
+            </button>
+
+            <button id="pastorBtn" class="btn-pastor">
+                <span class="icon">💬</span> Message au pasteur
+            </button>
+
+            <!-- Section programmes (masquée par défaut) -->
+            <div id="programSection" class="content-section">
+                <button class="back-button" onclick="showMainButtons()">
+                    <span class="icon">←</span> Retour
+                </button>
+                <section class="card">
+                    <h2><span class="icon">📅</span> Programmes de la semaine</h2>
+                    <div class="content">
+                        <div class="program-item">
+                            <h3><span class="icon">⏰</span> MERCREDI</h3>
+                            <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
+                        </div>
+                        <div class="program-item">
+                            <h3><span class="icon">🌙</span> JEUDI</h3>
+                            <p><span class="program-time">23h - 3h :</span> NUIT DE PRIÈRE</p>
+                        </div>
+                        <div class="program-item">
+                            <h3><span class="icon">⏰</span> VENDREDI</h3>
+                            <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
+                        </div>
+                        <div class="program-item">
+                            <h3><span class="icon">🙏</span> SAMEDI</h3>
+                            <p><span class="program-time">8h - 12h :</span> INTERCESSION</p>
+                        </div>
+                        <div class="program-item">
+                            <h3><span class="icon">✝</span> DIMANCHE</h3>
+                            <p><span class="program-time">8h - 10h30 :</span> CULTE D'ADORATION</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Section prière du jour (masquée par défaut) -->
+            <div id="prayerSection" class="content-section">
+                <button class="back-button" onclick="showMainButtons()">
+                    <span class="icon">←</span> Retour
+                </button>
+                
+                <div class="prayer-section">
+                    <div class="prayer-header">
+                        <h2>🙏 Prière du jour - Mercredi 17 décembre 2025</h2>
+                        <p><strong>THÈME :</strong> PRIÈRE POUR BIEN TERMINER L'ANNÉE 2025 ET PRÉPARER L'AVENIR</p>
+                    </div>
+
+                    <div class="prayer-progress">
+                        <div class="progress-text">
+                            Sujet <span id="currentTopicNumber">1</span> sur 9
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+
+                    <div id="prayerTopics">
+                        <!-- Les sujets de prière seront insérés ici dynamiquement -->
+                    </div>
+
+                    <div class="timer" id="prayerTimer">10:00</div>
+
+                    <div class="prayer-controls">
+                        <button id="startPrayerBtn" class="btn-start">🚀 Commencer la prière</button>
+                        <button id="pausePrayerBtn" class="btn-pause hidden">⏸️ Pause</button>
+                        <button id="resumePrayerBtn" class="btn-resume hidden">▶️ Reprendre</button>
+                        <button id="finishPrayerBtn" class="btn-finish hidden">✅ Terminer la prière</button>
+                    </div>
+
+                    <div id="prayerClosure" class="hidden mt-2">
+                        <div class="message-item">
+                            <h3>Prière de clôture</h3>
+                            <p>Seigneur notre Dieu, nous Te remercions pour ce temps de prière. Merci pour Ta présence au milieu de nous. Nous Te remettons nos vies, nos familles et notre avenir. Aide-nous à marcher chaque jour selon Ta volonté. Donne-nous la paix dans nos cœurs et la force d'avancer avec confiance. Nous Te faisons confiance pour la suite. Au nom de Jésus, Amen.</p>
+                        </div>
+                        
+                        <div class="reminder">
+                            <h3>📢 Rappel important</h3>
+                            <p>Il y aura réunion de prière aujourd'hui à <strong>17h00</strong>.<br>
+                            Tout le monde est prié d'être présent.</p>
+                            <p>Que Dieu vous bénisse et vous garde.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section quiz biblique (masquée par défaut) -->
+            <div id="quizSection" class="content-section">
+                <button class="back-button" onclick="showMainButtons()">
+                    <span class="icon">←</span> Retour
+                </button>
+                
+                <div class="quiz-section">
+                    <div class="quiz-header">
+                        <h2>📖 Quiz Biblique - Le livre de la Genèse</h2>
+                        <p>7 niveaux, 10 questions par niveau - 1 minute par niveau</p>
+                    </div>
+
+                    <div class="level-indicator" id="levelIndicator">
+                        <!-- Les indicateurs de niveau seront insérés ici -->
+                    </div>
+
+                    <div class="quiz-timer" id="quizTimer">60</div>
+
+                    <div class="question-container">
+                        <div class="question-text" id="questionText"></div>
+                        <div class="options-container" id="optionsContainer"></div>
+                        <div class="answer-feedback" id="answerFeedback"></div>
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button id="startQuizBtn" class="btn-start">🎯 Commencer le quiz</button>
+                        <button id="nextQuestionBtn" class="btn-next hidden">➡️ Question suivante</button>
+                        <button id="endQuizBtn" class="btn-finish hidden">🏁 Terminer le quiz</button>
+                    </div>
+
+                    <div id="quizResults" class="hidden mt-2">
+                        <!-- Les résultats seront affichés ici -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section enregistrements admin (masquée par défaut) -->
+            <div id="adminContentSection" class="content-section">
+                <button class="back-button" onclick="showMainButtons()">
+                    <span class="icon">←</span> Retour
+                </button>
+                
+                <section class="card admin-section" id="recordingsSection">
+                    <h2><span class="icon">🎤</span> Enregistrements audio (Admin)</h2>
+                    <div class="content">
+                        <div class="recorder-container">
+                            <div class="recorder-controls">
+                                <button id="startRecordBtn" class="btn-record">
+                                    <span class="icon">🎤</span> Démarrer l'enregistrement
+                                </button>
+                                <button id="stopRecordBtn" class="btn-stop hidden" disabled>
+                                    <span class="icon">⏹️</span> Arrêter
+                                </button>
+                                <div class="recording-status hidden" id="recordingStatus">
+                                    <div class="pulse"></div>
+                                    <span>Enregistrement en cours...</span>
+                                </div>
+                            </div>
+                            
+                            <div class="audio-preview hidden" id="audioPreview">
+                                <h3>Prévisualisation:</h3>
+                                <audio id="audioPlayer" controls></audio>
+                                <button id="saveRecordingBtn" class="btn-save">
+                                    <span class="icon">💾</span> Sauvegarder
+                                </button>
+                            </div>
+                            
+                            <div class="saved-recordings">
+                                <h3>Enregistrements sauvegardés:</h3>
+                                <div id="recordingsList" class="recordings-list">
+                                    <p class="empty-message">Aucun enregistrement sauvegardé.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card admin-section" id="adminControlsSection">
+                    <h2><span class="icon">⚙️</span> Administration</h2>
+                    <div class="content">
+                        <div class="admin-controls">
+                            <button id="logoutBtn" class="btn-logout">
+                                <span class="icon">🔒</span> Déconnexion administrateur
+                            </button>
+                            <div class="admin-info">
+                                <p><strong>Mode administrateur actif</strong></p>
+                                <p>Vous pouvez maintenant enregistrer des messages audio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Pied de page -->
+        <footer class="footer">
+            <p>© 2025 Assemblée des Saints Réunis - Bar Bilanga 42</p>
+            <p class="app-version">Application v2.0 - Fonctionne hors connexion</p>
+            <p class="creator">Créée par MandO'Tech</p>
+        </footer>
+    </div>
+
+    <!-- Modal pour l'authentification admin -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Accès administrateur</h2>
+                <button id="closeModalBtn" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Veuillez entrer le mot de passe administrateur:</p>
+                <input type="password" id="adminPassword" placeholder="Mot de passe" autocomplete="off">
+                <div id="passwordError" class="error-message hidden">Mot de passe incorrect</div>
+                <button id="submitPasswordBtn" class="btn-submit">Valider</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===============================
+        // DONNÉES DE L'APPLICATION
+        // ===============================
+
+        // Données de prière du jour
+        const prayerData = [
+            {
+                verse: "Psaume 103:1-2 - « Mon âme, bénis l'Éternel, et n'oublie aucun de ses bienfaits ! »",
+                content: "Prenons ce temps pour louer Dieu. Remercions-Le pour la vie, pour la protection et pour tout ce qu'Il nous a donné durant l'année 2025. Reconnaissons que c'est grâce à Lui que nous sommes encore debout aujourd'hui."
+            },
+            {
+                verse: "Psaume 66:18 - « Si j'avais gardé le péché dans mon cœur, le Seigneur ne m'aurait pas écouté. »",
+                content: "Approchons-nous de Dieu avec humilité. Demandons pardon pour nos fautes, nos erreurs, nos mauvaises paroles et nos mauvaises attitudes. Prions pour que Dieu nous pardonne et nous donne un cœur nouveau."
+            },
+            {
+                verse: "Psaume 90:12 - « Enseigne-nous à bien utiliser nos jours, afin que notre cœur devienne sage. »",
+                content: "Demandons à Dieu de nous aider à comprendre ce que l'année 2025 nous a appris. Prions pour la sagesse afin de faire de meilleurs choix à l'avenir."
+            },
+            {
+                verse: "Proverbes 3:5-6 - « Confie-toi en l'Éternel de tout ton cœur… et Il aplanira tes chemins. »",
+                content: "Confions à Dieu nos pensées, nos décisions et nos projets. Prions pour qu'Il nous guide clairement et nous montre le bon chemin à suivre."
+            },
+            {
+                verse: "Psaume 127:1 - « Si l'Éternel ne bâtit la maison, ceux qui la bâtissent travaillent en vain. »",
+                content: "Remettons entre les mains de Dieu nos familles, notre travail et nos projets. Demandons-Lui de diriger tout ce que nous faisons, afin que cela porte de bons fruits."
+            },
+            {
+                verse: "Proverbes 4:18 - « Le chemin des justes brille de plus en plus… »",
+                content: "Prions pour avancer progressivement. Demandons à Dieu de nous aider à aller de l'avant, même petit à petit, sans reculer ni abandonner."
+            },
+            {
+                verse: "Philippiens 4:6 - « Ne vous inquiétez de rien… »",
+                content: "Présentons à Dieu nos inquiétudes et nos peurs concernant l'avenir. Demandons-Lui Sa paix dans nos cœurs et la confiance pour demain."
+            },
+            {
+                verse: "Éphésiens 6:11 - « Revêtez-vous de toutes les armes de Dieu… »",
+                content: "Entrons dans le combat spirituel. Prions contre toute opposition, tout découragement et toute confusion qui pourraient freiner notre avancée. Déclarons que Dieu nous soutient et nous fortifie."
+            },
+            {
+                verse: "Psaume 37:5 - « Recommande ton sort à l'Éternel, mets en Lui ta confiance, et Il agira. »",
+                content: "Terminons en confiant entièrement notre avenir à Dieu. Prions pour Lui faire confiance en toute chose et attendre Son intervention."
+            }
+        ];
+
+        // Données du quiz biblique - Toutes les 70 questions
+        const quizData = [
+            // Niveau 1 - Très facile (Questions 1-10)
+            {
+                question: "Quel est le premier livre de la Bible ?",
+                options: ["L'Exode", "La Genèse", "Le Lévitique", "Les Nombres"],
+                correct: 1,
+                verse: "Genèse 1:1"
+            },
+            {
+                question: "Qui a créé le ciel et la terre ?",
+                options: ["Adam", "Noé", "Dieu", "Moïse"],
+                correct: 2,
+                verse: "Genèse 1:1"
+            },
+            {
+                question: "En combien de jours Dieu a-t-il créé le monde ?",
+                options: ["5 jours", "6 jours", "7 jours", "8 jours"],
+                correct: 1,
+                verse: "Genèse 1:31"
+            },
+            {
+                question: "Quel jour Dieu s'est-Il reposé ?",
+                options: ["Le cinquième", "Le sixième", "Le septième", "Le huitième"],
+                correct: 2,
+                verse: "Genèse 2:2"
+            },
+            {
+                question: "Quel est le premier homme créé par Dieu ?",
+                options: ["Abel", "Caïn", "Adam", "Noé"],
+                correct: 2,
+                verse: "Genèse 1:27"
+            },
+            {
+                question: "Comment s'appelait la première femme ?",
+                options: ["Sara", "Rebecca", "Ève", "Rachel"],
+                correct: 2,
+                verse: "Genèse 3:20"
+            },
+            {
+                question: "Dans quel jardin Adam et Ève vivaient-ils ?",
+                options: ["Le jardin de Gethsémané", "Le jardin d'Éden", "Le jardin des Oliviers", "Le jardin de Babylone"],
+                correct: 1,
+                verse: "Genèse 2:8"
+            },
+            {
+                question: "Quel fruit Dieu avait interdit de manger ?",
+                options: ["Le fruit de l'arbre de vie", "Le fruit de l'arbre de la connaissance", "Le fruit défendu", "La pomme"],
+                correct: 1,
+                verse: "Genèse 2:17"
+            },
+            {
+                question: "Qui a tenté Ève dans le jardin ?",
+                options: ["Le lion", "Le serpent", "Le diable", "Le dragon"],
+                correct: 1,
+                verse: "Genèse 3:1"
+            },
+            {
+                question: "Quel est le premier péché commis par l'homme ?",
+                options: ["Le meurtre", "Le vol", "La désobéissance", "L'idolâtrie"],
+                correct: 2,
+                verse: "Genèse 3:6"
+            },
+            // Niveau 2 - Facile (Questions 11-20)
+            {
+                question: "Quels sont les deux fils d'Adam et Ève mentionnés en premier ?",
+                options: ["Seth et Abel", "Caïn et Abel", "Caïn et Seth", "Abel et Énoch"],
+                correct: 1,
+                verse: "Genèse 4:1-2"
+            },
+            {
+                question: "Qui a tué son frère ?",
+                options: ["Abel", "Caïn", "Seth", "Énoch"],
+                correct: 1,
+                verse: "Genèse 4:8"
+            },
+            {
+                question: "Quelle offrande Dieu a-t-il acceptée ?",
+                options: ["Celle de Caïn", "Celle d'Abel", "Celle des deux", "Aucune"],
+                correct: 1,
+                verse: "Genèse 4:4"
+            },
+            {
+                question: "Qui a construit une arche ?",
+                options: ["Abraham", "Noé", "Moïse", "Joseph"],
+                correct: 1,
+                verse: "Genèse 6:14"
+            },
+            {
+                question: "Pourquoi Dieu a-t-il demandé à Noé de construire l'arche ?",
+                options: ["Pour un voyage", "Pour le déluge", "Pour la guerre", "Pour le commerce"],
+                correct: 1,
+                verse: "Genèse 6:17"
+            },
+            {
+                question: "Combien de jours et de nuits a duré la pluie du déluge ?",
+                options: ["7 jours", "20 jours", "40 jours", "100 jours"],
+                correct: 2,
+                verse: "Genèse 7:12"
+            },
+            {
+                question: "Quel oiseau Noé a-t-il envoyé en premier ?",
+                options: ["La colombe", "Le corbeau", "Le pigeon", "L'aigle"],
+                correct: 1,
+                verse: "Genèse 8:7"
+            },
+            {
+                question: "Quel oiseau est revenu avec une feuille d'olivier ?",
+                options: ["Le corbeau", "La colombe", "Le perroquet", "Le moineau"],
+                correct: 1,
+                verse: "Genèse 8:11"
+            },
+            {
+                question: "Quel signe Dieu a-t-il donné après le déluge ?",
+                options: ["Une étoile", "Un arc-en-ciel", "Une colonne de feu", "Un nuage"],
+                correct: 1,
+                verse: "Genèse 9:13"
+            },
+            {
+                question: "Avec qui Dieu a-t-il fait une alliance après le déluge ?",
+                options: ["Abraham", "Noé", "Moïse", "David"],
+                correct: 1,
+                verse: "Genèse 9:9"
+            },
+            // Niveau 3 - Moyen (Questions 21-30)
+            {
+                question: "Comment s'appelait le père d'Abraham ?",
+                options: ["Nahor", "Térach", "Haran", "Serug"],
+                correct: 1,
+                verse: "Genèse 11:26"
+            },
+            {
+                question: "Dans quel pays Abraham vivait-il avant son appel ?",
+                options: ["Égypte", "Canaan", "Ur en Chaldée", "Babylone"],
+                correct: 2,
+                verse: "Genèse 11:31"
+            },
+            {
+                question: "Comment s'appelait la femme d'Abraham ?",
+                options: ["Rébecca", "Rachel", "Sara", "Léa"],
+                correct: 2,
+                verse: "Genèse 11:29"
+            },
+            {
+                question: "Comment s'appelait le neveu d'Abraham ?",
+                options: ["Lot", "Isaac", "Ismaël", "Jacob"],
+                correct: 0,
+                verse: "Genèse 12:5"
+            },
+            {
+                question: "Quelles villes Dieu a-t-il détruites à cause de leur méchanceté ?",
+                options: ["Babylone et Ninive", "Sodome et Gomorrhe", "Jéricho et Aï", "Tyr et Sidon"],
+                correct: 1,
+                verse: "Genèse 19:24"
+            },
+            {
+                question: "Qu'est devenue la femme de Lot ?",
+                options: ["Une pierre", "Une statue de sel", "Un arbre", "Une colonne"],
+                correct: 1,
+                verse: "Genèse 19:26"
+            },
+            {
+                question: "Comment s'appelait le fils promis à Abraham et Sara ?",
+                options: ["Ismaël", "Isaac", "Jacob", "Joseph"],
+                correct: 1,
+                verse: "Genèse 21:3"
+            },
+            {
+                question: "À quel âge Abraham a-t-il eu Isaac ?",
+                options: ["75 ans", "90 ans", "100 ans", "120 ans"],
+                correct: 2,
+                verse: "Genèse 21:5"
+            },
+            {
+                question: "Qui était Agar ?",
+                options: ["La femme d'Abraham", "La servante de Sara", "La sœur de Sara", "La mère de Lot"],
+                correct: 1,
+                verse: "Genèse 16:1"
+            },
+            {
+                question: "Comment s'appelait le fils d'Agar ?",
+                options: ["Isaac", "Ismaël", "Ésaü", "Jacob"],
+                correct: 1,
+                verse: "Genèse 16:15"
+            },
+            // Niveau 4 - Moyen+ (Questions 31-40)
+            {
+                question: "Sur quelle montagne Abraham devait-il offrir Isaac ?",
+                options: ["Mont Sinaï", "Mont Morija", "Mont des Oliviers", "Mont Carmel"],
+                correct: 1,
+                verse: "Genèse 22:2"
+            },
+            {
+                question: "Qui Dieu a-t-il envoyé pour arrêter Abraham ?",
+                options: ["Un prophète", "Un ange", "Un archange", "Un chérubin"],
+                correct: 1,
+                verse: "Genèse 22:11"
+            },
+            {
+                question: "Quel animal a remplacé Isaac pour le sacrifice ?",
+                options: ["Un agneau", "Un bouc", "Un taureau", "Un bélier"],
+                correct: 3,
+                verse: "Genèse 22:13"
+            },
+            {
+                question: "Comment s'appelait la femme d'Isaac ?",
+                options: ["Rachel", "Léa", "Rébecca", "Sara"],
+                correct: 2,
+                verse: "Genèse 24:67"
+            },
+            {
+                question: "Quels sont les deux fils d'Isaac ?",
+                options: ["Caïn et Abel", "Jacob et Ésaü", "Joseph et Benjamin", "Ruben et Siméon"],
+                correct: 1,
+                verse: "Genèse 25:25-26"
+            },
+            {
+                question: "Lequel est né en premier ?",
+                options: ["Jacob", "Ésaü", "Les deux ensemble", "On ne sait pas"],
+                correct: 1,
+                verse: "Genèse 25:25"
+            },
+            {
+                question: "Contre quoi Ésaü a-t-il échangé son droit d'aînesse ?",
+                options: ["De l'argent", "Un plat de lentilles", "Un champ", "Des brebis"],
+                correct: 1,
+                verse: "Genèse 25:34"
+            },
+            {
+                question: "Qui a trompé Isaac pour recevoir la bénédiction ?",
+                options: ["Ésaü", "Jacob", "Rébecca", "Laban"],
+                correct: 1,
+                verse: "Genèse 27:35"
+            },
+            {
+                question: "De quoi Jacob a-t-il rêvé à Béthel ?",
+                options: ["D'anges", "D'une échelle", "De Dieu", "De pierres"],
+                correct: 1,
+                verse: "Genèse 28:12"
+            },
+            {
+                question: "Comment s'appelait la femme que Jacob aimait ?",
+                options: ["Léa", "Rachel", "Bilha", "Zilpa"],
+                correct: 1,
+                verse: "Genèse 29:18"
+            },
+            // Niveau 5 - Difficile (Questions 41-50)
+            {
+                question: "Combien d'années Jacob a-t-il travaillé pour Rachel ?",
+                options: ["7 ans", "14 ans", "20 ans", "30 ans"],
+                correct: 1,
+                verse: "Genèse 29:20,30"
+            },
+            {
+                question: "Comment s'appelait la sœur de Rachel ?",
+                options: ["Léa", "Rébecca", "Sara", "Dina"],
+                correct: 0,
+                verse: "Genèse 29:16"
+            },
+            {
+                question: "Combien de fils Jacob a-t-il eus au total ?",
+                options: ["10 fils", "12 fils", "13 fils", "14 fils"],
+                correct: 1,
+                verse: "Genèse 35:22-26"
+            },
+            {
+                question: "Quel fils Jacob aimait-il le plus ?",
+                options: ["Ruben", "Siméon", "Joseph", "Benjamin"],
+                correct: 2,
+                verse: "Genèse 37:3"
+            },
+            {
+                question: "Quel vêtement spécial Jacob a-t-il donné à Joseph ?",
+                options: ["Un manteau", "Une tunique de plusieurs couleurs", "Une robe", "Un turban"],
+                correct: 1,
+                verse: "Genèse 37:3"
+            },
+            {
+                question: "Qui Joseph a-t-il vu en rêve se prosterner devant lui ?",
+                options: ["Ses parents", "Ses frères", "Le roi", "Les étoiles"],
+                correct: 1,
+                verse: "Genèse 37:9"
+            },
+            {
+                question: "Que ses frères ont-ils fait de Joseph ?",
+                options: ["L'ont tué", "L'ont vendu", "L'ont emprisonné", "L'ont chassé"],
+                correct: 1,
+                verse: "Genèse 37:28"
+            },
+            {
+                question: "Dans quel pays Joseph a-t-il été emmené ?",
+                options: ["Canaan", "Égypte", "Assyrie", "Babylone"],
+                correct: 1,
+                verse: "Genèse 37:28"
+            },
+            {
+                question: "À qui Joseph a-t-il été vendu ?",
+                options: ["Pharaon", "Potiphar", "Le chef des gardes", "Un marchand"],
+                correct: 1,
+                verse: "Genèse 39:1"
+            },
+            {
+                question: "Pourquoi Joseph a-t-il été mis en prison ?",
+                options: ["Pour vol", "Pour meurtre", "Fausse accusation", "Pour désobéissance"],
+                correct: 2,
+                verse: "Genèse 39:20"
+            },
+            // Niveau 6 - Très difficile (Questions 51-60)
+            {
+                question: "Quels rêves Joseph a-t-il interprétés en prison ?",
+                options: ["Ceux de Pharaon", "Ceux de l'échanson et du panetier", "Ceux de ses frères", "Ceux de Potiphar"],
+                correct: 1,
+                verse: "Genèse 40:5"
+            },
+            {
+                question: "Après combien d'années Joseph est-il sorti de prison ?",
+                options: ["2 ans", "7 ans", "12 ans", "13 ans"],
+                correct: 0,
+                verse: "Genèse 41:1"
+            },
+            {
+                question: "Quels rêves Joseph a-t-il interprétés pour Pharaon ?",
+                options: ["Les rêves des vaches et des épis", "Les rêves des étoiles", "Les rêves des gerbes", "Les rêves des fleuves"],
+                correct: 0,
+                verse: "Genèse 41:17-24"
+            },
+            {
+                question: "Que représentaient les sept vaches grasses ?",
+                options: ["7 années de famine", "7 années d'abondance", "7 frères", "7 nations"],
+                correct: 1,
+                verse: "Genèse 41:26"
+            },
+            {
+                question: "Que représentaient les sept vaches maigres ?",
+                options: ["7 années d'abondance", "7 années de famine", "7 ennemis", "7 sécheresses"],
+                correct: 1,
+                verse: "Genèse 41:27"
+            },
+            {
+                question: "Quel poste Pharaon a-t-il donné à Joseph ?",
+                options: ["Chef des gardes", "Gouverneur d'Égypte", "Grand prêtre", "Conseiller royal"],
+                correct: 1,
+                verse: "Genèse 41:41"
+            },
+            {
+                question: "Pourquoi les frères de Joseph sont-ils venus en Égypte ?",
+                options: ["Pour le visiter", "Pour acheter de la nourriture", "Pour s'exiler", "Pour chercher Joseph"],
+                correct: 1,
+                verse: "Genèse 42:3"
+            },
+            {
+                question: "Qui Joseph a-t-il vu en premier parmi ses frères ?",
+                options: ["Ruben", "Benjamin", "Juda", "Tous ensemble"],
+                correct: 3,
+                verse: "Genèse 42:6"
+            },
+            {
+                question: "Quel frère Joseph a-t-il retenu prisonnier ?",
+                options: ["Ruben", "Siméon", "Juda", "Benjamin"],
+                correct: 1,
+                verse: "Genèse 42:24"
+            },
+            {
+                question: "Quel objet Joseph a-t-il caché dans le sac de Benjamin ?",
+                options: ["Son anneau", "Sa coupe d'argent", "Son argent", "Son manteau"],
+                correct: 1,
+                verse: "Genèse 44:2"
+            },
+            // Niveau 7 - Expert (Questions 61-70)
+            {
+                question: "Quel est le nouveau nom donné à Jacob ?",
+                options: ["Israël", "Judas", "Joseph", "Abraham"],
+                correct: 0,
+                verse: "Genèse 32:28"
+            },
+            {
+                question: "Avec qui Jacob a-t-il lutté toute la nuit ?",
+                options: ["Un homme", "Un ange", "Dieu", "Ésaü"],
+                correct: 1,
+                verse: "Genèse 32:24"
+            },
+            {
+                question: "Comment s'appelait le dernier fils de Jacob ?",
+                options: ["Joseph", "Benjamin", "Dan", "Nephtali"],
+                correct: 1,
+                verse: "Genèse 35:18"
+            },
+            {
+                question: "Où Jacob et sa famille se sont-ils installés en Égypte ?",
+                options: ["Memphis", "Thèbes", "Goshen", "Alexandrie"],
+                correct: 2,
+                verse: "Genèse 47:6"
+            },
+            {
+                question: "Combien de personnes de la famille de Jacob sont descendues en Égypte ?",
+                options: ["70 personnes", "75 personnes", "66 personnes", "12 personnes"],
+                correct: 0,
+                verse: "Genèse 46:27"
+            },
+            {
+                question: "Quel âge avait Joseph à sa mort ?",
+                options: ["110 ans", "120 ans", "130 ans", "147 ans"],
+                correct: 0,
+                verse: "Genèse 50:26"
+            },
+            {
+                question: "Quelle promesse Joseph a-t-il faite concernant ses os ?",
+                options: ["Les brûler", "Les enterrer en Égypte", "Les emporter hors d'Égypte", "Les donner à ses frères"],
+                correct: 2,
+                verse: "Genèse 50:25"
+            },
+            {
+                question: "Quel livre de la Bible commence juste après la Genèse ?",
+                options: ["Le Lévitique", "Les Nombres", "L'Exode", "Le Deutéronome"],
+                correct: 2,
+                verse: "Exode 1:1"
+            },
+            {
+                question: "Quel est le thème principal du livre de la Genèse ?",
+                options: ["Les prophéties", "Les lois", "Les commencements", "Les juges"],
+                correct: 2,
+                verse: "Genèse 1:1"
+            },
+            {
+                question: "Comment se termine le livre de la Genèse ?",
+                options: ["Par la mort de Jacob", "Par la sortie d'Égypte", "Par la mort de Joseph", "Par la création"],
+                correct: 2,
+                verse: "Genèse 50:26"
+            }
+        ];
+
+        // ===============================
+        // VARIABLES GLOBALES
+        // ===============================
+        let currentPrayerTopic = 0;
+        let prayerTimerInterval = null;
+        let prayerTimeLeft = 600; // 10 minutes en secondes
+        let isPrayerPaused = false;
+        let totalPrayerTime = 600 * 9; // 90 minutes total
+
+        let currentQuizLevel = 0;
+        let currentQuestion = 0;
+        let quizScore = 0;
+        let quizTimerInterval = null;
+        let quizTimeLeft = 60; // 1 minute par niveau
+
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let audioBlob = null;
+        let stream = null;
+
+        // ===============================
+        // FONCTIONS DE BASE
+        // ===============================
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function showMainButtons() {
+            // Masquer toutes les sections de contenu
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Afficher les boutons principaux
+            document.querySelector('.action-buttons').style.display = 'grid';
+            document.getElementById('programBtn').style.display = 'block';
+            document.getElementById('pastorBtn').style.display = 'block';
+        }
+
+        function hideMainButtons() {
+            // Masquer les boutons principaux
+            document.querySelector('.action-buttons').style.display = 'none';
+            document.getElementById('programBtn').style.display = 'none';
+            document.getElementById('pastorBtn').style.display = 'none';
+        }
+
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Masquer les boutons principaux
+            hideMainButtons();
+            
+            // Afficher la section demandée
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active-section');
+            }
+        }
+
+        // ===============================
+        // FONCTIONNALITÉS DE PRIÈRE
+        // ===============================
+        function initializePrayerSection() {
+            const prayerTopicsDiv = document.getElementById('prayerTopics');
+            prayerTopicsDiv.innerHTML = '';
+            
+            prayerData.forEach((topic, index) => {
+                const topicDiv = document.createElement('div');
+                topicDiv.className = 'prayer-topic';
+                topicDiv.id = `prayerTopic${index}`;
+                topicDiv.innerHTML = `
+                    <div class="verse">${topic.verse}</div>
+                    <p>${topic.content}</p>
+                `;
+                prayerTopicsDiv.appendChild(topicDiv);
+            });
+            
+            updatePrayerProgress();
+        }
+
+        function updatePrayerProgress() {
+            const progress = ((currentPrayerTopic) / prayerData.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('currentTopicNumber').textContent = currentPrayerTopic + 1;
+        }
+
+        function startPrayer() {
+            currentPrayerTopic = 0;
+            prayerTimeLeft = 600;
+            isPrayerPaused = false;
+            
+            document.getElementById('startPrayerBtn').classList.add('hidden');
+            document.getElementById('pausePrayerBtn').classList.remove('hidden');
+            document.getElementById('finishPrayerBtn').classList.add('hidden');
+            document.getElementById('prayerClosure').classList.add('hidden');
+            
+            // Afficher le premier sujet
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            document.getElementById(`prayerTopic${currentPrayerTopic}`).classList.add('active');
+            
+            updatePrayerProgress();
+            
+            // Démarrer le timer
+            startPrayerTimer();
+            
+            // Afficher notification
+            showNotification("Prière démarrée! 10 minutes par sujet.");
+        }
+
+        function pausePrayer() {
+            if (prayerTimerInterval) {
+                clearInterval(prayerTimerInterval);
+                prayerTimerInterval = null;
+                isPrayerPaused = true;
+                document.getElementById('pausePrayerBtn').classList.add('hidden');
+                document.getElementById('resumePrayerBtn').classList.remove('hidden');
+                document.getElementById('prayerTimer').classList.add('warning');
+                showNotification("Prière en pause");
+            }
+        }
+
+        function resumePrayer() {
+            if (isPrayerPaused) {
+                isPrayerPaused = false;
+                document.getElementById('resumePrayerBtn').classList.add('hidden');
+                document.getElementById('pausePrayerBtn').classList.remove('hidden');
+                document.getElementById('prayerTimer').classList.remove('warning');
+                startPrayerTimer();
+                showNotification("Prière reprise");
+            }
+        }
+
+        function nextPrayerTopic() {
+            currentPrayerTopic++;
+            
+            // Si tous les sujets sont terminés
+            if (currentPrayerTopic >= prayerData.length) {
+                finishPrayer();
+                return;
+            }
+            
+            // Cacher le sujet précédent
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            // Afficher le nouveau sujet
+            document.getElementById(`prayerTopic${currentPrayerTopic}`).classList.add('active');
+            
+            // Réinitialiser le timer
+            prayerTimeLeft = 600;
+            document.getElementById('prayerTimer').textContent = formatTime(prayerTimeLeft);
+            
+            updatePrayerProgress();
+            
+            // Si c'est le dernier sujet, préparer la fin
+            if (currentPrayerTopic === prayerData.length - 1) {
+                showNotification("Dernier sujet de prière!");
+            } else {
+                showNotification(`Sujet ${currentPrayerTopic + 1} sur 9`);
+            }
+        }
+
+        function finishPrayer() {
+            clearInterval(prayerTimerInterval);
+            prayerTimerInterval = null;
+            
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            document.getElementById('prayerTimer').classList.add('hidden');
+            document.getElementById('pausePrayerBtn').classList.add('hidden');
+            document.getElementById('resumePrayerBtn').classList.add('hidden');
+            document.getElementById('finishPrayerBtn').classList.add('hidden');
+            document.getElementById('prayerClosure').classList.remove('hidden');
+            
+            // Mettre à jour la barre de progression à 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('currentTopicNumber').textContent = '9';
+            
+            showNotification("Prière terminée! Dieu vous bénisse!");
+        }
+
+        function startPrayerTimer() {
+            clearInterval(prayerTimerInterval);
+            
+            prayerTimerInterval = setInterval(() => {
+                if (!isPrayerPaused) {
+                    prayerTimeLeft--;
+                    document.getElementById('prayerTimer').textContent = formatTime(prayerTimeLeft);
+                    
+                    // Avertissement les 30 dernières secondes
+                    if (prayerTimeLeft <= 30 && prayerTimeLeft > 0) {
+                        document.getElementById('prayerTimer').classList.add('warning');
+                    }
+                    
+                    // Quand le temps est écoulé
+                    if (prayerTimeLeft <= 0) {
+                        clearInterval(prayerTimerInterval);
+                        
+                        // Sonnerie discrète (notification)
+                        showNotification("Temps écoulé! Passage au sujet suivant.");
+                        
+                        // Si c'est le dernier sujet
+                        if (currentPrayerTopic === prayerData.length - 1) {
+                            document.getElementById('pausePrayerBtn').classList.add('hidden');
+                            document.getElementById('finishPrayerBtn').classList.remove('hidden');
+                        } else {
+                            // Attendre 3 secondes puis passer au sujet suivant
+                            setTimeout(() => {
+                                nextPrayerTopic();
+                                startPrayerTimer();
+                            }, 3000);
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        function showNotification(message) {
+            // Créer une notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span>🔔</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer la notification après 3 secondes
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // ===============================
+        // FONCTIONNALITÉS DU QUIZ
+        // ===============================
+        function initializeQuizSection() {
+            const levelIndicator = document.getElementById('levelIndicator');
+            levelIndicator.innerHTML = '';
+            
+            for (let i = 0; i < 7; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'level-dot';
+                dot.id = `levelDot${i}`;
+                levelIndicator.appendChild(dot);
+            }
+            
+            updateLevelIndicator();
+        }
+
+        function updateLevelIndicator() {
+            document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === currentQuizLevel) {
+                    dot.classList.add('active');
+                } else if (index < currentQuizLevel) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function startQuiz() {
+            currentQuizLevel = 0;
+            currentQuestion = 0;
+            quizScore = 0;
+            quizTimeLeft = 60;
+            
+            document.getElementById('startQuizBtn').classList.add('hidden');
+            document.getElementById('nextQuestionBtn').classList.remove('hidden');
+            document.getElementById('endQuizBtn').classList.add('hidden');
+            document.getElementById('quizResults').classList.add('hidden');
+            
+            updateLevelIndicator();
+            loadQuestion();
+            startQuizTimer();
+        }
+
+        function loadQuestion() {
+            const questionIndex = (currentQuizLevel * 10) + currentQuestion;
+            if (questionIndex >= quizData.length) {
+                endQuiz();
+                return;
+            }
+            
+            const question = quizData[questionIndex];
+            document.getElementById('questionText').textContent = `Niveau ${currentQuizLevel + 1} - Question ${currentQuestion + 1}: ${question.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+                optionDiv.onclick = () => checkAnswer(index, question.correct, question.verse);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('answerFeedback').classList.add('hidden');
+            document.getElementById('nextQuestionBtn').disabled = true;
+        }
+
+        function checkAnswer(selectedIndex, correctIndex, verse) {
+            const options = document.querySelectorAll('.option');
+            const feedback = document.getElementById('answerFeedback');
+            
+            options.forEach((option, index) => {
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== correctIndex) {
+                    option.classList.add('incorrect');
+                }
+                option.style.pointerEvents = 'none';
+            });
+            
+            if (selectedIndex === correctIndex) {
+                quizScore++;
+                feedback.textContent = `✅ Bonne réponse! Référence: ${verse}`;
+                feedback.className = 'answer-feedback correct';
+            } else {
+                feedback.textContent = `❌ Mauvaise réponse. La bonne réponse est: ${String.fromCharCode(65 + correctIndex)}) ${quizData[(currentQuizLevel * 10) + currentQuestion].options[correctIndex]}. Référence: ${verse}`;
+                feedback.className = 'answer-feedback incorrect';
+            }
+            
+            feedback.classList.remove('hidden');
+            document.getElementById('nextQuestionBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion >= 10) {
+                currentQuizLevel++;
+                currentQuestion = 0;
+                
+                if (currentQuizLevel >= 7) {
+                    endQuiz();
+                    return;
+                }
+                
+                quizTimeLeft = 60;
+                updateLevelIndicator();
+            }
+            
+            loadQuestion();
+            document.getElementById('nextQuestionBtn').disabled = true;
+            document.getElementById('answerFeedback').classList.add('hidden');
+        }
+
+        function endQuiz() {
+            clearInterval(quizTimerInterval);
+            
+            document.getElementById('nextQuestionBtn').classList.add('hidden');
+            document.getElementById('endQuizBtn').classList.remove('hidden');
+            
+            const resultsDiv = document.getElementById('quizResults');
+            const percentage = Math.round((quizScore / 70) * 100);
+            
+            resultsDiv.innerHTML = `
+                <div class="message-item">
+                    <h3>🎉 Résultats du Quiz</h3>
+                    <p>Score: <strong>${quizScore}/70</strong> (${percentage}%)</p>
+                    <p>Niveaux complétés: <strong>${currentQuizLevel}/7</strong></p>
+                    <p>${percentage >= 70 ? 'Excellent! Vous connaissez bien la Genèse!' : 
+                       percentage >= 50 ? 'Bon score! Continuez à étudier la Parole!' : 
+                       'Continuez à lire et méditer la Bible!'}</p>
+                </div>
+            `;
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function startQuizTimer() {
+            clearInterval(quizTimerInterval);
+            
+            quizTimerInterval = setInterval(() => {
+                quizTimeLeft--;
+                document.getElementById('quizTimer').textContent = quizTimeLeft;
+                
+                if (quizTimeLeft <= 0) {
+                    clearInterval(quizTimerInterval);
+                    nextQuestion();
+                    quizTimeLeft = 60;
+                    document.getElementById('quizTimer').textContent = quizTimeLeft;
+                    startQuizTimer();
+                }
+            }, 1000);
+        }
+
+        // ===============================
+        // FONCTIONNALITÉS ADMIN
+        // ===============================
+        function showAdminModal() {
+            document.getElementById('adminModal').classList.add('active');
+            document.getElementById('adminPassword').focus();
+        }
+
+        function authenticateAdmin() {
+            const password = document.getElementById('adminPassword').value.trim();
+            
+            if (password === 'Binanga 2025') {
+                localStorage.setItem('adminAuthenticated', 'true');
+                showAdminSections();
+                hideAdminModal();
+                showNotification('Authentification réussie! Accès administrateur activé.');
+            } else {
+                document.getElementById('passwordError').classList.remove('hidden');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+
+        function showAdminSections() {
+            showSection('adminContentSection');
+        }
+
+        function hideAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('passwordError').classList.add('hidden');
+        }
+
+        async function startRecording() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: true
+                });
+                
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    audioChunks.push(event.data);
+                });
+                
+                mediaRecorder.addEventListener('stop', () => {
+                    audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    
+                    const audioPlayer = document.getElementById('audioPlayer');
+                    if (audioPlayer) {
+                        audioPlayer.src = audioUrl;
+                        document.getElementById('audioPreview').classList.remove('hidden');
+                    }
+                    
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                });
+                
+                mediaRecorder.start();
+                
+                document.getElementById('startRecordBtn').disabled = true;
+                document.getElementById('startRecordBtn').classList.add('hidden');
+                document.getElementById('stopRecordBtn').disabled = false;
+                document.getElementById('stopRecordBtn').classList.remove('hidden');
+                document.getElementById('recordingStatus').classList.remove('hidden');
+                
+                showNotification("Enregistrement démarré");
+                
+            } catch (error) {
+                console.error('Erreur microphone:', error);
+                alert('Erreur d\'accès au microphone. Vérifiez les permissions.');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                
+                document.getElementById('stopRecordBtn').disabled = true;
+                document.getElementById('recordingStatus').classList.add('hidden');
+                document.getElementById('startRecordBtn').disabled = false;
+                document.getElementById('startRecordBtn').classList.remove('hidden');
+                
+                showNotification("Enregistrement arrêté");
+            }
+        }
+
+        function saveRecording() {
+            if (!audioBlob) {
+                alert('Aucun enregistrement à sauvegarder.');
+                return;
+            }
+            
+            const recordingName = prompt('Nommez cet enregistrement:', 
+                `Enregistrement du ${new Date().toLocaleDateString('fr-FR')}`);
+            
+            if (!recordingName) return;
+            
+            const recordingsList = document.getElementById('recordingsList');
+            const recordingItem = document.createElement('div');
+            recordingItem.className = 'recording-item';
+            
+            const date = new Date().toLocaleString('fr-FR');
+            recordingItem.innerHTML = `
+                <div class="recording-info">
+                    <strong>${recordingName}</strong>
+                    <div class="recording-date">${date}</div>
+                </div>
+                <div class="recording-controls">
+                    <button onclick="playSavedRecording('${URL.createObjectURL(audioBlob)}')">
+                        ▶️ Écouter
+                    </button>
+                </div>
+            `;
+            
+            if (recordingsList.querySelector('.empty-message')) {
+                recordingsList.innerHTML = '';
+            }
+            
+            recordingsList.appendChild(recordingItem);
+            
+            showNotification('Enregistrement sauvegardé!');
+            audioBlob = null;
+            document.getElementById('audioPreview').classList.add('hidden');
+            document.getElementById('audioPlayer').src = '';
+        }
+
+        function playSavedRecording(url) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = url;
+            audioPlayer.play();
+        }
+
+        // ===============================
+        // INITIALISATION
+        // ===============================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les sections
+            initializePrayerSection();
+            initializeQuizSection();
+            
+            // Masquer toutes les sections de contenu au démarrage
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Gestionnaires d'événements - Boutons principaux
+            document.getElementById('prayerBtn').addEventListener('click', function() {
+                showSection('prayerSection');
+            });
+            
+            document.getElementById('bibleQuizBtn').addEventListener('click', function() {
+                showSection('quizSection');
+            });
+            
+            document.getElementById('programBtn').addEventListener('click', function() {
+                showSection('programSection');
+            });
+            
+            document.getElementById('pastorBtn').addEventListener('click', function() {
+                window.open('https://wa.me/243851729059?text=Bonjour%20Pasteur,%20je%20viens%20de%20l%27application%20de%20l%27%C3%A9glise', '_blank');
+            });
+            
+            // Gestionnaires - Prière
+            document.getElementById('startPrayerBtn').addEventListener('click', startPrayer);
+            document.getElementById('pausePrayerBtn').addEventListener('click', pausePrayer);
+            document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
+            document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
+            
+            // Gestionnaires - Quiz
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+            document.getElementById('endQuizBtn').addEventListener('click', function() {
+                showMainButtons();
+            });
+            
+            // Gestionnaires - Admin
+            document.getElementById('adminBtn').addEventListener('click', showAdminModal);
+            document.getElementById('closeModalBtn').addEventListener('click', hideAdminModal);
+            document.getElementById('submitPasswordBtn').addEventListener('click', authenticateAdmin);
+            
+            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') authenticateAdmin();
+            });
+            
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('adminAuthenticated');
+                showMainButtons();
+            });
+            
+            // Gestionnaires - Enregistrement
+            document.getElementById('startRecordBtn').addEventListener('click', startRecording);
+            document.getElementById('stopRecordBtn').addEventListener('click', stopRecording);
+            document.getElementById('saveRecordingBtn').addEventListener('click', saveRecording);
+            
+            // Fermer modal en cliquant à l'extérieur
+            document.getElementById('adminModal').addEventListener('click', function(e) {
+                if (e.target === this) hideAdminModal();
+            });
+            
+            // Vérifier l'authentification admin
+            if (localStorage.getItem('adminAuthenticated') === 'true') {
+                // Le contenu admin sera affiché quand l'utilisateur cliquera sur le bouton admin
+            }
+        });
+    </script>
+</body>
+  </html>
