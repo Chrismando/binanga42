@@ -752,6 +752,22 @@
             display: block;
         }
 
+        /* Format détecté */
+        .format-detected {
+            background: #e3f2fd;
+            border-left: 4px solid var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .format-detected.show {
+            display: block;
+        }
+
         /* Modal */
         .modal {
             position: fixed;
@@ -1232,7 +1248,7 @@
                 </div>
             </div>
 
-            <!-- Section enregistrements admin -->
+            <!-- Section enregistrements admin CORRIGÉE -->
             <div id="adminContentSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1243,6 +1259,10 @@
                     <div class="content">
                         <div id="micStatus" class="mic-status warning">
                             ⚠️ Test du microphone en cours... Cliquez sur "Tester le micro" ci-dessous.
+                        </div>
+                        
+                        <div id="formatInfo" class="format-detected">
+                            Format détecté: <span id="detectedFormat">En attente...</span>
                         </div>
                         
                         <div class="sermon-form">
@@ -1345,7 +1365,7 @@
         </div>
     </div>
 
-    <!-- Script principal COMPLET et CORRIGÉ -->
+    <!-- Script principal CORRIGÉ pour mimeType -->
     <script>
         // ===============================
         // VARIABLES GLOBALES
@@ -1370,6 +1390,7 @@
         let audioBlob = null;
         let stream = null;
         let isMicrophoneTested = false;
+        let detectedFormat = '';
 
         // Stockage local pour les prédications
         let sermons = JSON.parse(localStorage.getItem('sermons')) || [];
@@ -1702,36 +1723,7 @@
         }
 
         // ===============================
-        // FONCTIONS POUR LE QUIZ
-        // ===============================
-        function initializeQuizSection() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            if (levelIndicator) {
-                levelIndicator.innerHTML = '';
-                
-                for (let i = 0; i < 7; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'level-dot';
-                    dot.id = `levelDot${i}`;
-                    levelIndicator.appendChild(dot);
-                }
-            }
-            updateLevelIndicator();
-        }
-
-        function updateLevelIndicator() {
-            document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index === currentQuizLevel) {
-                    dot.classList.add('active');
-                } else if (index < currentQuizLevel) {
-                    dot.classList.add('completed');
-                }
-            });
-        }
-
-        // ===============================
-        // FONCTIONS POUR LE MICROPHONE
+        // FONCTIONS POUR LE MICROPHONE - CORRIGÉES
         // ===============================
         function updateMicStatus(type, message) {
             const micStatus = document.getElementById('micStatus');
@@ -1741,15 +1733,38 @@
             }
         }
 
+        function detectSupportedFormat() {
+            // Liste des formats à tester, du plus au moins courant
+            const mimeTypeOptions = [
+                'audio/webm;codecs=opus',   // Format le plus courant pour Chrome/Firefox
+                'audio/webm',                // Format webm sans codec spécifié
+                'audio/mp4',                 // Format MP4/AAC
+                'audio/ogg;codecs=opus',    // Format OGG/Opus
+                ''                           // Laisser le navigateur choisir
+            ];
+            
+            // Trouver le premier format supporté
+            for (const mimeType of mimeTypeOptions) {
+                // Vérifier si le format est supporté
+                if (mimeType === '' || MediaRecorder.isTypeSupported(mimeType)) {
+                    return mimeType;
+                }
+            }
+            
+            return ''; // Fallback: laisser le navigateur choisir
+        }
+
         async function testMicrophone() {
             updateMicStatus('warning', '🎤 Test du microphone en cours...');
             
             try {
+                // Libérer le stream précédent
                 if (stream) {
                     stream.getTracks().forEach(track => track.stop());
                     stream = null;
                 }
                 
+                // Obtenir l'accès au microphone
                 stream = await navigator.mediaDevices.getUserMedia({ 
                     audio: {
                         echoCancellation: true,
@@ -1764,9 +1779,27 @@
                     throw new Error('Aucune piste audio détectée');
                 }
                 
+                // Détecter le format supporté
+                detectedFormat = detectSupportedFormat();
+                
+                // Afficher le format détecté
+                const formatInfo = document.getElementById('formatInfo');
+                const detectedFormatSpan = document.getElementById('detectedFormat');
+                
+                if (formatInfo && detectedFormatSpan) {
+                    formatInfo.classList.add('show');
+                    
+                    if (detectedFormat === '') {
+                        detectedFormatSpan.textContent = 'Format natif du navigateur';
+                    } else {
+                        detectedFormatSpan.textContent = detectedFormat;
+                    }
+                }
+                
                 updateMicStatus('ready', '✅ Microphone testé avec succès ! Vous pouvez maintenant enregistrer.');
                 isMicrophoneTested = true;
                 document.getElementById('startRecordBtn').disabled = false;
+                
                 showNotification('Microphone testé avec succès !', 'success');
                 
             } catch (error) {
@@ -1775,7 +1808,7 @@
                 let message = "Erreur inconnue avec le microphone.";
                 
                 if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
-                    message = "❌ Permission refusée. Cliquez sur l'icône du cadenas (🔒) dans la barre d'adresse et autorisez l'accès au microphone.";
+                    message = "❌ Permission refusée. Cliquez sur l'icône du cadenas (🔒) et autorisez l'accès au microphone.";
                 } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
                     message = "❌ Aucun microphone trouvé.";
                 } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
@@ -1805,6 +1838,7 @@
             }
             
             try {
+                // Si le stream n'existe plus, le recréer
                 if (!stream || stream.active === false) {
                     stream = await navigator.mediaDevices.getUserMedia({ 
                         audio: {
@@ -1815,17 +1849,27 @@
                     });
                 }
                 
-                const options = {
-                    mimeType: 'audio/webm;codecs=opus'
-                };
-                
-                if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                    options.mimeType = 'audio/webm';
+                // Préparer les options d'enregistrement
+                let options = {};
+                if (detectedFormat && detectedFormat !== '') {
+                    options.mimeType = detectedFormat;
                 }
                 
-                mediaRecorder = new MediaRecorder(stream, options);
+                console.log('Création de MediaRecorder avec options:', options);
+                
+                // Créer le MediaRecorder avec détection de format
+                try {
+                    mediaRecorder = new MediaRecorder(stream, options);
+                } catch (formatError) {
+                    console.warn('Format spécifié non supporté, tentative avec format par défaut:', formatError);
+                    // Essayer sans options (format par défaut du navigateur)
+                    mediaRecorder = new MediaRecorder(stream);
+                    detectedFormat = '';
+                }
+                
                 audioChunks = [];
                 
+                // Gestion des données
                 mediaRecorder.addEventListener('dataavailable', event => {
                     if (event.data.size > 0) {
                         audioChunks.push(event.data);
@@ -1833,11 +1877,13 @@
                 });
                 
                 mediaRecorder.addEventListener('stop', () => {
-                    audioBlob = new Blob(audioChunks, { 
-                        type: mediaRecorder.mimeType || 'audio/webm' 
-                    });
-                    const audioUrl = URL.createObjectURL(audioBlob);
+                    // Déterminer le type MIME réel utilisé
+                    const actualMimeType = mediaRecorder.mimeType || 'audio/webm';
+                    audioBlob = new Blob(audioChunks, { type: actualMimeType });
                     
+                    console.log('Enregistrement terminé. Type:', actualMimeType, 'Taille:', audioBlob.size);
+                    
+                    const audioUrl = URL.createObjectURL(audioBlob);
                     const audioPlayer = document.getElementById('audioPlayer');
                     if (audioPlayer) {
                         audioPlayer.src = audioUrl;
@@ -1845,8 +1891,10 @@
                     }
                 });
                 
+                // Démarrer l'enregistrement
                 mediaRecorder.start(100);
                 
+                // Mettre à jour l'interface
                 document.getElementById('startRecordBtn').classList.add('hidden');
                 document.getElementById('stopRecordBtn').classList.remove('hidden');
                 document.getElementById('stopRecordBtn').disabled = false;
@@ -1854,11 +1902,28 @@
                 document.getElementById('testMicBtn').disabled = true;
                 
                 updateMicStatus('ready', '● Enregistrement en cours... Parlez normalement.');
-                showNotification("Enregistrement démarré", 'success');
+                showNotification("Enregistrement démarré avec succès!", 'success');
                 
             } catch (error) {
-                console.error('Erreur enregistrement:', error);
-                showNotification(`Erreur d'enregistrement: ${error.message}`, 'error');
+                console.error('Erreur lors du démarrage de l\'enregistrement:', error);
+                
+                let errorMessage = "Erreur d'enregistrement: " + error.message;
+                
+                if (error.name === 'NotSupportedError' || error.message.includes('mimeType')) {
+                    errorMessage = "Format d'enregistrement non supporté. Essayez avec un autre navigateur ou vérifiez les permissions.";
+                    // Réessayer avec format par défaut
+                    if (stream && !detectedFormat) {
+                        showNotification("Essai avec format par défaut...", 'warning');
+                        setTimeout(() => {
+                            mediaRecorder = new MediaRecorder(stream);
+                            mediaRecorder.start(100);
+                            showNotification("Enregistrement démarré avec format par défaut", 'success');
+                        }, 1000);
+                        return;
+                    }
+                }
+                
+                showNotification(errorMessage, 'error');
                 updateMicStatus('error', '❌ Erreur lors du démarrage de l\'enregistrement');
             }
         }
@@ -1897,17 +1962,20 @@
                 preacher: preacher,
                 date: date,
                 audioUrl: URL.createObjectURL(audioBlob),
-                created: new Date().toISOString()
+                created: new Date().toISOString(),
+                format: mediaRecorder ? mediaRecorder.mimeType : 'audio/webm'
             };
             
             sermons.push(sermon);
             localStorage.setItem('sermons', JSON.stringify(sermons));
             
+            // Réinitialiser le formulaire
             document.getElementById('sermonTitle').value = '';
             document.getElementById('sermonPreacher').value = '';
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('sermonDate').value = today;
             
+            // Réinitialiser l'interface
             audioBlob = null;
             document.getElementById('audioPreview').classList.add('hidden');
             document.getElementById('audioPlayer').src = '';
@@ -1920,6 +1988,35 @@
             if (document.getElementById('sermonsSection').classList.contains('active-section')) {
                 loadSermons();
             }
+        }
+
+        // ===============================
+        // FONCTIONS POUR LE QUIZ
+        // ===============================
+        function initializeQuizSection() {
+            const levelIndicator = document.getElementById('levelIndicator');
+            if (levelIndicator) {
+                levelIndicator.innerHTML = '';
+                
+                for (let i = 0; i < 7; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'level-dot';
+                    dot.id = `levelDot${i}`;
+                    levelIndicator.appendChild(dot);
+                }
+            }
+            updateLevelIndicator();
+        }
+
+        function updateLevelIndicator() {
+            document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === currentQuizLevel) {
+                    dot.classList.add('active');
+                } else if (index < currentQuizLevel) {
+                    dot.classList.add('completed');
+                }
+            });
         }
 
         // ===============================
@@ -1951,6 +2048,12 @@
             
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('sermonDate').value = today;
+            
+            // Afficher l'info de format
+            const formatInfo = document.getElementById('formatInfo');
+            if (formatInfo) {
+                formatInfo.classList.remove('show');
+            }
         }
 
         function hideAdminModal() {
@@ -2053,7 +2156,7 @@
             document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
             document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
             
-            // Gestionnaires - Quiz (simplifiés)
+            // Gestionnaires - Quiz
             document.getElementById('startQuizBtn').addEventListener('click', function() {
                 showNotification('Quiz démarré (version simplifiée)', 'success');
                 document.getElementById('startQuizBtn').classList.add('hidden');
@@ -2097,17 +2200,12 @@
             // Charger les prédications au démarrage
             loadSermons();
             
-            // Initialiser la date d'aujourd'hui dans le formulaire
+            // Initialiser la date d'aujourd'hui
             const today = new Date().toISOString().split('T')[0];
             const sermonDateInput = document.getElementById('sermonDate');
             if (sermonDateInput) {
                 sermonDateInput.value = today;
             }
-            
-            // Vérifier si le bouton retour fonctionne
-            document.querySelectorAll('.back-button').forEach(button => {
-                button.addEventListener('click', showMainButtons);
-            });
         });
     </script>
 </body>
