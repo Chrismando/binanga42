@@ -1,0 +1,24 @@
+{
+  "name": "Assemblée des Saints Réunis de Binanga",
+  "short_name": "ASR Binanga",
+  "description": "Application de l'Assemblée des Saints Réunis de Binanga, Kasa-Vubu, Kinshasa",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#2c3e50",
+  "background_color": "#2c3e50"
+}
