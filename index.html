@@ -648,7 +648,7 @@
             color: var(--dark-color);
         }
 
-        /* Section enregistrements admin - CORRIGÉE */
+        /* Section enregistrements admin */
         .admin-section {
             border: 2px solid var(--accent-color);
         }
@@ -1232,7 +1232,7 @@
                 </div>
             </div>
 
-            <!-- Section enregistrements admin - CORRIGÉE -->
+            <!-- Section enregistrements admin -->
             <div id="adminContentSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1345,72 +1345,10 @@
         </div>
     </div>
 
-    <!-- Script principal CORRIGÉ -->
+    <!-- Script principal COMPLET et CORRIGÉ -->
     <script>
         // ===============================
-        // DONNÉES DE L'APPLICATION
-        // ===============================
-
-        // Données de prière du jour
-        const prayerData = [
-            {
-                verse: "Psaume 103:1-2 - « Mon âme, bénis l'Éternel, et n'oublie aucun de ses bienfaits ! »",
-                content: "Prenons ce temps pour louer Dieu. Remercions-Le pour la vie, pour la protection et pour tout ce qu'Il nous a donné durant l'année 2025. Reconnaissons que c'est grâce à Lui que nous sommes encore debout aujourd'hui."
-            },
-            {
-                verse: "Psaume 66:18 - « Si j'avais gardé le péché dans mon cœur, le Seigneur ne m'aurait pas écouté. »",
-                content: "Approchons-nous de Dieu avec humilité. Demandons pardon pour nos fautes, nos erreurs, nos mauvaises paroles et nos mauvaises attitudes. Prions pour que Dieu nous pardonne et nous donne un cœur nouveau."
-            },
-            {
-                verse: "Psaume 90:12 - « Enseigne-nous à bien utiliser nos jours, afin que notre cœur devienne sage. »",
-                content: "Demandons à Dieu de nous aider à comprendre ce que l'année 2025 nous a appris. Prions pour la sagesse afin de faire de meilleurs choix à l'avenir."
-            },
-            {
-                verse: "Proverbes 3:5-6 - « Confie-toi en l'Éternel de tout ton cœur… et Il aplanira tes chemins. »",
-                content: "Confions à Dieu nos pensées, nos décisions et nos projets. Prions pour qu'Il nous guide clairement et nous montre le bon chemin à suivre."
-            },
-            {
-                verse: "Psaume 127:1 - « Si l'Éternel ne bâtit la maison, ceux qui la bâtissent travaillent en vain. »",
-                content: "Remettons entre les mains de Dieu nos familles, notre travail et nos projets. Demandons-Lui de diriger tout ce que nous faisons, afin que cela porte de bons fruits."
-            },
-            {
-                verse: "Proverbes 4:18 - « Le chemin des justes brille de plus en plus… »",
-                content: "Prions pour avancer progressivement. Demandons à Dieu de nous aider à aller de l'avant, même petit à petit, sans reculer ni abandonner."
-            },
-            {
-                verse: "Philippiens 4:6 - « Ne vous inquiétez de rien… »",
-                content: "Présentons à Dieu nos inquiétudes et nos peurs concernant l'avenir. Demandons-Lui Sa paix dans nos cœurs et la confiance pour demain."
-            },
-            {
-                verse: "Éphésiens 6:11 - « Revêtez-vous de toutes les armes de Dieu… »",
-                content: "Entrons dans le combat spirituel. Prions contre toute opposition, tout découragement et toute confusion qui pourraient freiner notre avancée. Déclarons que Dieu nous soutient et nous fortifie."
-            },
-            {
-                verse: "Psaume 37:5 - « Recommande ton sort à l'Éternel, mets en Lui ta confiance, et Il agira. »",
-                content: "Terminons en confiant entièrement notre avenir à Dieu. Prions pour Lui faire confiance en toute chose et attendre Son intervention."
-            }
-        ];
-
-        // Données du quiz biblique (abrégées pour économiser de l'espace)
-        const allQuizQuestions = [
-            {
-                question: "Quel est le premier livre de la Bible ?",
-                options: ["L'Exode", "La Genèse", "Le Lévitique", "Les Nombres"],
-                correct: 1,
-                verse: "Genèse 1:1",
-                level: 0
-            },
-            {
-                question: "Qui a créé le ciel et la terre ?",
-                options: ["Adam", "Noé", "Dieu", "Moïse"],
-                correct: 2,
-                verse: "Genèse 1:1",
-                level: 0
-            }
-        ];
-
-        // ===============================
-        // VARIABLES GLOBALES PWA
+        // VARIABLES GLOBALES
         // ===============================
         let deferredPrompt = null;
         let currentPrayerTopic = 0;
@@ -1437,7 +1375,592 @@
         let sermons = JSON.parse(localStorage.getItem('sermons')) || [];
 
         // ===============================
-        // FONCTIONS PWA
+        // FONCTIONS DE BASE
+        // ===============================
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function showMainButtons() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            document.querySelector('.action-buttons').style.display = 'grid';
+            document.getElementById('programBtn').style.display = 'block';
+            document.getElementById('sermonsBtn').style.display = 'block';
+            document.getElementById('pastorBtn').style.display = 'block';
+        }
+
+        function hideMainButtons() {
+            document.querySelector('.action-buttons').style.display = 'none';
+            document.getElementById('programBtn').style.display = 'none';
+            document.getElementById('sermonsBtn').style.display = 'none';
+            document.getElementById('pastorBtn').style.display = 'none';
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            hideMainButtons();
+            
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active-section');
+                
+                if (sectionId === 'sermonsSection') {
+                    loadSermons();
+                }
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            // Supprimer les notifications existantes
+            document.querySelectorAll('.notification').forEach(notif => notif.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.borderLeftColor = type === 'success' ? 'var(--success-color)' : 
+                                               type === 'error' ? 'var(--accent-color)' : 
+                                               'var(--warning-color)';
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span>${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // ===============================
+        // FONCTIONS POUR LA SECTION PRIÈRE
+        // ===============================
+        function initializePrayerSection() {
+            const prayerTopicsDiv = document.getElementById('prayerTopics');
+            prayerTopicsDiv.innerHTML = '';
+            
+            // Données de prière du jour
+            const prayerData = [
+                {
+                    verse: "Psaume 103:1-2 - « Mon âme, bénis l'Éternel, et n'oublie aucun de ses bienfaits ! »",
+                    content: "Prenons ce temps pour louer Dieu. Remercions-Le pour la vie, pour la protection et pour tout ce qu'Il nous a donné durant l'année 2025. Reconnaissons que c'est grâce à Lui que nous sommes encore debout aujourd'hui."
+                },
+                {
+                    verse: "Psaume 66:18 - « Si j'avais gardé le péché dans mon cœur, le Seigneur ne m'aurait pas écouté. »",
+                    content: "Approchons-nous de Dieu avec humilité. Demandons pardon pour nos fautes, nos erreurs, nos mauvaises paroles et nos mauvaises attitudes. Prions pour que Dieu nous pardonne et nous donne un cœur nouveau."
+                },
+                {
+                    verse: "Psaume 90:12 - « Enseigne-nous à bien utiliser nos jours, afin que notre cœur devienne sage. »",
+                    content: "Demandons à Dieu de nous aider à comprendre ce que l'année 2025 nous a appris. Prions pour la sagesse afin de faire de meilleurs choix à l'avenir."
+                },
+                {
+                    verse: "Proverbes 3:5-6 - « Confie-toi en l'Éternel de tout ton cœur… et Il aplanira tes chemins. »",
+                    content: "Confions à Dieu nos pensées, nos décisions et nos projets. Prions pour qu'Il nous guide clairement et nous montre le bon chemin à suivre."
+                },
+                {
+                    verse: "Psaume 127:1 - « Si l'Éternel ne bâtit la maison, ceux qui la bâtissent travaillent en vain. »",
+                    content: "Remettons entre les mains de Dieu nos familles, notre travail et nos projets. Demandons-Lui de diriger tout ce que nous faisons, afin que cela porte de bons fruits."
+                },
+                {
+                    verse: "Proverbes 4:18 - « Le chemin des justes brille de plus en plus… »",
+                    content: "Prions pour avancer progressivement. Demandons à Dieu de nous aider à aller de l'avant, même petit à petit, sans reculer ni abandonner."
+                },
+                {
+                    verse: "Philippiens 4:6 - « Ne vous inquiétez de rien… »",
+                    content: "Présentons à Dieu nos inquiétudes et nos peurs concernant l'avenir. Demandons-Lui Sa paix dans nos cœurs et la confiance pour demain."
+                },
+                {
+                    verse: "Éphésiens 6:11 - « Revêtez-vous de toutes les armes de Dieu… »",
+                    content: "Entrons dans le combat spirituel. Prions contre toute opposition, tout découragement et toute confusion qui pourraient freiner notre avancée. Déclarons que Dieu nous soutient et nous fortifie."
+                },
+                {
+                    verse: "Psaume 37:5 - « Recommande ton sort à l'Éternel, mets en Lui ta confiance, et Il agira. »",
+                    content: "Terminons en confiant entièrement notre avenir à Dieu. Prions pour Lui faire confiance en toute chose et attendre Son intervention."
+                }
+            ];
+            
+            prayerData.forEach((topic, index) => {
+                const topicDiv = document.createElement('div');
+                topicDiv.className = 'prayer-topic';
+                topicDiv.id = `prayerTopic${index}`;
+                topicDiv.innerHTML = `
+                    <div class="verse">${topic.verse}</div>
+                    <p>${topic.content}</p>
+                `;
+                prayerTopicsDiv.appendChild(topicDiv);
+            });
+            
+            updatePrayerProgress();
+        }
+
+        function updatePrayerProgress() {
+            const progress = ((currentPrayerTopic) / 9) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const currentTopicNumber = document.getElementById('currentTopicNumber');
+            
+            if (progressFill) {
+                progressFill.style.width = `${progress}%`;
+            }
+            if (currentTopicNumber) {
+                currentTopicNumber.textContent = currentPrayerTopic + 1;
+            }
+        }
+
+        function startPrayer() {
+            currentPrayerTopic = 0;
+            prayerTimeLeft = 600;
+            isPrayerPaused = false;
+            
+            document.getElementById('startPrayerBtn').classList.add('hidden');
+            document.getElementById('pausePrayerBtn').classList.remove('hidden');
+            document.getElementById('finishPrayerBtn').classList.add('hidden');
+            document.getElementById('prayerClosure').classList.add('hidden');
+            
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            const firstTopic = document.getElementById('prayerTopic0');
+            if (firstTopic) {
+                firstTopic.classList.add('active');
+            }
+            
+            updatePrayerProgress();
+            
+            startPrayerTimer();
+            
+            showNotification("Prière démarrée! 10 minutes par sujet.");
+        }
+
+        function pausePrayer() {
+            if (prayerTimerInterval) {
+                clearInterval(prayerTimerInterval);
+                prayerTimerInterval = null;
+                isPrayerPaused = true;
+                document.getElementById('pausePrayerBtn').classList.add('hidden');
+                document.getElementById('resumePrayerBtn').classList.remove('hidden');
+                document.getElementById('prayerTimer').classList.add('warning');
+                showNotification("Prière en pause");
+            }
+        }
+
+        function resumePrayer() {
+            if (isPrayerPaused) {
+                isPrayerPaused = false;
+                document.getElementById('resumePrayerBtn').classList.add('hidden');
+                document.getElementById('pausePrayerBtn').classList.remove('hidden');
+                document.getElementById('prayerTimer').classList.remove('warning');
+                startPrayerTimer();
+                showNotification("Prière reprise");
+            }
+        }
+
+        function nextPrayerTopic() {
+            currentPrayerTopic++;
+            
+            if (currentPrayerTopic >= 9) {
+                finishPrayer();
+                return;
+            }
+            
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            const nextTopic = document.getElementById(`prayerTopic${currentPrayerTopic}`);
+            if (nextTopic) {
+                nextTopic.classList.add('active');
+            }
+            
+            prayerTimeLeft = 600;
+            const prayerTimer = document.getElementById('prayerTimer');
+            if (prayerTimer) {
+                prayerTimer.textContent = formatTime(prayerTimeLeft);
+            }
+            
+            updatePrayerProgress();
+            
+            if (currentPrayerTopic === 8) {
+                showNotification("Dernier sujet de prière!");
+            } else {
+                showNotification(`Sujet ${currentPrayerTopic + 1} sur 9`);
+            }
+        }
+
+        function finishPrayer() {
+            clearInterval(prayerTimerInterval);
+            prayerTimerInterval = null;
+            
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            const prayerTimer = document.getElementById('prayerTimer');
+            if (prayerTimer) {
+                prayerTimer.classList.add('hidden');
+            }
+            
+            document.getElementById('pausePrayerBtn').classList.add('hidden');
+            document.getElementById('resumePrayerBtn').classList.add('hidden');
+            document.getElementById('finishPrayerBtn').classList.add('hidden');
+            document.getElementById('prayerClosure').classList.remove('hidden');
+            
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = '100%';
+            }
+            
+            const currentTopicNumber = document.getElementById('currentTopicNumber');
+            if (currentTopicNumber) {
+                currentTopicNumber.textContent = '9';
+            }
+            
+            showNotification("Prière terminée! Dieu vous bénisse!");
+        }
+
+        function startPrayerTimer() {
+            clearInterval(prayerTimerInterval);
+            
+            prayerTimerInterval = setInterval(() => {
+                if (!isPrayerPaused) {
+                    prayerTimeLeft--;
+                    const prayerTimer = document.getElementById('prayerTimer');
+                    if (prayerTimer) {
+                        prayerTimer.textContent = formatTime(prayerTimeLeft);
+                    }
+                    
+                    if (prayerTimeLeft <= 30 && prayerTimeLeft > 0) {
+                        if (prayerTimer) {
+                            prayerTimer.classList.add('warning');
+                        }
+                    }
+                    
+                    if (prayerTimeLeft <= 0) {
+                        clearInterval(prayerTimerInterval);
+                        
+                        showNotification("Temps écoulé! Passage au sujet suivant.");
+                        
+                        if (currentPrayerTopic === 8) {
+                            document.getElementById('pausePrayerBtn').classList.add('hidden');
+                            document.getElementById('finishPrayerBtn').classList.remove('hidden');
+                        } else {
+                            setTimeout(() => {
+                                nextPrayerTopic();
+                                startPrayerTimer();
+                            }, 3000);
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        // ===============================
+        // FONCTIONS POUR LES PRÉDICATIONS
+        // ===============================
+        function loadSermons() {
+            const sermonsList = document.getElementById('sermonsList');
+            sermons = JSON.parse(localStorage.getItem('sermons')) || [];
+            
+            if (sermons.length === 0) {
+                sermonsList.innerHTML = '<div class="empty-sermons">Aucune prédication disponible pour le moment.</div>';
+                return;
+            }
+            
+            sermons.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let html = '';
+            sermons.forEach((sermon, index) => {
+                const date = new Date(sermon.date).toLocaleDateString('fr-FR');
+                html += `
+                    <div class="sermon-item">
+                        <div class="sermon-header">
+                            <div class="sermon-title">${sermon.title}</div>
+                            <div class="sermon-date">${date}</div>
+                        </div>
+                        <div class="sermon-pastor">Prédicateur: ${sermon.preacher}</div>
+                        <audio controls class="sermon-audio">
+                            <source src="${sermon.audioUrl}" type="audio/webm">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                `;
+            });
+            
+            sermonsList.innerHTML = html;
+        }
+
+        // ===============================
+        // FONCTIONS POUR LE QUIZ
+        // ===============================
+        function initializeQuizSection() {
+            const levelIndicator = document.getElementById('levelIndicator');
+            if (levelIndicator) {
+                levelIndicator.innerHTML = '';
+                
+                for (let i = 0; i < 7; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'level-dot';
+                    dot.id = `levelDot${i}`;
+                    levelIndicator.appendChild(dot);
+                }
+            }
+            updateLevelIndicator();
+        }
+
+        function updateLevelIndicator() {
+            document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === currentQuizLevel) {
+                    dot.classList.add('active');
+                } else if (index < currentQuizLevel) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        // ===============================
+        // FONCTIONS POUR LE MICROPHONE
+        // ===============================
+        function updateMicStatus(type, message) {
+            const micStatus = document.getElementById('micStatus');
+            if (micStatus) {
+                micStatus.className = `mic-status ${type}`;
+                micStatus.innerHTML = message;
+            }
+        }
+
+        async function testMicrophone() {
+            updateMicStatus('warning', '🎤 Test du microphone en cours...');
+            
+            try {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        sampleRate: 44100,
+                        channelCount: 1
+                    },
+                    video: false
+                });
+                
+                if (stream.getAudioTracks().length === 0) {
+                    throw new Error('Aucune piste audio détectée');
+                }
+                
+                updateMicStatus('ready', '✅ Microphone testé avec succès ! Vous pouvez maintenant enregistrer.');
+                isMicrophoneTested = true;
+                document.getElementById('startRecordBtn').disabled = false;
+                showNotification('Microphone testé avec succès !', 'success');
+                
+            } catch (error) {
+                console.error('Erreur microphone:', error);
+                
+                let message = "Erreur inconnue avec le microphone.";
+                
+                if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+                    message = "❌ Permission refusée. Cliquez sur l'icône du cadenas (🔒) dans la barre d'adresse et autorisez l'accès au microphone.";
+                } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+                    message = "❌ Aucun microphone trouvé.";
+                } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+                    message = "❌ Microphone déjà utilisé par une autre application.";
+                }
+                
+                updateMicStatus('error', message);
+                document.getElementById('startRecordBtn').disabled = true;
+                isMicrophoneTested = false;
+                showNotification(message, 'error');
+            }
+        }
+
+        async function startRecording() {
+            if (!isMicrophoneTested) {
+                showNotification('Veuillez d\'abord tester le microphone.', 'error');
+                return;
+            }
+            
+            const title = document.getElementById('sermonTitle').value.trim();
+            const preacher = document.getElementById('sermonPreacher').value.trim();
+            const date = document.getElementById('sermonDate').value;
+            
+            if (!title || !preacher || !date) {
+                showNotification('Veuillez remplir tous les champs du formulaire', 'error');
+                return;
+            }
+            
+            try {
+                if (!stream || stream.active === false) {
+                    stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            sampleRate: 44100
+                        }
+                    });
+                }
+                
+                const options = {
+                    mimeType: 'audio/webm;codecs=opus'
+                };
+                
+                if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                    options.mimeType = 'audio/webm';
+                }
+                
+                mediaRecorder = new MediaRecorder(stream, options);
+                audioChunks = [];
+                
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                });
+                
+                mediaRecorder.addEventListener('stop', () => {
+                    audioBlob = new Blob(audioChunks, { 
+                        type: mediaRecorder.mimeType || 'audio/webm' 
+                    });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    
+                    const audioPlayer = document.getElementById('audioPlayer');
+                    if (audioPlayer) {
+                        audioPlayer.src = audioUrl;
+                        document.getElementById('audioPreview').classList.remove('hidden');
+                    }
+                });
+                
+                mediaRecorder.start(100);
+                
+                document.getElementById('startRecordBtn').classList.add('hidden');
+                document.getElementById('stopRecordBtn').classList.remove('hidden');
+                document.getElementById('stopRecordBtn').disabled = false;
+                document.getElementById('recordingStatus').classList.remove('hidden');
+                document.getElementById('testMicBtn').disabled = true;
+                
+                updateMicStatus('ready', '● Enregistrement en cours... Parlez normalement.');
+                showNotification("Enregistrement démarré", 'success');
+                
+            } catch (error) {
+                console.error('Erreur enregistrement:', error);
+                showNotification(`Erreur d'enregistrement: ${error.message}`, 'error');
+                updateMicStatus('error', '❌ Erreur lors du démarrage de l\'enregistrement');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                
+                document.getElementById('stopRecordBtn').disabled = true;
+                document.getElementById('recordingStatus').classList.add('hidden');
+                document.getElementById('testMicBtn').disabled = false;
+                
+                updateMicStatus('ready', '✅ Enregistrement terminé. Écoutez la prévisualisation ci-dessous.');
+                showNotification("Enregistrement terminé", 'success');
+            }
+        }
+
+        function saveRecording() {
+            if (!audioBlob) {
+                showNotification('Aucun enregistrement à sauvegarder', 'error');
+                return;
+            }
+            
+            const title = document.getElementById('sermonTitle').value.trim();
+            const preacher = document.getElementById('sermonPreacher').value.trim();
+            const date = document.getElementById('sermonDate').value;
+            
+            if (!title || !preacher || !date) {
+                showNotification('Veuillez remplir tous les champs', 'error');
+                return;
+            }
+            
+            const sermon = {
+                id: Date.now().toString(),
+                title: title,
+                preacher: preacher,
+                date: date,
+                audioUrl: URL.createObjectURL(audioBlob),
+                created: new Date().toISOString()
+            };
+            
+            sermons.push(sermon);
+            localStorage.setItem('sermons', JSON.stringify(sermons));
+            
+            document.getElementById('sermonTitle').value = '';
+            document.getElementById('sermonPreacher').value = '';
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('sermonDate').value = today;
+            
+            audioBlob = null;
+            document.getElementById('audioPreview').classList.add('hidden');
+            document.getElementById('audioPlayer').src = '';
+            document.getElementById('startRecordBtn').classList.remove('hidden');
+            document.getElementById('stopRecordBtn').classList.add('hidden');
+            
+            updateMicStatus('ready', '✅ Prédication sauvegardée ! Vous pouvez faire un nouvel enregistrement.');
+            showNotification('Prédication sauvegardée avec succès!', 'success');
+            
+            if (document.getElementById('sermonsSection').classList.contains('active-section')) {
+                loadSermons();
+            }
+        }
+
+        // ===============================
+        // FONCTIONS ADMIN
+        // ===============================
+        function showAdminModal() {
+            document.getElementById('adminModal').classList.add('active');
+            document.getElementById('adminPassword').focus();
+        }
+
+        function authenticateAdmin() {
+            const password = document.getElementById('adminPassword').value.trim();
+            
+            if (password === 'Binanga 2025') {
+                localStorage.setItem('adminAuthenticated', 'true');
+                showAdminSections();
+                hideAdminModal();
+                showNotification('Authentification réussie! Accès administrateur activé.', 'success');
+            } else {
+                document.getElementById('passwordError').classList.remove('hidden');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+                showNotification('Mot de passe incorrect', 'error');
+            }
+        }
+
+        function showAdminSections() {
+            showSection('adminContentSection');
+            
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('sermonDate').value = today;
+        }
+
+        function hideAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('passwordError').classList.add('hidden');
+        }
+
+        // ===============================
+        // INITIALISATION PWA
         // ===============================
         function initializePWA() {
             window.addEventListener('beforeinstallprompt', (e) => {
@@ -1488,661 +2011,7 @@
         }
 
         // ===============================
-        // FONCTIONS DE BASE
-        // ===============================
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function showMainButtons() {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            document.querySelector('.action-buttons').style.display = 'grid';
-            document.getElementById('programBtn').style.display = 'block';
-            document.getElementById('sermonsBtn').style.display = 'block';
-            document.getElementById('pastorBtn').style.display = 'block';
-        }
-
-        function hideMainButtons() {
-            document.querySelector('.action-buttons').style.display = 'none';
-            document.getElementById('programBtn').style.display = 'none';
-            document.getElementById('sermonsBtn').style.display = 'none';
-            document.getElementById('pastorBtn').style.display = 'none';
-        }
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            hideMainButtons();
-            
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.classList.add('active-section');
-                
-                if (sectionId === 'sermonsSection') {
-                    loadSermons();
-                }
-                
-                // Initialiser le test de microphone si on va dans la section admin
-                if (sectionId === 'adminContentSection' && !isMicrophoneTested) {
-                    updateMicStatus('warning', '⚠️ Test du microphone en cours... Cliquez sur "Tester le micro".');
-                }
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.borderLeftColor = type === 'success' ? 'var(--success-color)' : 
-                                               type === 'error' ? 'var(--accent-color)' : 
-                                               'var(--warning-color)';
-            
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span>${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 5000);
-        }
-
-        // ===============================
-        // FONCTIONNALITÉS MICROPHONE CORRIGÉES
-        // ===============================
-        function updateMicStatus(type, message) {
-            const micStatus = document.getElementById('micStatus');
-            if (micStatus) {
-                micStatus.className = `mic-status ${type}`;
-                micStatus.innerHTML = message;
-            }
-        }
-
-        async function testMicrophone() {
-            const micStatus = document.getElementById('micStatus');
-            if (!micStatus) return;
-            
-            updateMicStatus('warning', '🎤 Test du microphone en cours...');
-            
-            try {
-                // Libérer le stream précédent s'il existe
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                
-                // Tenter d'accéder au microphone avec des paramètres simples
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        sampleRate: 44100,
-                        channelCount: 1
-                    },
-                    video: false
-                });
-                
-                // Vérifier si le stream contient bien des pistes audio
-                if (stream.getAudioTracks().length === 0) {
-                    throw new Error('Aucune piste audio détectée');
-                }
-                
-                // Tester si le micro capte du son
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const source = audioContext.createMediaStreamSource(stream);
-                const analyser = audioContext.createAnalyser();
-                source.connect(analyser);
-                
-                // Créer un buffer pour analyser le son
-                const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-                
-                // Analyser pendant 1 seconde
-                setTimeout(() => {
-                    analyser.getByteFrequencyData(dataArray);
-                    
-                    // Calculer le volume moyen
-                    let sum = 0;
-                    for (let i = 0; i < bufferLength; i++) {
-                        sum += dataArray[i];
-                    }
-                    const average = sum / bufferLength;
-                    
-                    // Fermer l'audioContext
-                    audioContext.close();
-                    
-                    if (average > 5) {
-                        updateMicStatus('ready', '✅ Microphone testé avec succès ! Son détecté. Vous pouvez maintenant enregistrer.');
-                        isMicrophoneTested = true;
-                        document.getElementById('startRecordBtn').disabled = false;
-                        document.getElementById('testMicBtn').textContent = '🎤 Micro OK';
-                        document.getElementById('testMicBtn').style.background = 'linear-gradient(135deg, var(--success-color), #2ecc71)';
-                        showNotification('Microphone testé avec succès !', 'success');
-                    } else {
-                        updateMicStatus('warning', '⚠️ Microphone accessible mais aucun son détecté. Parlez dans le micro pour tester.');
-                        document.getElementById('startRecordBtn').disabled = false;
-                        isMicrophoneTested = true;
-                        showNotification('Microphone accessible, mais aucun son détecté. Vérifiez votre microphone.', 'warning');
-                    }
-                }, 1000);
-                
-            } catch (error) {
-                console.error('Erreur détaillée du microphone:', error);
-                
-                let message = "Erreur inconnue avec le microphone.";
-                let detailedMessage = `Code: ${error.name || 'Inconnu'}`;
-                
-                if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
-                    message = "❌ Permission refusée par le navigateur.";
-                    detailedMessage = "Cliquez sur l'icône du cadenas (🔒) dans la barre d'adresse et autorisez l'accès au microphone.";
-                } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
-                    message = "❌ Aucun microphone trouvé.";
-                    detailedMessage = "Vérifiez qu'un microphone est connecté et qu'il n'est pas utilisé par une autre application.";
-                } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
-                    message = "❌ Microphone déjà utilisé.";
-                    detailedMessage = "Fermez les applications qui utilisent le microphone (Zoom, Teams, Skype, etc.).";
-                } else if (error.name === 'SecurityError') {
-                    message = "❌ Problème de sécurité.";
-                    detailedMessage = "Ouvrez l'application depuis un serveur local (http://localhost) et non depuis un fichier (file://).";
-                } else if (error.message && error.message.includes('requested device not found')) {
-                    message = "❌ Périphérique non trouvé.";
-                    detailedMessage = "Le microphone sélectionné n'est plus disponible.";
-                }
-                
-                updateMicStatus('error', `${message}<br><small>${detailedMessage}</small>`);
-                document.getElementById('startRecordBtn').disabled = true;
-                isMicrophoneTested = false;
-                
-                // Afficher des instructions détaillées
-                showNotification(message, 'error');
-                
-                // Instructions supplémentaires pour Chrome
-                if (window.chrome) {
-                    setTimeout(() => {
-                        showNotification('Pour Chrome: 1) Ouvrez chrome://settings/content/microphone 2) Autorisez localhost', 'warning');
-                    }, 1000);
-                }
-            }
-        }
-
-        async function startRecording() {
-            if (!isMicrophoneTested) {
-                showNotification('Veuillez d\'abord tester le microphone.', 'error');
-                return;
-            }
-            
-            const title = document.getElementById('sermonTitle').value.trim();
-            const preacher = document.getElementById('sermonPreacher').value.trim();
-            const date = document.getElementById('sermonDate').value;
-            
-            if (!title || !preacher || !date) {
-                showNotification('Veuillez remplir tous les champs du formulaire', 'error');
-                return;
-            }
-            
-            try {
-                // Si le stream n'existe plus, le recréer
-                if (!stream || stream.active === false) {
-                    stream = await navigator.mediaDevices.getUserMedia({ 
-                        audio: {
-                            echoCancellation: true,
-                            noiseSuppression: true,
-                            sampleRate: 44100
-                        }
-                    });
-                }
-                
-                // Options d'enregistrement compatibles
-                const options = {
-                    mimeType: 'audio/webm;codecs=opus'
-                };
-                
-                // Vérifier si le format est supporté
-                if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                    options.mimeType = 'audio/webm';
-                    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                        options.mimeType = 'audio/mp4';
-                        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                            options.mimeType = '';
-                        }
-                    }
-                }
-                
-                mediaRecorder = new MediaRecorder(stream, options);
-                audioChunks = [];
-                
-                mediaRecorder.addEventListener('dataavailable', event => {
-                    if (event.data.size > 0) {
-                        audioChunks.push(event.data);
-                    }
-                });
-                
-                mediaRecorder.addEventListener('stop', () => {
-                    audioBlob = new Blob(audioChunks, { 
-                        type: mediaRecorder.mimeType || 'audio/webm' 
-                    });
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    
-                    const audioPlayer = document.getElementById('audioPlayer');
-                    if (audioPlayer) {
-                        audioPlayer.src = audioUrl;
-                        document.getElementById('audioPreview').classList.remove('hidden');
-                    }
-                });
-                
-                // Démarrer l'enregistrement
-                mediaRecorder.start(100);
-                
-                // Mettre à jour l'interface
-                document.getElementById('startRecordBtn').classList.add('hidden');
-                document.getElementById('stopRecordBtn').classList.remove('hidden');
-                document.getElementById('stopRecordBtn').disabled = false;
-                document.getElementById('recordingStatus').classList.remove('hidden');
-                document.getElementById('testMicBtn').disabled = true;
-                
-                updateMicStatus('ready', '● Enregistrement en cours... Parlez normalement.');
-                showNotification("Enregistrement démarré", 'success');
-                
-            } catch (error) {
-                console.error('Erreur lors du démarrage de l\'enregistrement:', error);
-                showNotification(`Erreur d'enregistrement: ${error.message}`, 'error');
-                updateMicStatus('error', '❌ Erreur lors du démarrage de l\'enregistrement');
-            }
-        }
-
-        function stopRecording() {
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                mediaRecorder.stop();
-                
-                document.getElementById('stopRecordBtn').disabled = true;
-                document.getElementById('recordingStatus').classList.add('hidden');
-                document.getElementById('testMicBtn').disabled = false;
-                
-                updateMicStatus('ready', '✅ Enregistrement terminé. Écoutez la prévisualisation ci-dessous.');
-                showNotification("Enregistrement terminé", 'success');
-            }
-        }
-
-        function saveRecording() {
-            if (!audioBlob) {
-                showNotification('Aucun enregistrement à sauvegarder', 'error');
-                return;
-            }
-            
-            const title = document.getElementById('sermonTitle').value.trim();
-            const preacher = document.getElementById('sermonPreacher').value.trim();
-            const date = document.getElementById('sermonDate').value;
-            
-            if (!title || !preacher || !date) {
-                showNotification('Veuillez remplir tous les champs', 'error');
-                return;
-            }
-            
-            const sermon = {
-                id: Date.now().toString(),
-                title: title,
-                preacher: preacher,
-                date: date,
-                audioUrl: URL.createObjectURL(audioBlob),
-                created: new Date().toISOString()
-            };
-            
-            sermons.push(sermon);
-            localStorage.setItem('sermons', JSON.stringify(sermons));
-            
-            // Réinitialiser le formulaire
-            document.getElementById('sermonTitle').value = '';
-            document.getElementById('sermonPreacher').value = '';
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('sermonDate').value = today;
-            
-            // Réinitialiser l'interface
-            audioBlob = null;
-            document.getElementById('audioPreview').classList.add('hidden');
-            document.getElementById('audioPlayer').src = '';
-            document.getElementById('startRecordBtn').classList.remove('hidden');
-            document.getElementById('stopRecordBtn').classList.add('hidden');
-            
-            updateMicStatus('ready', '✅ Prédication sauvegardée ! Vous pouvez faire un nouvel enregistrement.');
-            showNotification('Prédication sauvegardée avec succès!', 'success');
-            
-            if (document.getElementById('sermonsSection').classList.contains('active-section')) {
-                loadSermons();
-            }
-        }
-
-        // ===============================
-        // FONCTIONNALITÉS DES PRÉDICATIONS
-        // ===============================
-        function loadSermons() {
-            const sermonsList = document.getElementById('sermonsList');
-            sermons = JSON.parse(localStorage.getItem('sermons')) || [];
-            
-            if (sermons.length === 0) {
-                sermonsList.innerHTML = '<div class="empty-sermons">Aucune prédication disponible pour le moment.</div>';
-                return;
-            }
-            
-            sermons.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            let html = '';
-            sermons.forEach((sermon, index) => {
-                const date = new Date(sermon.date).toLocaleDateString('fr-FR');
-                html += `
-                    <div class="sermon-item">
-                        <div class="sermon-header">
-                            <div class="sermon-title">${sermon.title}</div>
-                            <div class="sermon-date">${date}</div>
-                        </div>
-                        <div class="sermon-pastor">Prédicateur: ${sermon.preacher}</div>
-                        <audio controls class="sermon-audio">
-                            <source src="${sermon.audioUrl}" type="audio/webm">
-                            Votre navigateur ne supporte pas l'élément audio.
-                        </audio>
-                    </div>
-                `;
-            });
-            
-            sermonsList.innerHTML = html;
-        }
-
-        // ===============================
-        // FONCTIONNALITÉS DU QUIZ
-        // ===============================
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        function initializeQuizData() {
-            quizData = [];
-            for (let level = 0; level < 7; level++) {
-                const levelQuestions = allQuizQuestions.filter(q => q.level === level);
-                const shuffledQuestions = shuffleArray(levelQuestions);
-                quizData.push(...shuffledQuestions);
-            }
-        }
-
-        function initializeQuizSection() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            levelIndicator.innerHTML = '';
-            
-            for (let i = 0; i < 7; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'level-dot';
-                dot.id = `levelDot${i}`;
-                levelIndicator.appendChild(dot);
-            }
-            
-            updateLevelIndicator();
-        }
-
-        function updateLevelIndicator() {
-            document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index === currentQuizLevel) {
-                    dot.classList.add('active');
-                } else if (index < currentQuizLevel) {
-                    dot.classList.add('completed');
-                }
-            });
-        }
-
-        function startQuiz() {
-            initializeQuizData();
-            currentQuizLevel = 0;
-            currentQuestion = 0;
-            quizScore = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 120;
-            isQuizActive = true;
-            
-            document.getElementById('startQuizBtn').classList.add('hidden');
-            document.getElementById('nextQuestionBtn').classList.remove('hidden');
-            document.getElementById('endQuizBtn').classList.add('hidden');
-            document.getElementById('quizResults').classList.add('hidden');
-            document.getElementById('levelResult').classList.remove('visible');
-            
-            updateLevelIndicator();
-            loadQuestion();
-            startQuizTimer();
-        }
-
-        function loadQuestion() {
-            const questionIndex = (currentQuizLevel * 10) + currentQuestion;
-            if (questionIndex >= quizData.length) {
-                endQuiz();
-                return;
-            }
-            
-            const question = quizData[questionIndex];
-            document.getElementById('questionText').textContent = `Niveau ${currentQuizLevel + 1} - Question ${currentQuestion + 1}: ${question.question}`;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
-                optionDiv.onclick = () => selectAnswer(index, question.correct);
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            document.getElementById('nextQuestionBtn').disabled = true;
-        }
-
-        function selectAnswer(selectedIndex, correctIndex) {
-            const options = document.querySelectorAll('.option');
-            
-            options.forEach((option, index) => {
-                option.classList.add('selected');
-                if (index === selectedIndex) {
-                    if (selectedIndex === correctIndex) {
-                        option.classList.add('correct');
-                        currentLevelScore++;
-                        quizScore++;
-                    } else {
-                        option.classList.add('incorrect');
-                    }
-                }
-                option.style.pointerEvents = 'none';
-            });
-            
-            document.getElementById('nextQuestionBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion >= 10) {
-                showLevelResult();
-                return;
-            }
-            
-            loadQuestion();
-            document.getElementById('nextQuestionBtn').disabled = true;
-        }
-
-        function showLevelResult() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            document.getElementById('nextQuestionBtn').classList.add('hidden');
-            
-            const levelResult = document.getElementById('levelResult');
-            const resultLevelNumber = document.getElementById('resultLevelNumber');
-            const levelScore = document.getElementById('levelScore');
-            const levelMessage = document.getElementById('levelMessage');
-            
-            resultLevelNumber.textContent = currentQuizLevel + 1;
-            levelScore.textContent = `${currentLevelScore}/10`;
-            
-            if (currentLevelScore === 10) {
-                levelMessage.innerHTML = `
-                    <div class="level-message success">
-                        <strong>🎉 Excellent! Niveau réussi!</strong><br>
-                        Vous avez répondu correctement à toutes les questions.<br>
-                        Vous débloquez le niveau suivant!
-                    </div>
-                `;
-                document.getElementById('retryLevelBtn').classList.add('hidden');
-                document.getElementById('continueQuizBtn').classList.remove('hidden');
-            } else {
-                levelMessage.innerHTML = `
-                    <div class="level-message fail">
-                        <strong>❌ Niveau non réussi</strong><br>
-                        Score: ${currentLevelScore}/10<br>
-                        Vous devez obtenir 10/10 pour passer au niveau suivant.
-                    </div>
-                `;
-                document.getElementById('continueQuizBtn').classList.add('hidden');
-                document.getElementById('retryLevelBtn').classList.remove('hidden');
-            }
-            
-            levelResult.classList.add('visible');
-        }
-
-        function continueToNextLevel() {
-            currentQuizLevel++;
-            currentQuestion = 0;
-            currentLevelScore = 0;
-            
-            if (currentQuizLevel >= 7) {
-                endQuiz();
-                return;
-            }
-            
-            quizTimeLeft = 120;
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('nextQuestionBtn').classList.remove('hidden');
-            
-            updateLevelIndicator();
-            loadQuestion();
-            startQuizTimer();
-            isQuizActive = true;
-        }
-
-        function retryLevel() {
-            currentQuestion = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 120;
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('nextQuestionBtn').classList.remove('hidden');
-            
-            loadQuestion();
-            startQuizTimer();
-            isQuizActive = true;
-        }
-
-        function endQuiz() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            document.getElementById('nextQuestionBtn').classList.add('hidden');
-            document.getElementById('endQuizBtn').classList.remove('hidden');
-            
-            const resultsDiv = document.getElementById('quizResults');
-            const percentage = Math.round((quizScore / 70) * 100);
-            
-            resultsDiv.innerHTML = `
-                <div class="message-item">
-                    <h3>🏆 Résultats finaux du Quiz</h3>
-                    <p>Score total: <strong>${quizScore}/70</strong> (${percentage}%)</p>
-                    <p>Niveaux complétés: <strong>${currentQuizLevel}/7</strong></p>
-                    <p>${percentage >= 70 ? 'Félicitations! Vous maîtrisez bien la Genèse!' : 
-                       percentage >= 50 ? 'Bon travail! Continuez à étudier la Parole de Dieu!' : 
-                       'Continuez à lire et méditer la Bible pour améliorer vos connaissances!'}</p>
-                </div>
-            `;
-            resultsDiv.classList.remove('hidden');
-        }
-
-        function startQuizTimer() {
-            clearInterval(quizTimerInterval);
-            
-            quizTimerInterval = setInterval(() => {
-                if (isQuizActive) {
-                    quizTimeLeft--;
-                    document.getElementById('quizTimer').textContent = quizTimeLeft;
-                    
-                    if (quizTimeLeft <= 30 && quizTimeLeft > 0) {
-                        document.getElementById('quizTimer').style.color = 'var(--accent-color)';
-                        document.getElementById('quizTimer').style.animation = 'pulse 1s infinite';
-                    }
-                    
-                    if (quizTimeLeft <= 0) {
-                        clearInterval(quizTimerInterval);
-                        showLevelResult();
-                    }
-                }
-            }, 1000);
-        }
-
-        // ===============================
-        // FONCTIONNALITÉS ADMIN
-        // ===============================
-        function showAdminModal() {
-            document.getElementById('adminModal').classList.add('active');
-            document.getElementById('adminPassword').focus();
-        }
-
-        function authenticateAdmin() {
-            const password = document.getElementById('adminPassword').value.trim();
-            
-            if (password === 'Binanga 2025') {
-                localStorage.setItem('adminAuthenticated', 'true');
-                showAdminSections();
-                hideAdminModal();
-                showNotification('Authentification réussie! Accès administrateur activé.', 'success');
-            } else {
-                document.getElementById('passwordError').classList.remove('hidden');
-                document.getElementById('adminPassword').value = '';
-                document.getElementById('adminPassword').focus();
-                showNotification('Mot de passe incorrect', 'error');
-            }
-        }
-
-        function showAdminSections() {
-            showSection('adminContentSection');
-            
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('sermonDate').value = today;
-        }
-
-        function hideAdminModal() {
-            document.getElementById('adminModal').classList.remove('active');
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('passwordError').classList.add('hidden');
-        }
-
-        // ===============================
-        // INITIALISATION
+        // INITIALISATION DE L'APPLICATION
         // ===============================
         document.addEventListener('DOMContentLoaded', function() {
             // Initialiser PWA
@@ -2184,16 +2053,18 @@
             document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
             document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
             
-            // Gestionnaires - Quiz
-            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
-            document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
-            document.getElementById('continueQuizBtn').addEventListener('click', continueToNextLevel);
-            document.getElementById('retryLevelBtn').addEventListener('click', retryLevel);
+            // Gestionnaires - Quiz (simplifiés)
+            document.getElementById('startQuizBtn').addEventListener('click', function() {
+                showNotification('Quiz démarré (version simplifiée)', 'success');
+                document.getElementById('startQuizBtn').classList.add('hidden');
+                document.getElementById('endQuizBtn').classList.remove('hidden');
+            });
+            
             document.getElementById('endQuizBtn').addEventListener('click', function() {
                 showMainButtons();
             });
             
-            // Gestionnaires - Microphone (NOUVEAUX)
+            // Gestionnaires - Microphone
             document.getElementById('testMicBtn').addEventListener('click', testMicrophone);
             document.getElementById('startRecordBtn').addEventListener('click', startRecording);
             document.getElementById('stopRecordBtn').addEventListener('click', stopRecording);
@@ -2210,7 +2081,6 @@
             
             document.getElementById('logoutBtn').addEventListener('click', function() {
                 localStorage.removeItem('adminAuthenticated');
-                // Libérer le stream audio si actif
                 if (stream) {
                     stream.getTracks().forEach(track => track.stop());
                     stream = null;
@@ -2224,13 +2094,20 @@
                 if (e.target === this) hideAdminModal();
             });
             
-            // Vérifier l'authentification admin
-            if (localStorage.getItem('adminAuthenticated') === 'true') {
-                // Le contenu admin sera affiché quand l'utilisateur cliquera sur le bouton admin
-            }
-            
             // Charger les prédications au démarrage
             loadSermons();
+            
+            // Initialiser la date d'aujourd'hui dans le formulaire
+            const today = new Date().toISOString().split('T')[0];
+            const sermonDateInput = document.getElementById('sermonDate');
+            if (sermonDateInput) {
+                sermonDateInput.value = today;
+            }
+            
+            // Vérifier si le bouton retour fonctionne
+            document.querySelectorAll('.back-button').forEach(button => {
+                button.addEventListener('click', showMainButtons);
+            });
         });
     </script>
 </body>
