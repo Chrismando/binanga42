@@ -507,7 +507,7 @@
             padding: 2rem;
         }
 
-        /* Section quiz biblique */
+        /* Section quiz biblique - AMÉLIORÉE */
         .quiz-section {
             background: linear-gradient(135deg, #fff8e1, #ffecb3);
             border-radius: var(--border-radius);
@@ -602,6 +602,11 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
+        .quiz-timer.warning {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
         .quiz-controls {
             display: flex;
             gap: 1rem;
@@ -646,6 +651,18 @@
             background: #f8d7da;
             border-left: 4px solid var(--accent-color);
             color: var(--dark-color);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            color: white;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-retry {
+            background: linear-gradient(135deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 0.8rem 1.5rem;
         }
 
         /* Section enregistrements admin */
@@ -1204,7 +1221,7 @@
                 </div>
             </div>
 
-            <!-- Section quiz biblique -->
+            <!-- Section quiz biblique CORRIGÉE -->
             <div id="quizSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1214,7 +1231,7 @@
                     <div class="quiz-header">
                         <h2>📖 Quiz Biblique - Le livre de la Genèse</h2>
                         <p>7 niveaux, 10 questions par niveau - 2 minutes par niveau</p>
-                        <p><small>Score requis pour passer au niveau suivant : 10/10</small></p>
+                        <p><small>Score requis pour passer au niveau suivant : 10/10 (toutes les réponses correctes)</small></p>
                     </div>
 
                     <div class="level-indicator" id="levelIndicator">
@@ -1232,8 +1249,9 @@
                         <h3>Résultats du Niveau <span id="resultLevelNumber">1</span></h3>
                         <div class="level-score" id="levelScore">0/10</div>
                         <div class="level-message" id="levelMessage"></div>
-                        <button id="continueQuizBtn" class="btn-start mt-1">Continuer</button>
-                        <button id="retryLevelBtn" class="btn-pause mt-1">Réessayer ce niveau</button>
+                        <button id="continueQuizBtn" class="btn-next mt-1">Niveau suivant</button>
+                        <button id="retryLevelBtn" class="btn-retry mt-1">Réessayer ce niveau</button>
+                        <button id="finishQuizBtn" class="btn-finish mt-1 hidden">Terminer le quiz</button>
                     </div>
 
                     <div class="quiz-controls">
@@ -1248,7 +1266,7 @@
                 </div>
             </div>
 
-            <!-- Section enregistrements admin CORRIGÉE -->
+            <!-- Section enregistrements admin -->
             <div id="adminContentSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1365,7 +1383,7 @@
         </div>
     </div>
 
-    <!-- Script principal CORRIGÉ pour mimeType -->
+    <!-- Script principal CORRIGÉ avec Quiz complet -->
     <script>
         // ===============================
         // VARIABLES GLOBALES
@@ -1376,15 +1394,19 @@
         let prayerTimeLeft = 600;
         let isPrayerPaused = false;
 
-        let quizData = [];
+        // Variables pour le quiz
+        let quizQuestions = [];
         let currentQuizLevel = 0;
-        let currentQuestion = 0;
+        let currentQuestionIndex = 0;
         let quizScore = 0;
         let currentLevelScore = 0;
         let quizTimerInterval = null;
-        let quizTimeLeft = 120;
+        let quizTimeLeft = 120; // 2 minutes = 120 secondes
         let isQuizActive = false;
+        let userAnswers = [];
+        let levelQuestions = [];
 
+        // Variables pour l'enregistrement audio
         let mediaRecorder = null;
         let audioChunks = [];
         let audioBlob = null;
@@ -1394,6 +1416,95 @@
 
         // Stockage local pour les prédications
         let sermons = JSON.parse(localStorage.getItem('sermons')) || [];
+
+        // ===============================
+        // DONNÉES DU QUIZ BIBLIQUE
+        // ===============================
+        const allQuizQuestions = [
+            // Niveau 1 (Questions 1-10) - Très facile
+            { level: 0, question: "Quel est le premier livre de la Bible?", options: ["L'Exode", "La Genèse", "Le Lévitique", "Les Nombres"], correct: 1, verse: "Genèse 1:1" },
+            { level: 0, question: "Qui a créé le ciel et la terre?", options: ["Adam", "Noé", "Dieu", "Moïse"], correct: 2, verse: "Genèse 1:1" },
+            { level: 0, question: "En combien de jours Dieu a-t-il créé le monde?", options: ["5 jours", "6 jours", "7 jours", "8 jours"], correct: 1, verse: "Genèse 1:31" },
+            { level: 0, question: "Quel jour Dieu s'est-Il reposé?", options: ["Le cinquième", "Le sixième", "Le septième", "Le huitième"], correct: 2, verse: "Genèse 2:2" },
+            { level: 0, question: "Quel est le premier homme créé par Dieu?", options: ["Abel", "Caïn", "Adam", "Noé"], correct: 2, verse: "Genèse 1:27" },
+            { level: 0, question: "Comment s'appelait la première femme?", options: ["Sara", "Rebecca", "Ève", "Rachel"], correct: 2, verse: "Genèse 3:20" },
+            { level: 0, question: "Dans quel jardin Adam et Ève vivaient-ils?", options: ["Le jardin de Gethsémané", "Le jardin d'Éden", "Le jardin des Oliviers", "Le jardin de Babylone"], correct: 1, verse: "Genèse 2:8" },
+            { level: 0, question: "Quel fruit Dieu avait interdit de manger?", options: ["Le fruit de l'arbre de vie", "Le fruit de l'arbre de la connaissance", "Le fruit défendu", "La pomme"], correct: 1, verse: "Genèse 2:17" },
+            { level: 0, question: "Qui a tenté Ève dans le jardin?", options: ["Le lion", "Le serpent", "Le diable", "Le dragon"], correct: 1, verse: "Genèse 3:1" },
+            { level: 0, question: "Quel est le premier péché commis par l'homme?", options: ["Le meurtre", "Le vol", "La désobéissance", "L'idolâtrie"], correct: 2, verse: "Genèse 3:6" },
+
+            // Niveau 2 (Questions 11-20) - Facile
+            { level: 1, question: "Quels sont les deux fils d'Adam et Ève mentionnés en premier?", options: ["Seth et Abel", "Caïn et Abel", "Caïn et Seth", "Abel et Énoch"], correct: 1, verse: "Genèse 4:1-2" },
+            { level: 1, question: "Qui a tué son frère?", options: ["Abel", "Caïn", "Seth", "Énoch"], correct: 1, verse: "Genèse 4:8" },
+            { level: 1, question: "Quelle offrande Dieu a-t-il acceptée?", options: ["Celle de Caïn", "Celle d'Abel", "Celle des deux", "Aucune"], correct: 1, verse: "Genèse 4:4" },
+            { level: 1, question: "Qui a construit une arche?", options: ["Abraham", "Noé", "Moïse", "Joseph"], correct: 1, verse: "Genèse 6:14" },
+            { level: 1, question: "Pourquoi Dieu a-t-il demandé à Noé de construire l'arche?", options: ["Pour un voyage", "Pour le déluge", "Pour la guerre", "Pour le commerce"], correct: 1, verse: "Genèse 6:17" },
+            { level: 1, question: "Combien de jours et de nuits a duré la pluie du déluge?", options: ["7 jours", "20 jours", "40 jours", "100 jours"], correct: 2, verse: "Genèse 7:12" },
+            { level: 1, question: "Quel oiseau Noé a-t-il envoyé en premier?", options: ["La colombe", "Le corbeau", "Le pigeon", "L'aigle"], correct: 1, verse: "Genèse 8:7" },
+            { level: 1, question: "Quel oiseau est revenu avec une feuille d'olivier?", options: ["Le corbeau", "La colombe", "Le perroquet", "Le moineau"], correct: 1, verse: "Genèse 8:11" },
+            { level: 1, question: "Quel signe Dieu a-t-il donné après le déluge?", options: ["Une étoile", "Un arc-en-ciel", "Une colonne de feu", "Un nuage"], correct: 1, verse: "Genèse 9:13" },
+            { level: 1, question: "Avec qui Dieu a-t-il fait une alliance après le déluge?", options: ["Abraham", "Noé", "Moïse", "David"], correct: 1, verse: "Genèse 9:9" },
+
+            // Niveau 3 (Questions 21-30) - Moyen
+            { level: 2, question: "Comment s'appelait le père d'Abraham?", options: ["Nahor", "Térach", "Haran", "Serug"], correct: 1, verse: "Genèse 11:26" },
+            { level: 2, question: "Dans quel pays Abraham vivait-il avant son appel?", options: ["Égypte", "Canaan", "Ur en Chaldée", "Babylone"], correct: 2, verse: "Genèse 11:31" },
+            { level: 2, question: "Comment s'appelait la femme d'Abraham?", options: ["Rébecca", "Rachel", "Sara", "Léa"], correct: 2, verse: "Genèse 11:29" },
+            { level: 2, question: "Comment s'appelait le neveu d'Abraham?", options: ["Lot", "Isaac", "Ismaël", "Jacob"], correct: 0, verse: "Genèse 12:5" },
+            { level: 2, question: "Quelles villes Dieu a-t-il détruites à cause de leur méchanceté?", options: ["Babylone et Ninive", "Sodome et Gomorrhe", "Jéricho et Aï", "Tyr et Sidon"], correct: 1, verse: "Genèse 19:24" },
+            { level: 2, question: "Qu'est devenue la femme de Lot?", options: ["Une pierre", "Une statue de sel", "Un arbre", "Une colonne"], correct: 1, verse: "Genèse 19:26" },
+            { level: 2, question: "Comment s'appelait le fils promis à Abraham et Sara?", options: ["Ismaël", "Isaac", "Jacob", "Joseph"], correct: 1, verse: "Genèse 21:3" },
+            { level: 2, question: "À quel âge Abraham a-t-il eu Isaac?", options: ["75 ans", "90 ans", "100 ans", "120 ans"], correct: 2, verse: "Genèse 21:5" },
+            { level: 2, question: "Qui était Agar?", options: ["La femme d'Abraham", "La servante de Sara", "La sœur de Sara", "La mère de Lot"], correct: 1, verse: "Genèse 16:1" },
+            { level: 2, question: "Comment s'appelait le fils d'Agar?", options: ["Isaac", "Ismaël", "Ésaü", "Jacob"], correct: 1, verse: "Genèse 16:15" },
+
+            // Niveau 4 (Questions 31-40) - Moyen+
+            { level: 3, question: "Sur quelle montagne Abraham devait-il offrir Isaac?", options: ["Mont Sinaï", "Mont Morija", "Mont des Oliviers", "Mont Carmel"], correct: 1, verse: "Genèse 22:2" },
+            { level: 3, question: "Qui Dieu a-t-il envoyé pour arrêter Abraham?", options: ["Un prophète", "Un ange", "Un archange", "Un chérubin"], correct: 1, verse: "Genèse 22:11" },
+            { level: 3, question: "Quel animal a remplacé Isaac pour le sacrifice?", options: ["Un agneau", "Un bouc", "Un taureau", "Un bélier"], correct: 3, verse: "Genèse 22:13" },
+            { level: 3, question: "Comment s'appelait la femme d'Isaac?", options: ["Rachel", "Léa", "Rébecca", "Sara"], correct: 2, verse: "Genèse 24:67" },
+            { level: 3, question: "Quels sont les deux fils d'Isaac?", options: ["Caïn et Abel", "Jacob et Ésaü", "Joseph et Benjamin", "Ruben et Siméon"], correct: 1, verse: "Genèse 25:25-26" },
+            { level: 3, question: "Lequel est né en premier?", options: ["Jacob", "Ésaü", "Les deux ensemble", "On ne sait pas"], correct: 1, verse: "Genèse 25:25" },
+            { level: 3, question: "Contre quoi Ésaü a-t-il échangé son droit d'aînesse?", options: ["De l'argent", "Un plat de lentilles", "Un champ", "Des brebis"], correct: 1, verse: "Genèse 25:34" },
+            { level: 3, question: "Qui a trompé Isaac pour recevoir la bénédiction?", options: ["Ésaü", "Jacob", "Rébecca", "Laban"], correct: 1, verse: "Genèse 27:35" },
+            { level: 3, question: "De quoi Jacob a-t-il rêvé à Béthel?", options: ["D'anges", "D'une échelle", "De Dieu", "De pierres"], correct: 1, verse: "Genèse 28:12" },
+            { level: 3, question: "Comment s'appelait la femme que Jacob aimait?", options: ["Léa", "Rachel", "Bilha", "Zilpa"], correct: 1, verse: "Genèse 29:18" },
+
+            // Niveau 5 (Questions 41-50) - Difficile
+            { level: 4, question: "Combien d'années Jacob a-t-il travaillé pour Rachel?", options: ["7 ans", "14 ans", "20 ans", "30 ans"], correct: 1, verse: "Genèse 29:20,30" },
+            { level: 4, question: "Comment s'appelait la sœur de Rachel?", options: ["Léa", "Rébecca", "Sara", "Dina"], correct: 0, verse: "Genèse 29:16" },
+            { level: 4, question: "Combien de fils Jacob a-t-il eus au total?", options: ["10 fils", "12 fils", "13 fils", "14 fils"], correct: 1, verse: "Genèse 35:22-26" },
+            { level: 4, question: "Quel fils Jacob aimait-il le plus?", options: ["Ruben", "Siméon", "Joseph", "Benjamin"], correct: 2, verse: "Genèse 37:3" },
+            { level: 4, question: "Quel vêtement spécial Jacob a-t-il donné à Joseph?", options: ["Un manteau", "Une tunique de plusieurs couleurs", "Une robe", "Un turban"], correct: 1, verse: "Genèse 37:3" },
+            { level: 4, question: "Qui Joseph a-t-il vu en rêve se prosterner devant lui?", options: ["Ses parents", "Ses frères", "Le roi", "Les étoiles"], correct: 1, verse: "Genèse 37:9" },
+            { level: 4, question: "Que ses frères ont-ils fait de Joseph?", options: ["L'ont tué", "L'ont vendu", "L'ont emprisonné", "L'ont chassé"], correct: 1, verse: "Genèse 37:28" },
+            { level: 4, question: "Dans quel pays Joseph a-t-il été emmené?", options: ["Canaan", "Égypte", "Assyrie", "Babylone"], correct: 1, verse: "Genèse 37:28" },
+            { level: 4, question: "À qui Joseph a-t-il été vendu?", options: ["Pharaon", "Potiphar", "Le chef des gardes", "Un marchand"], correct: 1, verse: "Genèse 39:1" },
+            { level: 4, question: "Pourquoi Joseph a-t-il été mis en prison?", options: ["Pour vol", "Pour meurtre", "Fausse accusation", "Pour désobéissance"], correct: 2, verse: "Genèse 39:20" },
+
+            // Niveau 6 (Questions 51-60) - Très difficile
+            { level: 5, question: "Quels rêves Joseph a-t-il interprétés en prison?", options: ["Ceux de Pharaon", "Ceux de l'échanson et du panetier", "Ceux de ses frères", "Ceux de Potiphar"], correct: 1, verse: "Genèse 40:5" },
+            { level: 5, question: "Après combien d'années Joseph est-il sorti de prison?", options: ["2 ans", "7 ans", "12 ans", "13 ans"], correct: 0, verse: "Genèse 41:1" },
+            { level: 5, question: "Quels rêves Joseph a-t-il interprétés pour Pharaon?", options: ["Les rêves des vaches et des épis", "Les rêves des étoiles", "Les rêves des gerbes", "Les rêves des fleuves"], correct: 0, verse: "Genèse 41:17-24" },
+            { level: 5, question: "Que représentaient les sept vaches grasses?", options: ["7 années de famine", "7 années d'abondance", "7 frères", "7 nations"], correct: 1, verse: "Genèse 41:26" },
+            { level: 5, question: "Que représentaient les sept vaches maigres?", options: ["7 années d'abondance", "7 années de famine", "7 ennemis", "7 sécheresses"], correct: 1, verse: "Genèse 41:27" },
+            { level: 5, question: "Quel poste Pharaon a-t-il donné à Joseph?", options: ["Chef des gardes", "Gouverneur d'Égypte", "Grand prêtre", "Conseiller royal"], correct: 1, verse: "Genèse 41:41" },
+            { level: 5, question: "Pourquoi les frères de Joseph sont-ils venus en Égypte?", options: ["Pour le visiter", "Pour acheter de la nourriture", "Pour s'exiler", "Pour chercher Joseph"], correct: 1, verse: "Genèse 42:3" },
+            { level: 5, question: "Qui Joseph a-t-il vu en premier parmi ses frères?", options: ["Ruben", "Benjamin", "Juda", "Tous ensemble"], correct: 3, verse: "Genèse 42:6" },
+            { level: 5, question: "Quel frère Joseph a-t-il retenu prisonnier?", options: ["Ruben", "Siméon", "Juda", "Benjamin"], correct: 1, verse: "Genèse 42:24" },
+            { level: 5, question: "Quel objet Joseph a-t-il caché dans le sac de Benjamin?", options: ["Son anneau", "Sa coupe d'argent", "Son argent", "Son manteau"], correct: 1, verse: "Genèse 44:2" },
+
+            // Niveau 7 (Questions 61-70) - Expert
+            { level: 6, question: "Quel est le nouveau nom donné à Jacob?", options: ["Israël", "Judas", "Joseph", "Abraham"], correct: 0, verse: "Genèse 32:28" },
+            { level: 6, question: "Avec qui Jacob a-t-il lutté toute la nuit?", options: ["Un homme", "Un ange", "Dieu", "Ésaü"], correct: 1, verse: "Genèse 32:24" },
+            { level: 6, question: "Comment s'appelait le dernier fils de Jacob?", options: ["Joseph", "Benjamin", "Dan", "Nephtali"], correct: 1, verse: "Genèse 35:18" },
+            { level: 6, question: "Où Jacob et sa famille se sont-ils installés en Égypte?", options: ["Memphis", "Thèbes", "Goshen", "Alexandrie"], correct: 2, verse: "Genèse 47:6" },
+            { level: 6, question: "Combien de personnes de la famille de Jacob sont descendues en Égypte?", options: ["70 personnes", "75 personnes", "66 personnes", "12 personnes"], correct: 0, verse: "Genèse 46:27" },
+            { level: 6, question: "Quel âge avait Joseph à sa mort?", options: ["110 ans", "120 ans", "130 ans", "147 ans"], correct: 0, verse: "Genèse 50:26" },
+            { level: 6, question: "Quelle promesse Joseph a-t-il faite concernant ses os?", options: ["Les brûler", "Les enterrer en Égypte", "Les emporter hors d'Égypte", "Les donner à ses frères"], correct: 2, verse: "Genèse 50:25" },
+            { level: 6, question: "Quel livre de la Bible commence juste après la Genèse?", options: ["Le Lévitique", "Les Nombres", "L'Exode", "Le Deutéronome"], correct: 2, verse: "Exode 1:1" },
+            { level: 6, question: "Quel est le thème principal du livre de la Genèse?", options: ["Les prophéties", "Les lois", "Les commencements", "Les juges"], correct: 2, verse: "Genèse 1:1" },
+            { level: 6, question: "Comment se termine le livre de la Genèse?", options: ["Par la mort de Jacob", "Par la sortie d'Égypte", "Par la mort de Joseph", "Par la création"], correct: 2, verse: "Genèse 50:26" }
+        ];
 
         // ===============================
         // FONCTIONS DE BASE
@@ -1435,6 +1546,11 @@
                 
                 if (sectionId === 'sermonsSection') {
                     loadSermons();
+                }
+                
+                // Réinitialiser le quiz si on change de section
+                if (sectionId !== 'quizSection' && isQuizActive) {
+                    resetQuiz();
                 }
             }
         }
@@ -1688,6 +1804,375 @@
         }
 
         // ===============================
+        // FONCTIONS POUR LE QUIZ - COMPLÈTEMENT RECONSTRUITES
+        // ===============================
+        function initializeQuizSection() {
+            const levelIndicator = document.getElementById('levelIndicator');
+            if (levelIndicator) {
+                levelIndicator.innerHTML = '';
+                
+                for (let i = 0; i < 7; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'level-dot';
+                    dot.id = `levelDot${i}`;
+                    levelIndicator.appendChild(dot);
+                }
+            }
+            updateLevelIndicator();
+        }
+
+        function updateLevelIndicator() {
+            document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === currentQuizLevel) {
+                    dot.classList.add('active');
+                } else if (index < currentQuizLevel) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function getQuestionsForLevel(level) {
+            // Filtrer les questions pour le niveau actuel
+            const levelQuestions = allQuizQuestions.filter(q => q.level === level);
+            
+            // Mélanger les questions
+            return shuffleArray(levelQuestions).slice(0, 10);
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startQuiz() {
+            // Réinitialiser les variables du quiz
+            currentQuizLevel = 0;
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            currentLevelScore = 0;
+            quizTimeLeft = 120;
+            isQuizActive = true;
+            userAnswers = [];
+            
+            // Obtenir les questions pour le niveau 1
+            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+            
+            // Mettre à jour l'interface
+            document.getElementById('startQuizBtn').classList.add('hidden');
+            document.getElementById('nextQuestionBtn').classList.remove('hidden');
+            document.getElementById('endQuizBtn').classList.add('hidden');
+            document.getElementById('levelResult').classList.remove('visible');
+            document.getElementById('quizResults').classList.add('hidden');
+            
+            // Réinitialiser l'indicateur de niveau
+            updateLevelIndicator();
+            
+            // Charger la première question
+            loadQuestion();
+            
+            // Démarrer le timer
+            startQuizTimer();
+            
+            showNotification("Quiz démarré! Niveau 1 - 2 minutes pour répondre.", 'success');
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= levelQuestions.length) {
+                showLevelResult();
+                return;
+            }
+            
+            const question = levelQuestions[currentQuestionIndex];
+            
+            // Mettre à jour le texte de la question
+            document.getElementById('questionText').textContent = 
+                `Niveau ${currentQuizLevel + 1} - Question ${currentQuestionIndex + 1}/10: ${question.question}`;
+            
+            // Mettre à jour les options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+                optionDiv.onclick = () => selectAnswer(index, question.correct);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Désactiver le bouton suivant jusqu'à ce qu'une réponse soit sélectionnée
+            document.getElementById('nextQuestionBtn').disabled = true;
+        }
+
+        function selectAnswer(selectedIndex, correctIndex) {
+            const options = document.querySelectorAll('.option');
+            
+            // Marquer toutes les options comme sélectionnées
+            options.forEach((option, index) => {
+                option.classList.add('selected');
+                if (index === selectedIndex) {
+                    if (selectedIndex === correctIndex) {
+                        option.classList.add('correct');
+                        currentLevelScore++;
+                        quizScore++;
+                    } else {
+                        option.classList.add('incorrect');
+                        // Afficher la bonne réponse
+                        options[correctIndex].classList.add('correct');
+                    }
+                }
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Sauvegarder la réponse de l'utilisateur
+            userAnswers.push({
+                questionIndex: currentQuestionIndex,
+                selected: selectedIndex,
+                correct: correctIndex,
+                isCorrect: selectedIndex === correctIndex
+            });
+            
+            // Activer le bouton suivant
+            document.getElementById('nextQuestionBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= levelQuestions.length) {
+                showLevelResult();
+                return;
+            }
+            
+            loadQuestion();
+            document.getElementById('nextQuestionBtn').disabled = true;
+        }
+
+        function showLevelResult() {
+            // Arrêter le timer
+            clearInterval(quizTimerInterval);
+            isQuizActive = false;
+            
+            // Masquer la question et le timer
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('quizTimer').style.display = 'none';
+            document.getElementById('nextQuestionBtn').classList.add('hidden');
+            
+            // Afficher les résultats du niveau
+            const levelResult = document.getElementById('levelResult');
+            const resultLevelNumber = document.getElementById('resultLevelNumber');
+            const levelScore = document.getElementById('levelScore');
+            const levelMessage = document.getElementById('levelMessage');
+            
+            resultLevelNumber.textContent = currentQuizLevel + 1;
+            levelScore.textContent = `${currentLevelScore}/10`;
+            
+            // Vérifier si toutes les réponses sont correctes (10/10)
+            const isPerfectScore = currentLevelScore === 10;
+            
+            if (isPerfectScore) {
+                levelMessage.innerHTML = `
+                    <div class="level-message success">
+                        <strong>🎉 Félicitations! Niveau réussi parfaitement!</strong><br>
+                        Vous avez répondu correctement à toutes les questions (10/10).<br>
+                        Vous débloquez le niveau suivant!
+                    </div>
+                `;
+                // Afficher le bouton pour continuer
+                document.getElementById('retryLevelBtn').classList.add('hidden');
+                document.getElementById('continueQuizBtn').classList.remove('hidden');
+                document.getElementById('finishQuizBtn').classList.add('hidden');
+                
+                // Mettre à jour l'indicateur de niveau
+                document.getElementById(`levelDot${currentQuizLevel}`).classList.add('completed');
+                
+            } else {
+                levelMessage.innerHTML = `
+                    <div class="level-message fail">
+                        <strong>❌ Niveau non réussi</strong><br>
+                        Score: ${currentLevelScore}/10<br>
+                        Vous devez obtenir <strong>10/10</strong> (toutes les réponses correctes) pour passer au niveau suivant.<br>
+                        <small>Vous avez fait ${currentLevelScore} bonne(s) réponse(s) sur 10.</small>
+                    </div>
+                `;
+                // Afficher le bouton pour réessayer
+                document.getElementById('continueQuizBtn').classList.add('hidden');
+                document.getElementById('retryLevelBtn').classList.remove('hidden');
+                document.getElementById('finishQuizBtn').classList.add('hidden');
+            }
+            
+            levelResult.classList.add('visible');
+        }
+
+        function continueToNextLevel() {
+            // Passer au niveau suivant
+            currentQuizLevel++;
+            
+            // Vérifier si c'est le dernier niveau
+            if (currentQuizLevel >= 7) {
+                showFinalResults();
+                return;
+            }
+            
+            // Réinitialiser pour le nouveau niveau
+            currentQuestionIndex = 0;
+            currentLevelScore = 0;
+            quizTimeLeft = 120;
+            userAnswers = [];
+            
+            // Obtenir les questions pour le nouveau niveau
+            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+            
+            // Mettre à jour l'interface
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('quizTimer').style.display = 'block';
+            document.getElementById('levelResult').classList.remove('visible');
+            document.getElementById('nextQuestionBtn').classList.remove('hidden');
+            
+            // Mettre à jour l'indicateur de niveau
+            updateLevelIndicator();
+            
+            // Charger la première question du nouveau niveau
+            loadQuestion();
+            
+            // Redémarrer le timer
+            startQuizTimer();
+            isQuizActive = true;
+            
+            showNotification(`Niveau ${currentQuizLevel + 1} - 2 minutes pour répondre.`, 'success');
+        }
+
+        function retryLevel() {
+            // Réinitialiser pour le même niveau
+            currentQuestionIndex = 0;
+            currentLevelScore = 0;
+            quizTimeLeft = 120;
+            userAnswers = [];
+            
+            // Obtenir de nouvelles questions pour le même niveau
+            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+            
+            // Mettre à jour l'interface
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('quizTimer').style.display = 'block';
+            document.getElementById('levelResult').classList.remove('visible');
+            document.getElementById('nextQuestionBtn').classList.remove('hidden');
+            
+            // Charger la première question
+            loadQuestion();
+            
+            // Redémarrer le timer
+            startQuizTimer();
+            isQuizActive = true;
+            
+            showNotification(`Nouvelle tentative - Niveau ${currentQuizLevel + 1}`, 'success');
+        }
+
+        function showFinalResults() {
+            // Arrêter le timer
+            clearInterval(quizTimerInterval);
+            isQuizActive = false;
+            
+            // Masquer les éléments du quiz
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('quizTimer').style.display = 'none';
+            document.getElementById('nextQuestionBtn').classList.add('hidden');
+            document.getElementById('levelResult').classList.remove('visible');
+            
+            // Calculer le pourcentage
+            const totalQuestions = 70; // 7 niveaux × 10 questions
+            const percentage = Math.round((quizScore / totalQuestions) * 100);
+            
+            // Afficher les résultats finaux
+            const resultsDiv = document.getElementById('quizResults');
+            resultsDiv.innerHTML = `
+                <div class="message-item">
+                    <h3>🏆 Résultats finaux du Quiz Biblique</h3>
+                    <div class="level-score">${quizScore}/70</div>
+                    <p>Score total: <strong>${quizScore}/70</strong> (${percentage}%)</p>
+                    <p>Niveaux complétés: <strong>${currentQuizLevel}/7</strong></p>
+                    <p>${percentage === 100 ? '🎉 Incroyable! Score parfait! Vous maîtrisez parfaitement la Genèse!' : 
+                       percentage >= 90 ? 'Excellent travail! Vous connaissez très bien la Genèse!' : 
+                       percentage >= 70 ? 'Bon travail! Continuez à étudier la Parole de Dieu!' : 
+                       percentage >= 50 ? 'Pas mal! Continuez à lire et méditer la Bible!' : 
+                       'Continuez à étudier la Genèse pour améliorer vos connaissances!'}</p>
+                    <div class="quiz-controls">
+                        <button onclick="restartQuiz()" class="btn-start">🔄 Recommencer le quiz</button>
+                        <button onclick="showMainButtons()" class="btn-finish">🏠 Retour à l'accueil</button>
+                    </div>
+                </div>
+            `;
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            // Réinitialiser complètement le quiz
+            resetQuiz();
+            
+            // Redémarrer le quiz
+            startQuiz();
+        }
+
+        function resetQuiz() {
+            // Réinitialiser toutes les variables du quiz
+            currentQuizLevel = 0;
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            currentLevelScore = 0;
+            quizTimeLeft = 120;
+            isQuizActive = false;
+            userAnswers = [];
+            levelQuestions = [];
+            
+            // Arrêter le timer
+            clearInterval(quizTimerInterval);
+            
+            // Réinitialiser l'interface
+            document.getElementById('startQuizBtn').classList.remove('hidden');
+            document.getElementById('nextQuestionBtn').classList.add('hidden');
+            document.getElementById('endQuizBtn').classList.add('hidden');
+            document.getElementById('levelResult').classList.remove('visible');
+            document.getElementById('quizResults').classList.add('hidden');
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('quizTimer').style.display = 'block';
+            
+            // Réinitialiser l'indicateur de niveau
+            updateLevelIndicator();
+            
+            // Réinitialiser le timer affiché
+            document.getElementById('quizTimer').textContent = '120';
+            document.getElementById('quizTimer').classList.remove('warning');
+        }
+
+        function startQuizTimer() {
+            clearInterval(quizTimerInterval);
+            
+            quizTimerInterval = setInterval(() => {
+                if (isQuizActive) {
+                    quizTimeLeft--;
+                    document.getElementById('quizTimer').textContent = quizTimeLeft;
+                    
+                    // Avertir quand il reste 30 secondes
+                    if (quizTimeLeft <= 30 && quizTimeLeft > 0) {
+                        document.getElementById('quizTimer').classList.add('warning');
+                    }
+                    
+                    // Temps écoulé
+                    if (quizTimeLeft <= 0) {
+                        clearInterval(quizTimerInterval);
+                        showNotification("Temps écoulé pour ce niveau!", 'error');
+                        showLevelResult();
+                    }
+                }
+            }, 1000);
+        }
+
+        // ===============================
         // FONCTIONS POUR LES PRÉDICATIONS
         // ===============================
         function loadSermons() {
@@ -1723,7 +2208,7 @@
         }
 
         // ===============================
-        // FONCTIONS POUR LE MICROPHONE - CORRIGÉES
+        // FONCTIONS POUR LE MICROPHONE
         // ===============================
         function updateMicStatus(type, message) {
             const micStatus = document.getElementById('micStatus');
@@ -1991,35 +2476,6 @@
         }
 
         // ===============================
-        // FONCTIONS POUR LE QUIZ
-        // ===============================
-        function initializeQuizSection() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            if (levelIndicator) {
-                levelIndicator.innerHTML = '';
-                
-                for (let i = 0; i < 7; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'level-dot';
-                    dot.id = `levelDot${i}`;
-                    levelIndicator.appendChild(dot);
-                }
-            }
-            updateLevelIndicator();
-        }
-
-        function updateLevelIndicator() {
-            document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index === currentQuizLevel) {
-                    dot.classList.add('active');
-                } else if (index < currentQuizLevel) {
-                    dot.classList.add('completed');
-                }
-            });
-        }
-
-        // ===============================
         // FONCTIONS ADMIN
         // ===============================
         function showAdminModal() {
@@ -2156,15 +2612,16 @@
             document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
             document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
             
-            // Gestionnaires - Quiz
-            document.getElementById('startQuizBtn').addEventListener('click', function() {
-                showNotification('Quiz démarré (version simplifiée)', 'success');
-                document.getElementById('startQuizBtn').classList.add('hidden');
-                document.getElementById('endQuizBtn').classList.remove('hidden');
+            // Gestionnaires - Quiz COMPLET
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+            document.getElementById('continueQuizBtn').addEventListener('click', continueToNextLevel);
+            document.getElementById('retryLevelBtn').addEventListener('click', retryLevel);
+            document.getElementById('finishQuizBtn').addEventListener('click', function() {
+                showFinalResults();
             });
-            
             document.getElementById('endQuizBtn').addEventListener('click', function() {
-                showMainButtons();
+                showFinalResults();
             });
             
             // Gestionnaires - Microphone
