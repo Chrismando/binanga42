@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a148c">
+    <title>Tel est, tels nous sommes - Assemblée des Saints Réunis de Binanga</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
+            --secondary-gradient: linear-gradient(135deg, #8e24aa 0%, #ab47bc 100%);
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FFED4E 100%);
+            --purple-gradient: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%);
+            --success-gradient: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            --light-bg: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 25px 60px rgba(0, 0, 0, 0.25);
+            --border-radius: 20px;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: var(--light-bg);
+            min-height: 100vh;
+            overflow-x: hidden;
+            animation: gradientBackground 20s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .sermon-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: 900;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 2;
+            background: linear-gradient(45deg, #fff, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textShimmer 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .sermon-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .author {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #FFD700;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Bouton retour */
+        .back-button {
+            background: var(--purple-gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition-fast);
+        }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Cartes de contenu */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary-gradient);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card h2 {
+            font-family: 'Merriweather', serif;
+            color: #4a148c;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.2);
+            font-size: 2rem;
+            background: linear-gradient(45deg, #4a148c, #7b1fa2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Style du texte */
+        .verse {
+            font-style: italic;
+            color: #7b1fa2;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05), transparent);
+            border-radius: 15px;
+            border-left: 4px solid #FFD700;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            animation: verseGlow 4s infinite alternate;
+            font-family: 'Merriweather', serif;
+        }
+
+        @keyframes verseGlow {
+            from { box-shadow: 0 0 15px rgba(138, 43, 226, 0.1); }
+            to { box-shadow: 0 0 25px rgba(138, 43, 226, 0.2); }
+        }
+
+        .section-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            color: #4a148c;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 5px solid #8e24aa;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05), transparent);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            color: #444;
+            padding: 0.5rem;
+        }
+
+        .content-text strong {
+            color: #6a1b9a;
+            font-weight: 700;
+        }
+
+        .bible-reference {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), transparent);
+            color: #7b1fa2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            margin: 0 0.3rem;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        /* Points importants */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(138, 43, 226, 0.1));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid #FFD700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: "✨";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+        }
+
+        /* Boutons d'action */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .share-button {
+            background: var(--gold-gradient);
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: var(--transition-fast);
+        }
+
+        .share-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .home-button {
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition-fast);
+        }
+
+        .home-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gradient);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #8e24aa 0%, #6a1b9a 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sermon-title {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 1.8rem;
+            }
+            
+            .card h2 {
+                font-size: 1.6rem;
+            }
+            
+            .verse {
+                font-size: 1.1rem;
+                padding: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .share-button, .home-button, .back-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sermon-title {
+                font-size: 1.8rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .verse {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Effets de surbrillance */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0) 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            transition: var(--transition-fast);
+        }
+
+        .highlight:hover {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.1) 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="sermon-title animate-in">Tel est, tels nous sommes</h1>
+            <p class="sermon-subtitle animate-in delay-1">
+                « L'amour est parfait en nous, afin que nous ayons de l'assurance au jour du jugement : tel il est, tels nous sommes aussi dans ce monde. »
+            </p>
+            <p class="author animate-in delay-2">1 Jean 4:17</p>
+            <p class="author animate-in delay-3">Par Fr. Christian MANDEMBA</p>
+        </header>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Bouton retour -->
+            <button class="back-button animate-in" onclick="goBack()">
+                <span>←</span> Retour aux prédications
+            </button>
+
+            <!-- Introduction -->
+            <div class="card animate-in delay-1">
+                <h2>Introduction</h2>
+                <div class="verse">
+                    « L'amour est parfait en nous, afin que nous ayons de l'assurance au jour du jugement : 
+                    <span class="highlight">tel il est, tels nous sommes aussi dans ce monde</span>. »
+                </div>
+                <p class="content-text">
+                    Cette déclaration puissante de l'apôtre Jean révèle une vérité profonde sur notre identité en Christ. 
+                    Elle nous invite à comprendre non seulement qui nous sommes, mais surtout <strong>à qui nous appartenons</strong> 
+                    et <strong>de quelle nature</strong> nous participons.
+                </p>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="card animate-in delay-2">
+                <h2 class="section-title">I. Le dessein éternel de Dieu : un homme vivant comme Lui</h2>
+                <p class="content-text">
+                    Dès le commencement, Dieu avait un projet clair et précis concernant l'homme. La Bible déclare dans 
+                    <span class="bible-reference">Genèse 1:26–27</span> :
+                </p>
+                <div class="verse">
+                    « Puis Dieu dit : Faisons l'homme à notre image, selon notre ressemblance, et qu'il domine sur les poissons de la mer, 
+                    sur les oiseaux du ciel, sur le bétail, sur toute la terre et sur tous les reptiles qui rampent sur la terre. 
+                    Dieu créa l'homme à son image, il le créa à l'image de Dieu, il créa l'homme et la femme. »
+                </div>
+                <p class="content-text">
+                    Lorsque Dieu parle de Son image et de Sa ressemblance, Il ne parle pas d'une apparence physique, car Dieu n'est pas chair. 
+                    L'Écriture affirme clairement que <strong>Dieu est Esprit</strong>, et qu'Il est un <strong>Dieu vivant</strong>. 
+                    C'est ce que Josué proclame devant le peuple lorsqu'il dit dans <span class="bible-reference">Josué 3:10</span> :
+                </p>
+                <div class="verse">
+                    « À ceci vous reconnaîtrez que le Dieu vivant est au milieu de vous, et qu'il chassera devant vous les Cananéens, 
+                    les Héthiens, les Héviens, les Phéréziens, les Guirgasiens, les Amoréens et les Jébusiens. »
+                </div>
+                <p class="content-text">
+                    Ainsi, lorsque Dieu dit : « Faisons l'homme à notre ressemblance », Il révèle Sa volonté que l'homme soit 
+                    <strong>vivant comme Lui est vivant</strong>, capable de porter et de manifester Sa vie dans ce monde.
+                </p>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="card animate-in delay-3">
+                <h2 class="section-title">II. L'homme formé mais encore sans vie</h2>
+                <p class="content-text">
+                    La Bible montre clairement que l'homme, bien que parfaitement formé, n'était pas encore vivant tant que Dieu ne lui avait pas communiqué Sa vie. 
+                    <span class="bible-reference">Genèse 2:7</span> déclare :
+                </p>
+                <div class="verse">
+                    « L'Éternel Dieu forma l'homme de la poussière de la terre, il souffla dans ses narines un souffle de vie, 
+                    et l'homme devint un être vivant. »
+                </div>
+                <p class="content-text">
+                    Avant ce souffle, l'homme avait une forme, mais il n'avait pas la vie. Cela nous enseigne que 
+                    <strong>la vie ne vient ni de la terre, ni du corps, ni du sang</strong>, mais uniquement de Dieu. 
+                    Sans le souffle divin, l'homme ne pouvait pas être à l'image de Dieu, car Dieu est vivant.
+                </p>
+                
+                <div class="highlight-box">
+                    <h3>💡 Leçon importante :</h3>
+                    <p class="content-text">
+                        La vie véritable ne vient pas de nos efforts, de notre volonté ou de nos capacités humaines. 
+                        Elle vient uniquement de Dieu. Sans Son souffle, nous pouvons avoir l'apparence de la vie 
+                        mais être spirituellement morts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="card animate-in">
+                <h2 class="section-title">III. Le souffle de Dieu et la révélation du Fils</h2>
+                <p class="content-text">
+                    La Bible nous révèle ensuite où se trouve cette vie. Dans <span class="bible-reference">1 Jean 5:12</span>, il est écrit :
+                </p>
+                <div class="verse">
+                    « Celui qui a le Fils a la vie ; celui qui n'a pas le Fils de Dieu n'a pas la vie. »
+                </div>
+                <p class="content-text">
+                    Cela signifie clairement que la vie n'est pas une chose abstraite, mais qu'elle est contenue dans une personne : 
+                    <strong>le Fils</strong>. Jésus Lui-même confirme cette vérité lorsqu'Il déclare dans <span class="bible-reference">Jean 14:6</span> :
+                </p>
+                <div class="verse">
+                    « Jésus lui dit : Je suis le chemin, la vérité et la vie. Nul ne vient au Père que par moi. »
+                </div>
+                <p class="content-text">
+                    Si la vie est dans le Fils, et si Adam est devenu vivant après avoir reçu le souffle de Dieu, alors 
+                    <strong>le souffle que Dieu a communiqué à Adam était le Fils</strong>. C'est pourquoi Adam est devenu vivant, 
+                    car il a reçu la vie qui est en Dieu.
+                </p>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="card animate-in">
+                <h2 class="section-title">IV. Le Fils et le Père : une seule et même vie</h2>
+                <p class="content-text">
+                    Jésus révèle l'unité parfaite qui existe entre Lui et le Père lorsqu'Il déclare dans 
+                    <span class="bible-reference">Jean 10:30</span> :
+                </p>
+                <div class="verse">
+                    « Moi et le Père, nous sommes un. »
+                </div>
+                <p class="content-text">
+                    Recevoir le Fils, c'est donc recevoir le Père. Il n'y a pas deux vies, ni deux dieux, mais 
+                    <strong>une seule vie divine</strong>. Le Fils n'est pas séparé de Dieu, Il est Dieu manifesté.
+                </p>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="card animate-in">
+                <h2 class="section-title">V. Jésus est Dieu : l'exemple du président américain</h2>
+                <p class="content-text">
+                    Beaucoup se demandent encore comment Jésus peut être Dieu alors qu'Il était sur la terre, 
+                    tandis que Dieu était dans le ciel. Prenons l'exemple d'un président des États-Unis. 
+                    Lorsqu'un président quitte Washington pour se rendre à New York ou à Dallas, il ne cesse pas d'être président à Washington. 
+                    Même s'il voyage hors du pays, il demeure président, car tout le pays lui appartient.
+                </p>
+                <p class="content-text">
+                    De la même manière, <strong>Dieu possède le ciel, la terre et tout l'univers</strong>. 
+                    La Bible déclare dans <span class="bible-reference">Psaume 24:1</span> :
+                </p>
+                <div class="verse">
+                    « À l'Éternel la terre et ce qu'elle renferme, le monde et ceux qui l'habitent. »
+                </div>
+                <p class="content-text">
+                    Ainsi, lorsque Dieu est venu sur la terre en Jésus-Christ, Il n'a pas cessé d'être Dieu dans le ciel. 
+                    Qu'Il soit sur la terre, dans le ciel, dans le ventre de Marie ou dans le corps d'un enfant, 
+                    <strong>Il demeure toujours Dieu</strong>.
+                </p>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="card animate-in">
+                <h2 class="section-title">VI. Celui qui a été percé : Dieu manifesté dans la chair</h2>
+                <p class="content-text">
+                    La divinité de Jésus est annoncée clairement dans l'Ancien Testament. <span class="bible-reference">Zacharie 12:10</span> déclare :
+                </p>
+                <div class="verse">
+                    « Je répandrai sur la maison de David et sur les habitants de Jérusalem un esprit de grâce et de supplication, 
+                    et ils tourneront les regards vers moi, celui qu'ils ont percé ; ils pleureront sur lui comme on pleure sur un fils unique. »
+                </div>
+                <p class="content-text">
+                    Celui qui a été percé sur la croix, c'est Jésus. Or Dieu dit : « Ils regarderont vers moi. » 
+                    Cela signifie clairement que <strong>Jésus est Dieu venu dans la chair</strong> pour donner la vie.
+                </p>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="card animate-in">
+                <h2 class="section-title">VII. Dieu est entré dans l'homme pour le rendre vivant</h2>
+                <p class="content-text">
+                    Puisque le souffle est le Fils et que le Fils est Dieu, nous pouvons affirmer que 
+                    <strong>Dieu est entré dans l'homme</strong> afin que l'homme devienne vivant. 
+                    Toutefois, à cause de la désobéissance d'Adam, l'homme a perdu cette vie. 
+                    La mort spirituelle est entrée dans l'humanité, car l'Esprit de Dieu s'est retiré.
+                </p>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="card animate-in">
+                <h2 class="section-title">VIII. La perte et le retour de la vie par l'Esprit</h2>
+                <p class="content-text">
+                    Cette réalité est illustrée par le prophète Ézéchiel. Dans <span class="bible-reference">Ézéchiel 37:9–10</span>, il est écrit :
+                </p>
+                <div class="verse">
+                    « Il me dit : Prophétise, fils de l'homme, et dis à l'Esprit : Ainsi parle le Seigneur, l'Éternel : 
+                    Esprit, viens des quatre vents, souffle sur ces morts, et qu'ils revivent ! Je prophétisai selon l'ordre qu'il m'avait donné. 
+                    L'Esprit entra en eux, et ils reprirent la vie, et ils se tinrent sur leurs pieds : c'était une armée nombreuse, très nombreuse. »
+                </div>
+                <p class="content-text">
+                    Le mot « reprirent la vie » montre qu'ils avaient déjà été vivants auparavant. 
+                    De la même manière, l'homme était vivant en Adam avant de perdre la vie par le péché. 
+                    Cette vie est revenue par Jésus-Christ et par le Saint-Esprit, comme l'enseigne 
+                    <span class="bible-reference">Romains 8:11</span> :
+                </p>
+                <div class="verse">
+                    « Et si l'Esprit de celui qui a ressuscité Jésus d'entre les morts habite en vous, 
+                    celui qui a ressuscité Christ d'entre les morts rendra aussi la vie à vos corps mortels par son Esprit qui habite en vous. »
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="card animate-in">
+                <h2 class="section-title">IX. Conclusion : une vérité pour la vie pratique</h2>
+                <p class="content-text">
+                    La Bible résume parfaitement la condition de l'homme sans Christ dans 
+                    <span class="bible-reference">Éphésiens 2:1–6</span> :
+                </p>
+                <div class="verse">
+                    « Vous étiez morts par vos offenses et par vos péchés, dans lesquels vous marchiez autrefois, selon le train de ce monde... 
+                    Mais Dieu, qui est riche en miséricorde, à cause du grand amour dont il nous a aimés, 
+                    nous a rendus à la vie avec Christ, alors même que nous étions morts par nos offenses ; c'est par grâce que vous êtes sauvés. »
+                </div>
+                <p class="content-text">
+                    Beaucoup de personnes vivent aujourd'hui sans réellement vivre, car elles n'ont pas reçu la vie de Dieu. 
+                    Elles peuvent fréquenter l'église, prier, chanter, servir, mais rester mortes intérieurement si Jésus n'habite pas en elles.
+                </p>
+                <div class="highlight-box">
+                    <h3>🎯 Le message central :</h3>
+                    <p class="content-text">
+                        Lorsque Jésus entre véritablement dans la vie d'un homme, Il apporte la vie, Il transforme le cœur, 
+                        Il détruit l'hypocrisie et restaure la communion avec Dieu. C'est pourquoi le message demeure le même aujourd'hui : 
+                        <strong>celui qui a le Fils a la vie</strong>. Sans Jésus, nous sommes morts. Avec Jésus, nous sommes vivants, 
+                        afin que <strong>tel qu'Il est, tels nous soyons dans ce monde</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="action-buttons animate-in delay-4">
+                <button class="share-button" onclick="shareSermon()">
+                    <span>📤</span> Partager cette prédication
+                </button>
+                <button class="home-button" onclick="goBack()">
+                    <span>←</span> Retour aux prédications
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 Assemblée des Saints Réunis de Binanga</p>
+            <p style="margin-top: 1rem; opacity: 0.9;">"Tel Il est, tels nous sommes aussi dans ce monde." - 1 Jean 4:17</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Prédication par Fr. Christian MANDEMBA</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour retourner à la page précédente
+        function goBack() {
+            window.location.href = 'index.html#sermonsSection';
+        }
+
+        // Fonction pour partager la prédication
+        function shareSermon() {
+            const shareData = {
+                title: 'Tel est, tels nous sommes - Assemblée des Saints Réunis de Binanga',
+                text: '📖 Prédication puissante par Fr. Christian MANDEMBA\n\nThème : 1 Jean 4:17 - "Tel Il est, tels nous sommes dans ce monde"\n\nDécouvrez cette révélation profonde sur notre identité en Christ et la vie divine qui nous habite.\n\n#Prédication #ChristianMANDEMBA #1Jean417 #VieEnChrist',
+                url: window.location.href
+            };
+
+            // Vérifier si l'API Web Share est supportée
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => {
+                        showNotification('Prédication partagée avec succès !');
+                    })
+                    .catch((error) => {
+                        console.log('Erreur de partage:', error);
+                        fallbackShare(shareData);
+                    });
+            } else {
+                fallbackShare(shareData);
+            }
+        }
+
+        // Fallback pour le partage
+        function fallbackShare(shareData) {
+            const shareText = `${shareData.title}\n\n${shareData.text}\n\n${shareData.url}`;
+            
+            // Copier dans le presse-papier
+            navigator.clipboard.writeText(shareText)
+                .then(() => {
+                    showNotification('Lien copié dans le presse-papier ! Vous pouvez maintenant le partager.');
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de la copie:', error);
+                    showNotification('Impossible de copier le lien. Veuillez le copier manuellement.');
+                    
+                    // Afficher le texte à copier manuellement
+                    alert(`Copiez ce texte pour partager :\n\n${shareText}`);
+                });
+        }
+
+        // Fonction pour afficher des notifications
+        function showNotification(message, type = 'success') {
+            // Supprimer les notifications existantes
+            document.querySelectorAll('.custom-notification').forEach(notif => notif.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: white;
+                padding: 1.2rem;
+                border-radius: 15px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+                border-left: 5px solid #00b09b;
+                z-index: 2000;
+                animation: notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                max-width: 350px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                font-family: 'Inter', sans-serif;
+            `;
+            
+            if (type === 'error') {
+                notification.style.borderLeftColor = '#f5576c';
+            }
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.5rem;">${type === 'success' ? '✅' : '❌'}</span>
+                    <span style="font-weight: 600;">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Ajouter l'animation CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes notificationSlide {
+                    from { transform: translateX(100%) translateY(-20px); opacity: 0; }
+                    to { transform: translateX(0) translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.remove();
+                        }
+                    }, 500);
+                }
+                if (style.parentNode) {
+                    style.remove();
+                }
+            }, 4000);
+        }
+
+        // Animation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animer les éléments au défilement
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observer tous les éléments avec la classe 'card'
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Navigation par ancres dans la page
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
