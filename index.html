@@ -737,18 +737,6 @@
             border: 1px solid rgba(255, 215, 0, 0.1);
         }
 
-        .empty-message {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #666;
-            font-style: italic;
-            font-size: 1.2rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-out;
-        }
-
         /* Section quiz biblique */
         .quiz-section {
             background: linear-gradient(135deg, rgba(0, 176, 155, 0.05), rgba(150, 201, 61, 0.05));
@@ -1331,14 +1319,6 @@
                 align-items: stretch;
             }
             
-            .youtube-video-container iframe {
-                height: 300px;
-            }
-            
-            .psalm-videos {
-                grid-template-columns: 1fr;
-            }
-            
             .advertisement {
                 width: 95%;
                 padding: 2rem;
@@ -1374,10 +1354,6 @@
             .timer, .quiz-timer {
                 font-size: 1.8rem;
                 padding: 1rem;
-            }
-            
-            .youtube-video-container iframe {
-                height: 250px;
             }
             
             .install-content {
@@ -1535,23 +1511,40 @@
                 </section>
             </div>
 
-            <!-- Section prédications temporairement vide -->
+            <!-- Section prédications - NOUVELLE VERSION -->
             <div id="sermonsSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
                 </button>
                 
                 <div class="sermons-section">
-                    <div class="empty-message">
-                        <h3>📺 Section Prédications</h3>
-                        <p>Cette section est en cours de préparation.</p>
-                        <p>Les vidéos de prédication seront bientôt disponibles.</p>
-                        <p class="mt-1">Merci de votre patience et que Dieu vous bénisse!</p>
+                    <div class="card">
+                        <h2><span class="icon">📖</span> NOS PRÉDICATIONS</h2>
+                        <p class="mb-2">Explorez nos enseignements bibliques et soyez édifiés dans votre foi.</p>
+                        
+                        <div class="program-item" onclick="window.location.href='aveugle.html'">
+                            <h3><span class="icon">👁️</span> L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE</h3>
+                            <p>Par Fr. Christian MANDEMBA</p>
+                            <p><strong>Thème :</strong> Luc 6:39 - Un aveugle peut-il conduire un autre aveugle ?</p>
+                            <p><em>Cliquez pour lire cette puissante prédication →</em></p>
+                        </div>
+                        
+                        <div class="program-item" style="opacity: 0.7; cursor: not-allowed;">
+                            <h3><span class="icon">⏳</span> D'AUTRES PRÉDICATIONS À VENIR</h3>
+                            <p>Nous préparons d'autres enseignements pour vous.</p>
+                            <p><em>Bientôt disponible...</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-2">
+                        <button onclick="shareContent('sermon')" class="share-button">
+                            <span class="icon">📤</span> Partager nos prédications
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Section prière du jour - MISE À JOUR POUR VENDREDI 19 DÉCEMBRE 2025 -->
+            <!-- Section prière du jour -->
             <div id="prayerSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1961,8 +1954,10 @@
                     
                 case 'sermon':
                     shareText = "📺 NOS PRÉDICATIONS - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "Les prédications seront bientôt disponibles sur notre application.\n\n";
-                    shareText += "#Prédication #Enseignement #Bénédiction #Église";
+                    shareText += "Découvrez la prédication : L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE\n\n";
+                    shareText += "Par Fr. Christian MANDEMBA - Thème : Luc 6:39\n";
+                    shareText += "Une réflexion profonde sur l'aveuglement spirituel et la lumière de Christ.\n\n";
+                    shareText += "#Prédication #AveuglementSpirituel #Luc639 #Enseignement";
                     break;
                     
                 case 'program':
