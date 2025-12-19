@@ -737,183 +737,15 @@
             border: 1px solid rgba(255, 215, 0, 0.1);
         }
 
-        .youtube-video-container {
-            margin: 2rem 0;
+        .empty-message {
             text-align: center;
-            animation: videoAppear 1s ease-out;
-        }
-
-        @keyframes videoAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .youtube-video-container iframe {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            border-radius: 20px;
-            border: 3px solid #FFD700;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            transition: var(--transition-fast);
-        }
-
-        .youtube-video-container iframe:hover {
-            transform: scale(1.01);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        .video-info {
+            padding: 4rem 2rem;
+            color: #666;
+            font-style: italic;
+            font-size: 1.2rem;
             background: white;
             border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        .video-info h3 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .video-theme {
-            color: #6a11cb;
-            font-weight: 800;
-            font-size: 1.3rem;
-            margin: 1rem 0;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: themeGlow 3s infinite alternate;
-        }
-
-        @keyframes themeGlow {
-            from { text-shadow: 0 0 10px rgba(106, 17, 203, 0.3); }
-            to { text-shadow: 0 0 20px rgba(106, 17, 203, 0.5); }
-        }
-
-        .video-preacher {
-            color: #2575fc;
-            font-style: italic;
-            margin-top: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .psalms-series {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid #FFD700;
-            animation: seriesAppear 1s ease-out;
-        }
-
-        .psalm-videos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .psalm-video-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 2px solid #2575fc;
-            transition: var(--transition-fast);
-            box-shadow: 0 10px 25px rgba(37, 117, 252, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .psalm-video-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary-gradient);
-        }
-
-        .psalm-video-item:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(37, 117, 252, 0.2);
-        }
-
-        .psalm-video-item h4 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .psalm-video-item p {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .sermons-list {
-            margin-top: 3rem;
-        }
-
-        .sermon-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid #FFD700;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: var(--transition-fast);
-        }
-
-        .sermon-item:hover {
-            transform: translateX(10px) translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .sermon-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .sermon-title {
-            font-weight: 700;
-            color: #2c3e50;
-            flex: 1;
-            font-size: 1.2rem;
-        }
-
-        .sermon-date {
-            font-size: 0.9rem;
-            color: #666;
-            margin-left: 1rem;
-        }
-
-        .sermon-pastor {
-            color: #2575fc;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        .empty-sermons {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            padding: 3rem;
-            font-size: 1.2rem;
             animation: fadeIn 1s ease-out;
         }
 
@@ -1703,88 +1535,23 @@
                 </section>
             </div>
 
-            <!-- Section prédications avec vidéo YouTube -->
+            <!-- Section prédications temporairement vide -->
             <div id="sermonsSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
                 </button>
                 
                 <div class="sermons-section">
-                    <div class="quiz-header">
-                        <h2>📺 NOS PRÉDICATIONS</h2>
-                        <p>Regardez et écoutez les messages spirituels de l'église</p>
-                    </div>
-
-                    <!-- Dossier PSAUMES 23 -->
-                    <div class="psalms-series">
-                        <h3>📚 Série complète : PSAUMES 23 par le prophète JEAN WILLY MBANZASWI</h3>
-                        <div class="psalm-videos">
-                            <div class="psalm-video-item">
-                                <h4>Psaumes 23 (Partie 1)</h4>
-                                <p>Introduction et méditation</p>
-                                <a href="https://m.youtube.com/watch?v=5-ESH_TviQc&list=PLhmxpAw1CxWC4aeg5Rec9coBiMstBaG3S&index=1&pp=iAQB" 
-                                   target="_blank" class="video-link">
-                                    ▶️ Regarder Partie 1
-                                </a>
-                            </div>
-                            <div class="psalm-video-item">
-                                <h4>Psaumes 23 (Partie 2)</h4>
-                                <p>Analyse approfondie</p>
-                                <a href="#" class="video-link" style="background: #95a5a6; cursor: not-allowed;">
-                                    ⏸️ Bientôt disponible
-                                </a>
-                            </div>
-                            <div class="psalm-video-item">
-                                <h4>Psaumes 23 (Partie 3)</h4>
-                                <p>Application pratique</p>
-                                <a href="https://m.youtube.com/watch?v=MLbRSxi1axs&list=PLhmxpAw1CxWC4aeg5Rec9coBiMstBaG3S&index=2&pp=iAQB" 
-                                   target="_blank" class="video-link">
-                                    ▶️ Regarder Partie 3
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Autres vidéos de prédication -->
-                    <div class="psalms-series mt-2">
-                        <h3>🎥 AUTRES PRÉDICATIONS</h3>
-                        <div class="psalm-videos">
-                            <div class="psalm-video-item">
-                                <h4>Prière pour les enfants</h4>
-                                <p>Protection et délivrance</p>
-                                <a href="https://m.youtube.com/watch?v=5-ESH_TviQc&list=PLhmxpAw1CxWC4aeg5Rec9coBiMstBaG3S&index=1&pp=iAQB" 
-                                   target="_blank" class="video-link">
-                                    ▶️ Regarder maintenant
-                                </a>
-                            </div>
-                            <div class="psalm-video-item">
-                                <h4>Enseignement du Mercredi</h4>
-                                <p>La foi en action</p>
-                                <a href="https://m.youtube.com/watch?v=5-ESH_TviQc&list=PLhmxpAw1CxWC4aeg5Rec9coBiMstBaG3S&index=1&pp=iAQB" 
-                                   target="_blank" class="video-link">
-                                    ▶️ Regarder maintenant
-                                </a>
-                            </div>
-                            <div class="psalm-video-item">
-                                <h4>Culte du Dimanche</h4>
-                                <p>Adoration et louange</p>
-                                <a href="https://m.youtube.com/watch?v=MLbRSxi1axs&list=PLhmxpAw1CxWC4aeg5Rec9coBiMstBaG3S&index=2&pp=iAQB" 
-                                   target="_blank" class="video-link">
-                                    ▶️ Regarder maintenant
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-2">
-                        <button onclick="shareContent('sermon')" class="share-button">
-                            <span class="icon">📤</span> Partager nos prédications
-                        </button>
+                    <div class="empty-message">
+                        <h3>📺 Section Prédications</h3>
+                        <p>Cette section est en cours de préparation.</p>
+                        <p>Les vidéos de prédication seront bientôt disponibles.</p>
+                        <p class="mt-1">Merci de votre patience et que Dieu vous bénisse!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Section prière du jour -->
+            <!-- Section prière du jour - MISE À JOUR POUR VENDREDI 19 DÉCEMBRE 2025 -->
             <div id="prayerSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1792,8 +1559,8 @@
                 
                 <div class="prayer-section">
                     <div class="prayer-header">
-                        <h2>🙏 Prière du jour - Jeudi 18 Décembre 2025</h2>
-                        <p><strong>THÈME :</strong> PRIÈRE POUR LA PROTECTION, LA DÉLIVRANCE ET LA VIE SPIRITUELLE DE NOS ENFANTS</p>
+                        <h2>🙏 Prière du jour - Vendredi 19 Décembre 2025</h2>
+                        <p><strong>THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte ; Nul impur n'y passera; elle sera pour eux seuls; Ceux qui la suivront, même les insensés, ne pourront s'égarer. »</strong></p>
                         
                         <div class="text-center mt-1">
                             <button onclick="shareContent('prayer')" class="share-button">
@@ -1804,7 +1571,7 @@
 
                     <div class="prayer-progress">
                         <div class="progress-text">
-                            Sujet <span id="currentTopicNumber">1</span> sur 6
+                            Sujet <span id="currentTopicNumber">1</span> sur 8
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
@@ -1827,23 +1594,13 @@
                     <div id="prayerClosure" class="hidden mt-2">
                         <div class="message-item">
                             <h3>Prière de clôture</h3>
-                            <p>Seigneur notre Dieu,<br>
-                            nous Te remercions pour ce temps de prière.<br>
-                            Nous Te présentons tous les enfants,<br>
-                            ceux de nos familles et ceux de l'église.<br>
-                            Protège-les, garde-les et attire-les chaque jour vers Toi.<br>
-                            Éloigne d'eux toute influence mauvaise<br>
-                            et remplis-les de Ta paix.<br>
-                            Que Ta présence soit avec eux partout où ils iront.<br>
-                            Nous Te faisons confiance, Seigneur.<br>
-                            Au nom de Jésus,<br>
-                            Amen.</p>
+                            <p>Seigneur nous te disons merci pour tout ce que tu nous as donné. Nous sommes venus à toi vide mais nous le croyons que nous sommes sortis de cette prière remplis de ton amour et de ta grâce. Viens nous aider à surmonter toutes les tentations et les épreuves de la vie en ton nom nous avons ainsi prié et nous disons Amen.</p>
                         </div>
                         
                         <div class="reminder">
                             <h3>📢 Rappel important</h3>
-                            <p>Il y aura réunion de prière aujourd'hui à <strong>23h00</strong>.<br>
-                            Nuit de prière - Tout le monde est prié d'être présent.</p>
+                            <p>Il y aura réunion de prière aujourd'hui à <strong>17h00</strong>.<br>
+                            Prière d'enseignement - Tout le monde est prié d'être présent.</p>
                             <p>Que Dieu vous bénisse et vous garde.</p>
                         </div>
                     </div>
@@ -1924,13 +1681,14 @@
         </div>
     </div>
 
-    <!-- Publicité -->
+    <!-- Publicité MISE À JOUR POUR VENDREDI 19 DÉCEMBRE 2025 -->
     <div id="advertisement" class="advertisement hidden">
         <button class="ad-close" onclick="closeAd()">&times;</button>
         <h3>📢 RAPPEL IMPORTANT !</h3>
-        <p>AUJOURD'HUI NOUS AVONS UNE FORTE PRIÈRE POUR NOS ENFANTS</p>
+        <p>AUJOURD'HUI VENDREDI 19 DÉCEMBRE 2025, NOUS AVONS UNE FORTE PRIÈRE À 17h00</p>
         <div class="ad-time">17h - 19h</div>
-        <p>Venez nombreux pour cette puissante intercession pour la protection et la délivrance de nos enfants.</p>
+        <p><strong>THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte... »</strong></p>
+        <p>Venez nombreux pour cette puissante intercession et enseignements sur la voie sainte.</p>
         <div class="ad-countdown">Cette annonce disparaîtra dans <span id="adCountdown">45</span> secondes</div>
     </div>
 
@@ -2134,10 +1892,6 @@
             if (section) {
                 section.classList.add('active-section');
                 
-                if (sectionId === 'sermonsSection') {
-                    loadSermons();
-                }
-                
                 // Réinitialiser le quiz si on change de section
                 if (sectionId !== 'quizSection' && isQuizActive) {
                     resetQuiz();
@@ -2192,10 +1946,10 @@
             switch(type) {
                 case 'prayer':
                     shareText = "🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "THÈME : PRIÈRE POUR LA PROTECTION, LA DÉLIVRANCE ET LA VIE SPIRITUELLE DE NOS ENFANTS\n";
-                    shareText += "Jeudi 18 Décembre 2025\n\n";
-                    shareText += "Rejoignez-nous dans cette puissante intercession pour nos enfants !\n\n";
-                    shareText += "#Prière #Enfants #Protection #Bénédiction";
+                    shareText += "THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte... »\n";
+                    shareText += "Vendredi 19 Décembre 2025\n\n";
+                    shareText += "Rejoignez-nous dans cette puissante prière pour marcher sur la voie sainte !\n\n";
+                    shareText += "#Prière #VoieSainte #Esaie358 #Bénédiction";
                     break;
                     
                 case 'quiz':
@@ -2207,9 +1961,7 @@
                     
                 case 'sermon':
                     shareText = "📺 NOS PRÉDICATIONS - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "Regardez nos messages spirituels et soyez bénis !\n\n";
-                    shareText += "Série complète : PSAUMES 23 par le prophète JEAN WILLY MBANZASWI\n";
-                    shareText += "https://m.youtube.com/watch?v=5-ESH_TviQc\n\n";
+                    shareText += "Les prédications seront bientôt disponibles sur notre application.\n\n";
                     shareText += "#Prédication #Enseignement #Bénédiction #Église";
                     break;
                     
@@ -2262,31 +2014,39 @@
             const prayerTopicsDiv = document.getElementById('prayerTopics');
             prayerTopicsDiv.innerHTML = '';
             
-            // Données de prière du jour
+            // NOUVELLES DONNÉES DE PRIÈRE DU JOUR - VENDREDI 19 DÉCEMBRE 2025
             const prayerData = [
                 {
-                    verse: "Psaume 127:3 - « Voici, les enfants sont un héritage de l'Éternel. »",
-                    content: "Adoration – Dieu est le protecteur de nos enfants. Prenons ce temps pour adorer Dieu. Louons-Le parce qu'Il est le Créateur et le protecteur de nos enfants. Reconnaissons que chaque enfant vient de Lui et Lui appartient. Remercions-Le pour la vie des enfants dans l'église et dans nos familles."
+                    verse: "Psaume 145:3 - « L'Éternel est grand et très digne de louange, et sa grandeur est insondable. »",
+                    content: "Je veux que là où tu es mon frère, ma sœur, que tu puisses réaliser que sans Dieu tu n'es rien, réalise que tout ce que tu as vient de Dieu et commences déjà à le louer là où tu es. Réalises Sa grandeur et ses bienfaits, je veux que tu te laisses plonger dans les profondeurs de la louange."
                 },
                 {
-                    verse: "Psaume 51:12 - « Ô Dieu, crée en moi un cœur pur. »",
-                    content: "Pardon – Se placer humblement devant Dieu. Demandons pardon à Dieu pour nos manquements comme parents, comme familles et comme église. Prions pour que Dieu nous pardonne là où nous n'avons pas bien veillé, là où nous avons été négligents ou absents. Demandons-Lui de purifier nos cœurs afin que nos prières soient agréables devant Lui."
+                    verse: "1 Pierre 2:24 - « Lui qui a porté lui-même nos péchés en son corps sur le bois, afin que morts aux péchés nous vivions pour la justice ; lui par les meurtrissures duquel vous avez été guéris. »",
+                    content: "Alors bien aimé je veux que tu puisses remercier Jesus pour l'œuvre de La Croix. Ce sacrifice qui a fait de nous ce que nous sommes aujourd'hui, enfants de Dieu. Dis lui merci pour tout ce qu'il a accepté à La Croix pour te sauver."
                 },
                 {
-                    verse: "Matthieu 15:22 - « Une femme vint crier à Jésus à cause de sa fille. »",
-                    content: "Présenter les enfants à Jésus avec foi. Rappelons-nous de cette femme qui a amené sa fille à Jésus. Aujourd'hui, une maman dans l'église a fait la même chose : elle a décidé d'amener son enfant devant Dieu. En même temps, présentons aussi nos propres enfants au Seigneur. Prions avec foi, sachant que Jésus écoute quand on Lui amène nos enfants."
+                    verse: "Psaume 32:5 - « Je t'ai fait connaître mon péché, je n'ai pas caché mon iniquité… et tu as pardonné l'iniquité de mon péché. »",
+                    content: "Je veux maintenant que tu prennes ce temps pour lui montrer ton péché, et lui demander pardon pour tout ce que tu as fait. Humilie toi devant Dieu. Demande sa miséricorde et son pardon."
                 },
                 {
-                    verse: "Joël 2:28 - « Je répandrai mon Esprit sur toute chair. »",
-                    content: "Demander l'action du Saint-Esprit dans la vie des enfants. Demandons au Seigneur que le Saint-Esprit remplisse nos enfants. Prions pour que les enfants aiment la prière, la Parole de Dieu et la présence du Seigneur. Demandons que même quand les parents ne sont pas au culte, les enfants aient le désir de prier et de chercher Dieu par eux-mêmes."
+                    verse: "Psaume 25:4-5 - « Éternel, fais-moi connaître tes voies, enseigne-moi tes sentiers. Conduis-moi dans ta vérité et instruis-moi. »",
+                    content: "Je veux que quelqu'un puisse demander à Dieu de toujours lui montrer le vrai chemin à suivre. Demande au Saint Esprit de ne pas te laisser suivre les voies du monde, ni leur influence mais que le Seigneur te garde toujours sur son chemin et ses voies."
                 },
                 {
-                    verse: "Romains 12:2 - « Ne vous conformez pas au monde présent. »",
-                    content: "Prière pour la protection contre les influences du monde. Prions pour que Dieu protège nos enfants contre les mauvaises influences du monde. Demandons que le diable ne trouve aucune place dans leur vie. Prions contre tout ce que le monde cherche à imposer aux enfants : la confusion, la déviation, les mauvaises pratiques et tout ce qui éloigne de Dieu. Déclarons que nos enfants marcheront dans la vérité de Dieu."
+                    verse: "Matthieu 6:13 - « Ne nous induis pas en tentation, mais délivre-nous du malin. »",
+                    content: "Demande au Seigneur de t'aider même au milieu de la tentation que tu sois vainqueur, que l'ennemi ne réussisse pas à te détourner du plan de Dieu. Je sais que les choses sont de plus en plus difficiles, la vie est dure mais demande à Dieu que tu ne sois pas détourné à cause de tout ce que la chair te montre."
                 },
                 {
-                    verse: "Jean 10:10 - « Je suis venu afin que les brebis aient la vie. »",
-                    content: "Prière pour la vie, la santé et la paix. Prions pour chasser toute maladie, toute souffrance et toute menace de mort dans la vie de nos enfants. Demandons à Dieu de leur donner la santé, la paix et une longue vie. Déclarons que nos enfants vivront et grandiront sous la protection et la grâce de Dieu."
+                    verse: "Luc 17:5 - « Les apôtres dirent au Seigneur : Augmente-nous la foi. »",
+                    content: "Bien-aimé je sens que cette phrase c'est aussi ça ta prière d'aujourd'hui, alors que nous sommes réunis pour demander à Dieu de nous aider à suivre son chemin, tu dois savoir que si tu n'as pas la foi tu ne saura jamais suivre le chemin de Dieu. Alors demande à ce que Dieu puisse t'augmenter la foi. Que tu deviennes un chrétien rempli de foi."
+                },
+                {
+                    verse: "Luc 10:19 - « Voici, je vous ai donné le pouvoir de marcher sur les serpents et les scorpions, et sur toute la puissance de l'ennemi ; et rien ne pourra vous nuire. »",
+                    content: "Il y en a parmi nous qui sont restés bébé spirituel, ils racontent des histoires qui datent de 10 ans voir plus mais leur vie spirituelle c'est une vie d'un bébé car il y a des choses qui les empêchent de grandir spirituellement ou d'avancer spirituellement. Alors je veux que tu prennes le temps de chasser ce démon qui t'empêche de grandir, d'avancer spirituellement, ce démon qui te plonge toujours dans la distraction des réseaux sociaux, des amis, etc… chasse ce démon et demande au Seigneur de te libérer pour que tu le serves."
+                },
+                {
+                    verse: "1 Corinthiens 15:57 - « Mais grâces soient rendues à Dieu, qui nous donne la victoire par notre Seigneur Jésus-Christ. »",
+                    content: "Je veux maintenant que tu proclames ma victoire pour ta vie spirituelle. Remercie le Seigneur pour ce moment qu'il t'a donné. Et recommande le reste de temps entre les mains de Dieu."
                 }
             ];
             
@@ -2305,7 +2065,7 @@
         }
 
         function updatePrayerProgress() {
-            const progress = ((currentPrayerTopic) / 6) * 100;
+            const progress = ((currentPrayerTopic) / 8) * 100;
             const progressFill = document.getElementById('progressFill');
             const currentTopicNumber = document.getElementById('currentTopicNumber');
             
@@ -2370,7 +2130,7 @@
         function nextPrayerTopic() {
             currentPrayerTopic++;
             
-            if (currentPrayerTopic >= 6) {
+            if (currentPrayerTopic >= 8) {
                 finishPrayer();
                 return;
             }
@@ -2393,10 +2153,10 @@
             
             updatePrayerProgress();
             
-            if (currentPrayerTopic === 5) {
+            if (currentPrayerTopic === 7) {
                 showNotification("Dernier sujet de prière!", 'warning');
             } else {
-                showNotification(`Sujet ${currentPrayerTopic + 1} sur 6`, 'success');
+                showNotification(`Sujet ${currentPrayerTopic + 1} sur 8`, 'success');
             }
         }
 
@@ -2425,7 +2185,7 @@
             
             const currentTopicNumber = document.getElementById('currentTopicNumber');
             if (currentTopicNumber) {
-                currentTopicNumber.textContent = '6';
+                currentTopicNumber.textContent = '8';
             }
             
             showNotification("Prière terminée! Dieu vous bénisse!", 'success');
@@ -2459,7 +2219,7 @@
                         
                         showNotification("Temps écoulé! Passage au sujet suivant.", 'warning');
                         
-                        if (currentPrayerTopic === 5) {
+                        if (currentPrayerTopic === 7) {
                             document.getElementById('pausePrayerBtn').classList.add('hidden');
                             document.getElementById('finishPrayerBtn').classList.remove('hidden');
                         } else {
@@ -2828,14 +2588,6 @@
         function resetQuiz() {
             clearInterval(quizTimerInterval);
             isQuizActive = false;
-        }
-
-        // ===============================
-        // FONCTIONS POUR LES PRÉDICATIONS
-        // ===============================
-        function loadSermons() {
-            // Cette fonction peut être utilisée pour charger des prédications supplémentaires si nécessaire
-            console.log("Section prédications chargée");
         }
 
         // ===============================
