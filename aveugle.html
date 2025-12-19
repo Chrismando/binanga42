@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0d1b2a">
+    
+    <!-- Meta tags pour le partage -->
+    <meta property="og:title" content="L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE - Fr. Christian MANDEMBA">
+    <meta property="og:description" content="Prédication puissante sur Luc 6:39 - Découvrez comment éviter l'aveuglement spirituel et marcher dans la lumière de Christ.">
+    <meta property="og:image" content="https://i.imgur.com/placeholder.png">
+    <meta property="og:url" content="https://eglisebinanga.org/aveugle.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE">
+    <meta name="twitter:description" content="Prédication puissante sur l'aveuglement spirituel">
+    
     <title>L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE - Assemblée des Saints Réunis de Binanga</title>
+    
     <style>
         /* Variables CSS - DESIGN MAGNIFIQUE */
         :root {
@@ -48,12 +60,18 @@
             position: relative;
         }
 
-        /* Bouton retour */
-        .back-button {
+        /* Boutons de navigation */
+        .navigation-buttons {
             position: fixed;
             top: 2rem;
             left: 2rem;
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .back-button {
             background: var(--gold-gradient);
             color: #0d1b2a;
             border: none;
@@ -68,11 +86,190 @@
             gap: 0.5rem;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 180px;
+        }
+
+        .share-button {
+            background: var(--blue-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 117, 252, 0.3);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 180px;
+            animation: sharePulse 3s infinite;
+        }
+
+        @keyframes sharePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .back-button:hover {
             transform: translateX(-5px) scale(1.05);
             box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .share-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(37, 117, 252, 0.5);
+        }
+
+        /* Modal de partage */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 27, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .share-modal-content {
+            background: linear-gradient(135deg, rgba(27, 38, 59, 0.95), rgba(13, 27, 42, 0.95));
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .share-modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .share-modal-title {
+            font-size: 1.8rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .share-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .share-platform {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: 1px solid var(--glass-border);
+        }
+
+        .share-platform:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .platform-icon {
+            font-size: 2.5rem;
+        }
+
+        .platform-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .share-url {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .share-url input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: monospace;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .copy-button {
+            background: var(--green-gradient);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            transform: scale(1.05);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
         }
 
         /* En-tête de la prédication */
@@ -427,6 +624,49 @@
             opacity: 0.7;
         }
 
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--green-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 176, 155, 0.4);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            animation: notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes notificationSlide {
+            from {
+                transform: translateX(100%) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.hide {
+            animation: notificationSlideOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes notificationSlideOut {
+            from {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%) translateY(20px);
+                opacity: 0;
+            }
+        }
+
         /* Effets de particules */
         .particles {
             position: fixed;
@@ -468,11 +708,16 @@
                 padding: 1rem;
             }
             
-            .back-button {
+            .navigation-buttons {
                 top: 1rem;
                 left: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .back-button, .share-button {
                 padding: 0.8rem 1.2rem;
                 font-size: 0.9rem;
+                min-width: 150px;
             }
             
             .sermon-header {
@@ -506,9 +751,32 @@
             .conclusion-title {
                 font-size: 1.6rem;
             }
+            
+            .share-platforms {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            
+            .platform-icon {
+                font-size: 2rem;
+            }
+            
+            .share-modal-content {
+                padding: 2rem 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
+            .navigation-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: calc(100% - 2rem);
+            }
+            
+            .back-button, .share-button {
+                min-width: calc(50% - 0.25rem);
+            }
+            
             .sermon-title {
                 font-size: 1.6rem;
             }
@@ -530,6 +798,10 @@
             
             .section-content {
                 font-size: 1rem;
+            }
+            
+            .share-platforms {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -557,10 +829,84 @@
     <!-- Effets de particules -->
     <div class="particles" id="particles"></div>
 
-    <!-- Bouton retour -->
-    <button class="back-button" onclick="window.history.back()">
-        <span>←</span> Retour aux prédications
-    </button>
+    <!-- Boutons de navigation -->
+    <div class="navigation-buttons">
+        <button class="back-button" onclick="window.history.back()">
+            <span>←</span> Retour
+        </button>
+        <button class="share-button" onclick="openShareModal()">
+            <span>📤</span> Partager
+        </button>
+    </div>
+
+    <!-- Modal de partage -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-modal-content">
+            <button class="close-modal" onclick="closeShareModal()">&times;</button>
+            
+            <div class="share-modal-header">
+                <h2 class="share-modal-title">Partager cette prédication</h2>
+                <p>Diffusez cette parole puissante sur vos réseaux</p>
+            </div>
+            
+            <div class="share-platforms">
+                <div class="share-platform" onclick="shareOnPlatform('facebook')">
+                    <div class="platform-icon">📘</div>
+                    <div class="platform-name">Facebook</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('twitter')">
+                    <div class="platform-icon">🐦</div>
+                    <div class="platform-name">Twitter</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('whatsapp')">
+                    <div class="platform-icon">💚</div>
+                    <div class="platform-name">WhatsApp</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('telegram')">
+                    <div class="platform-icon">📲</div>
+                    <div class="platform-name">Telegram</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('messenger')">
+                    <div class="platform-icon">💬</div>
+                    <div class="platform-name">Messenger</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('email')">
+                    <div class="platform-icon">✉️</div>
+                    <div class="platform-name">Email</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('tiktok')">
+                    <div class="platform-icon">🎵</div>
+                    <div class="platform-name">TikTok</div>
+                </div>
+                
+                <div class="share-platform" onclick="shareOnPlatform('linkedin')">
+                    <div class="platform-icon">💼</div>
+                    <div class="platform-name">LinkedIn</div>
+                </div>
+            </div>
+            
+            <div class="share-url">
+                <input type="text" id="shareUrl" value="https://eglisebinanga.org/aveugle.html" readonly>
+                <button class="copy-button" onclick="copyToClipboard()">Copier</button>
+            </div>
+            
+            <p style="text-align: center; font-size: 0.9rem; color: #778da9;">
+                Partagez cette prédication pour bénir d'autres personnes !
+            </p>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span>✅</span>
+        <span id="notificationText">Lien copié dans le presse-papier !</span>
+    </div>
 
     <div class="container">
         <!-- En-tête de la prédication -->
@@ -804,6 +1150,13 @@
                     Que l'année qui commence soit une année où nous choisissons la lumière,<br>
                     afin de ne plus jamais tomber dans la fosse.
                 </div>
+
+                <!-- Bouton de partage en bas de la conclusion -->
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="share-button" onclick="openShareModal()" style="min-width: 250px; font-size: 1.2rem;">
+                        <span>📤</span> PARTAGER CETTE PRÉDICATION
+                    </button>
+                </div>
             </div>
         </main>
 
@@ -859,6 +1212,131 @@
             }
         }
 
+        // Gestion du modal de partage
+        function openShareModal() {
+            const modal = document.getElementById('shareModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById('shareModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Copier le lien dans le presse-papier
+        function copyToClipboard() {
+            const urlInput = document.getElementById('shareUrl');
+            urlInput.select();
+            urlInput.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(urlInput.value)
+                .then(() => {
+                    showNotification('Lien copié dans le presse-papier !');
+                })
+                .catch(err => {
+                    console.error('Erreur lors de la copie : ', err);
+                    showNotification('Erreur lors de la copie', 'error');
+                });
+        }
+
+        // Afficher une notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            
+            if (type === 'error') {
+                notification.style.background = 'var(--red-gradient)';
+                notification.querySelector('span:first-child').textContent = '❌';
+            } else {
+                notification.style.background = 'var(--green-gradient)';
+                notification.querySelector('span:first-child').textContent = '✅';
+            }
+            
+            notification.style.display = 'flex';
+            notification.classList.remove('hide');
+            
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.classList.remove('hide');
+                }, 500);
+            }, 3000);
+        }
+
+        // Fonctions de partage pour les différentes plateformes
+        function shareOnPlatform(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent("L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE - Prédication puissante");
+            const text = encodeURIComponent("Découvrez cette prédication puissante sur l'aveuglement spirituel basée sur Luc 6:39. Un message qui transformera votre vie spirituelle !");
+            
+            let shareUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=Prédication,AveuglementSpirituel,Luc639`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${text}%20${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'messenger':
+                    shareUrl = `fb-messenger://share/?link=${url}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${title}&body=${text}%0A%0ALisez cette prédication ici : ${url}`;
+                    break;
+                case 'tiktok':
+                    // TikTok n'a pas d'URL directe de partage, on utilise le copier-coller
+                    copyToClipboard();
+                    showNotification('Lien copié ! Collez-le sur TikTok');
+                    return;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                default:
+                    return;
+            }
+            
+            // Ouvrir la fenêtre de partage
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+            
+            // Fermer le modal après un délai
+            setTimeout(() => {
+                closeShareModal();
+                showNotification(`Partage sur ${platform} ouvert !`);
+            }, 500);
+        }
+
+        // Partage via l'API Web Share si disponible
+        function shareViaWebAPI() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE",
+                    text: "Découvrez cette prédication puissante sur l'aveuglement spirituel basée sur Luc 6:39.",
+                    url: window.location.href
+                })
+                .then(() => {
+                    showNotification('Partage réussi !');
+                })
+                .catch(error => {
+                    console.log('Erreur de partage :', error);
+                });
+            } else {
+                // Si l'API Web Share n'est pas disponible, ouvrir le modal
+                openShareModal();
+            }
+        }
+
         // Animation d'apparition progressive des sections
         function animateSections() {
             const sections = document.querySelectorAll('.content-section');
@@ -895,6 +1373,24 @@
                     this.style.transform = 'translateX(0)';
                 });
             });
+            
+            // Fermer le modal en cliquant à l'extérieur
+            document.getElementById('shareModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeShareModal();
+                }
+            });
+            
+            // Fermer le modal avec la touche Échap
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeShareModal();
+                }
+            });
+            
+            // Mettre à jour l'URL pour le partage avec l'URL actuelle
+            const shareUrlInput = document.getElementById('shareUrl');
+            shareUrlInput.value = window.location.href;
         });
     </script>
 </body>
