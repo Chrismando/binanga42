@@ -87,6 +87,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 180px;
+            z-index: 1001;
         }
 
         .share-button {
@@ -106,6 +107,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 180px;
             animation: sharePulse 3s infinite;
+            z-index: 1001;
         }
 
         @keyframes sharePulse {
@@ -831,7 +833,7 @@
 
     <!-- Boutons de navigation -->
     <div class="navigation-buttons">
-        <button class="back-button" onclick="window.history.back()">
+        <button class="back-button" id="backBtn">
             <span>←</span> Retour
         </button>
         <button class="share-button" onclick="openShareModal()">
@@ -1212,6 +1214,26 @@
             }
         }
 
+        // FONCTION RETOUR CORRIGÉE
+        function goBack() {
+            // Vérifier si l'utilisateur vient de l'application
+            const referrer = document.referrer;
+            
+            if (referrer && referrer.includes('index.html')) {
+                // Si l'utilisateur vient de index.html, retourner normalement
+                window.history.back();
+            } else {
+                // Sinon, rediriger vers index.html
+                // Essayer d'abord de détecter si index.html est dans le même dossier
+                try {
+                    window.location.href = 'index.html';
+                } catch (e) {
+                    // Si erreur, essayer avec un chemin relatif
+                    window.location.href = '../index.html';
+                }
+            }
+        }
+
         // Gestion du modal de partage
         function openShareModal() {
             const modal = document.getElementById('shareModal');
@@ -1350,6 +1372,9 @@
             createParticles();
             animateSections();
             
+            // CORRECTION : Ajouter l'événement au bouton retour
+            document.getElementById('backBtn').addEventListener('click', goBack);
+            
             // Effet de survol sur les cartes
             const cards = document.querySelectorAll('.section-card');
             cards.forEach(card => {
@@ -1391,6 +1416,12 @@
             // Mettre à jour l'URL pour le partage avec l'URL actuelle
             const shareUrlInput = document.getElementById('shareUrl');
             shareUrlInput.value = window.location.href;
+            
+            // Ajouter un gestionnaire pour le bouton de partage dans la conclusion
+            const conclusionShareBtn = document.querySelector('.conclusion-section .share-button');
+            if (conclusionShareBtn) {
+                conclusionShareBtn.addEventListener('click', openShareModal);
+            }
         });
     </script>
 </body>
