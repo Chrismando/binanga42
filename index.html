@@ -534,13 +534,51 @@
             50% { opacity: 0.7; }
         }
 
+        /* Section prédications */
+        .sermons-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 237, 78, 0.05));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        /* Stylisation spéciale pour les liens de prédication */
+        .sermon-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .sermon-link:hover {
+            transform: translateX(10px) translateY(-5px);
+        }
+
+        .sermon-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success-gradient);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         /* Section prière du jour */
         .prayer-section {
             background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), rgba(142, 45, 226, 0.05));
             border-radius: var(--border-radius);
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: var(--shadow);
             border: 1px solid rgba(142, 45, 226, 0.1);
         }
 
@@ -726,15 +764,6 @@
         @keyframes progressShine {
             0% { left: -20px; }
             100% { left: 100%; }
-        }
-
-        /* Section prédications */
-        .sermons-section {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 237, 78, 0.05));
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 215, 0, 0.1);
         }
 
         /* Section quiz biblique */
@@ -1522,12 +1551,25 @@
                         <h2><span class="icon">📖</span> NOS PRÉDICATIONS</h2>
                         <p class="mb-2">Explorez nos enseignements bibliques et soyez édifiés dans votre foi.</p>
                         
-                        <div class="program-item" onclick="window.location.href='aveugle.html'">
-                            <h3><span class="icon">👁️</span> L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE</h3>
-                            <p>Par Fr. Christian MANDEMBA</p>
-                            <p><strong>Thème :</strong> Luc 6:39 - Un aveugle peut-il conduire un autre aveugle ?</p>
-                            <p><em>Cliquez pour lire cette puissante prédication →</em></p>
-                        </div>
+                        <a href="aveugle.html" class="sermon-link">
+                            <div class="program-item">
+                                <div class="sermon-badge">Nouveau</div>
+                                <h3><span class="icon">👁️</span> L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE</h3>
+                                <p>Par Fr. Christian MANDEMBA</p>
+                                <p><strong>Thème :</strong> Luc 6:39 - Un aveugle peut-il conduire un autre aveugle ?</p>
+                                <p><em>Cliquez pour lire cette puissante prédication →</em></p>
+                            </div>
+                        </a>
+                        
+                        <a href="souffle.html" class="sermon-link">
+                            <div class="program-item">
+                                <div class="sermon-badge">Nouveau</div>
+                                <h3><span class="icon">🌬️</span> TEL EST, TELS NOUS SOMMES</h3>
+                                <p>Par Fr. Christian MANDEMBA</p>
+                                <p><strong>Thème :</strong> 1 Jean 4:17 - « Tel Il est, tels nous sommes dans ce monde »</p>
+                                <p><em>Cliquez pour lire cette puissante prédication →</em></p>
+                            </div>
+                        </a>
                         
                         <div class="program-item" style="opacity: 0.7; cursor: not-allowed;">
                             <h3><span class="icon">⏳</span> D'AUTRES PRÉDICATIONS À VENIR</h3>
@@ -1681,1094 +1723,1096 @@
         <p>AUJOURD'HUI VENDREDI 19 DÉCEMBRE 2025, NOUS AVONS UNE FORTE PRIÈRE À 17h00</p>
         <div class="ad-time">17h - 19h</div>
         <p><strong>THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte... »</strong></p>
-        <p>Venez nombreux pour cette puissante intercession et enseignements sur la voie sainte.</p>
-        <div class="ad-countdown">Cette annonce disparaîtra dans <span id="adCountdown">45</span> secondes</div>
-    </div>
+                        <p>Venez nombreux pour cette puissante intercession et enseignements sur la voie sainte.</p>
+                        <div class="ad-countdown">Cette annonce disparaîtra dans <span id="adCountdown">45</span> secondes</div>
+                    </div>
 
-    <!-- Script principal AVEC PARTICULES -->
-    <script>
-        // ===============================
-        // VARIABLES GLOBALES
-        // ===============================
-        let deferredPrompt = null;
-        let currentPrayerTopic = 0;
-        let prayerTimerInterval = null;
-        let prayerTimeLeft = 600;
-        let isPrayerPaused = false;
+                    <!-- Script principal AVEC PARTICULES -->
+                    <script>
+                        // ===============================
+                        // VARIABLES GLOBALES
+                        // ===============================
+                        let deferredPrompt = null;
+                        let currentPrayerTopic = 0;
+                        let prayerTimerInterval = null;
+                        let prayerTimeLeft = 600;
+                        let isPrayerPaused = false;
 
-        // Variables pour le quiz
-        let currentQuizLevel = 0;
-        let currentQuestionIndex = 0;
-        let quizScore = 0;
-        let currentLevelScore = 0;
-        let quizTimerInterval = null;
-        let quizTimeLeft = 180;
-        let isQuizActive = false;
-        let levelQuestions = [];
-        let quizCompletedLevels = 0;
+                        // Variables pour le quiz
+                        let currentQuizLevel = 0;
+                        let currentQuestionIndex = 0;
+                        let quizScore = 0;
+                        let currentLevelScore = 0;
+                        let quizTimerInterval = null;
+                        let quizTimeLeft = 180;
+                        let isQuizActive = false;
+                        let levelQuestions = [];
+                        let quizCompletedLevels = 0;
 
-        // Variables pour la publicité
-        let adInterval = null;
-        let adCountdown = 45;
-        let adCountdownInterval = null;
-        let lastAdTime = 0;
+                        // Variables pour la publicité
+                        let adInterval = null;
+                        let adCountdown = 45;
+                        let adCountdownInterval = null;
+                        let lastAdTime = 0;
 
-        // ===============================
-        // FONCTIONS D'ANIMATION PARTICULES
-        // ===============================
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            if (!particlesContainer) return;
-            
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 8 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                const startX = Math.random() * 100;
-                particle.style.left = `${startX}%`;
-                
-                const animationDuration = Math.random() * 20 + 10;
-                particle.style.animationDuration = `${animationDuration}s`;
-                
-                const animationDelay = Math.random() * 5;
-                particle.style.animationDelay = `${animationDelay}s`;
-                
-                const gradient = Math.random();
-                if (gradient < 0.33) {
-                    particle.style.background = 'rgba(106, 17, 203, 0.15)';
-                } else if (gradient < 0.66) {
-                    particle.style.background = 'rgba(37, 117, 252, 0.15)';
-                } else {
-                    particle.style.background = 'rgba(255, 215, 0, 0.15)';
-                }
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // ===============================
-        // DONNÉES DU QUIZ BIBLIQUE
-        // ===============================
-        const allQuizQuestions = [
-            // Niveau 1 (Questions 1-10) - Très facile
-            { level: 0, question: "Qui a créé l'homme ?", options: ["Noé", "Abraham", "Dieu", "Adam"], correct: 2, verse: "Genèse 1:27" },
-            { level: 0, question: "De quoi Dieu a-t-Il formé l'homme ?", options: ["D'eau", "De la poussière de la terre", "De pierre", "De bois"], correct: 1, verse: "Genèse 2:7" },
-            { level: 0, question: "Que Dieu a-t-Il insufflé dans les narines de l'homme ?", options: ["L'âme", "L'esprit", "Un souffle de vie", "La sagesse"], correct: 2, verse: "Genèse 2:7" },
-            { level: 0, question: "Quel est le rôle donné à l'homme dans le jardin ?", options: ["Se reposer", "Prier", "Cultiver et garder le jardin", "Explorer"], correct: 2, verse: "Genèse 2:15" },
-            { level: 0, question: "Comment Dieu a-t-Il créé la femme ?", options: ["À partir d'argile", "À partir d'une côte de l'homme", "À partir de rien", "À partir d'eau"], correct: 1, verse: "Genèse 2:22" },
-            { level: 0, question: "Quel commandement Dieu avait-Il donné à Adam dans le jardin ?", options: ["Ne pas manger de l'arbre de la connaissance", "Ne pas parler au serpent", "Ne pas sortir du jardin", "Ne pas toucher à l'arbre de vie"], correct: 0, verse: "Genèse 2:17" },
-            { level: 0, question: "Après le péché, de quoi Adam et Ève se sont-ils couverts ?", options: ["De peaux", "De feuilles de figuier", "De terre", "De branches"], correct: 1, verse: "Genèse 3:7" },
-            { level: 0, question: "Qui a cherché Adam après la désobéissance ?", options: ["L'ange", "Le serpent", "Dieu", "Abel"], correct: 2, verse: "Genèse 3:9" },
-            { level: 0, question: "Que Dieu a-t-Il fait d'Adam et Ève après le péché ?", options: ["Les a pardonnés", "Les a chassés du jardin", "Les a maudits", "Les a oubliés"], correct: 1, verse: "Genèse 3:23" },
-            { level: 0, question: "Quel animal parle à Ève dans le récit de la chute ?", options: ["Le lion", "Le serpent", "L'oiseau", "Le singe"], correct: 1, verse: "Genèse 3:1" },
-
-            // Niveau 2 (Questions 11-20) - Facile
-            { level: 1, question: "Quel est le métier de Caïn ?", options: ["Forgeron", "Cultivateur", "Berger", "Pêcheur"], correct: 1, verse: "Genèse 4:2" },
-            { level: 1, question: "Quel est le métier d'Abel ?", options: ["Cultivateur", "Berger", "Chasseur", "Artisan"], correct: 1, verse: "Genèse 4:2" },
-            { level: 1, question: "Que dit Dieu à Caïn après le meurtre d'Abel ?", options: ["Va-t'en", "Où est ton frère Abel ?", "Tu es maudit", "Repens-toi"], correct: 1, verse: "Genèse 4:9" },
-            { level: 1, question: "Quelle malédiction Caïn a-t-il reçue ?", options: ["Être aveugle", "Être errant et vagabond", "Ne plus parler", "Perdre sa force"], correct: 1, verse: "Genèse 4:12" },
-            { level: 1, question: "Quel signe Dieu a-t-Il mis sur Caïn ?", options: ["Une croix", "Un signe pour le protéger", "Une étoile", "Un tatouage"], correct: 1, verse: "Genèse 4:15" },
-            { level: 1, question: "Comment s'appelait le fils de Noé qui a vu la nudité de son père ?", options: ["Sem", "Japhet", "Cham", "Seth"], correct: 2, verse: "Genèse 9:22" },
-            { level: 1, question: "Quels sont les deux fils de Noé qui ont couvert leur père ?", options: ["Sem et Cham", "Sem et Japhet", "Japhet et Cham", "Caïn et Abel"], correct: 1, verse: "Genèse 9:23" },
-            { level: 1, question: "Quel est le premier animal mentionné dans l'arche ?", options: ["Le lion", "Les animaux purs et impurs", "La colombe", "Le serpent"], correct: 1, verse: "Genèse 7:2" },
-            { level: 1, question: "Quel sacrifice Noé a-t-il offert après le déluge ?", options: ["Un agneau", "Un taureau", "Un holocauste", "Une colombe"], correct: 2, verse: "Genèse 8:20" },
-            { level: 1, question: "Que Dieu a-t-Il promis concernant le déluge ?", options: ["Qu'il reviendra", "Qu'il ne détruirait plus la terre par l'eau", "Qu'il punira les méchants", "Qu'il enverra un sauveur"], correct: 1, verse: "Genèse 9:11" },
-
-            // Niveau 3 (Questions 21-30) - Moyen
-            { level: 2, question: "Comment s'appelait la ville que Dieu a épargnée lors de la destruction ?", options: ["Sodome", "Gomorrhe", "Tsoar", "Babylone"], correct: 2, verse: "Genèse 19:20" },
-            { level: 2, question: "Que regarda la femme de Lot en fuyant ?", options: ["Devant elle", "Derrière elle", "Le ciel", "Ses enfants"], correct: 1, verse: "Genèse 19:26" },
-            { level: 2, question: "Quel est le nom original de Sarah ?", options: ["Sara", "Saraï", "Rébecca", "Rachel"], correct: 1, verse: "Genèse 17:15" },
-            { level: 2, question: "Quel est le nom original d'Abraham ?", options: ["Abel", "Abram", "Adam", "Aaron"], correct: 1, verse: "Genèse 17:5" },
-            { level: 2, question: "Quel signe Dieu a-t-Il donné à Abraham pour l'alliance ?", options: ["Le sabbat", "La circoncision", "Le sacrifice", "La prière"], correct: 1, verse: "Genèse 17:10" },
-            { level: 2, question: "Quel âge avait Ismaël lors de sa circoncision ?", options: ["7 ans", "8 ans", "13 ans", "21 ans"], correct: 2, verse: "Genèse 17:25" },
-            { level: 2, question: "Quel roi Abraham a-t-il rencontré après une victoire ?", options: ["Pharaon", "Melchisédek", "Abimélec", "Nimrod"], correct: 1, verse: "Genèse 14:18" },
-            { level: 2, question: "Que fit Abraham à Melchisédek ?", options: ["Lui donna la dîme", "Lui offrit un sacrifice", "Lui demanda conseil", "Se prosterna"], correct: 0, verse: "Genèse 14:20" },
-            { level: 2, question: "Quel lien Lot avait-il avec Abraham ?", options: ["Son frère", "Son neveu", "Son cousin", "Son ami"], correct: 1, verse: "Genèse 12:5" },
-            { level: 2, question: "Où Abraham a-t-il enterré Sara ?", options: ["Dans le jardin d'Eden", "Dans la caverne de Macpéla", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 23:19" },
-
-            // Niveau 4 (Questions 31-40) - Moyen +
-            { level: 3, question: "Comment Abraham a-t-il trouvé une femme pour Isaac ?", options: ["Par une vision", "Par l'intermédiaire de son serviteur", "Par un ange", "Par son propre voyage"], correct: 1, verse: "Genèse 24:4" },
-            { level: 3, question: "Quel signe Rebecca donna-t-elle au serviteur ?", options: ["Elle lui donna à manger", "Elle lui donna à boire aux chameaux", "Elle lui offrit un cadeau", "Elle le bénit"], correct: 1, verse: "Genèse 24:19" },
-            { level: 3, question: "Combien de chameaux accompagnaient le serviteur ?", options: ["Cinq chameaux", "Dix chameaux", "Vingt chameaux", "Un chameau"], correct: 1, verse: "Genèse 24:10" },
-            { level: 3, question: "Où Isaac priait-il quand il vit Rebecca ?", options: ["Dans sa tente", "Dans les champs", "À la montagne", "Au puits"], correct: 1, verse: "Genèse 24:63" },
-            { level: 3, question: "Quelle promesse Dieu a-t-Il faite à Jacob à Béthel ?", options: ["Il serait riche", "Il serait avec lui partout", "Il aurait beaucoup d'enfants", "Il vivrait longtemps"], correct: 1, verse: "Genèse 28:15" },
-            { level: 3, question: "Combien de pierres Jacob utilisa-t-il comme oreiller ?", options: ["Une pierre", "Deux pierres", "Sept pierres", "Douze pierres"], correct: 0, verse: "Genèse 28:11" },
-            { level: 3, question: "Que versa Jacob sur la pierre à Béthel ?", options: ["De l'eau", "Du vin", "De l'huile", "Du sang"], correct: 2, verse: "Genèse 28:18" },
-            { level: 3, question: "Quel oncle a trompé Jacob ?", options: ["Abraham", "Isaac", "Laban", "Ésaü"], correct: 2, verse: "Genèse 29:25" },
-            { level: 3, question: "Combien d'années Jacob a-t-il travaillé au total pour Laban ?", options: ["7 ans", "14 ans", "20 ans", "30 ans"], correct: 2, verse: "Genèse 31:41" },
-            { level: 3, question: "Quel animal Jacob utilisait-il pour tromper Laban ?", options: ["Des brebis", "Des troupeaux tachetés et rayés", "Des chèvres", "Des bœufs"], correct: 1, verse: "Genèse 30:32" },
-
-            // Niveau 5 (Questions 41-50) - Difficile
-            { level: 4, question: "Quel fils de Jacob proposa de tuer Joseph ?", options: ["Juda", "Siméon", "Ruben", "Lévi"], correct: 2, verse: "Genèse 37:21" },
-            { level: 4, question: "Qui proposa plutôt de vendre Joseph ?", options: ["Ruben", "Juda", "Siméon", "Dan"], correct: 1, verse: "Genèse 37:26" },
-            { level: 4, question: "À combien Joseph a-t-il été vendu ?", options: ["10 pièces d'argent", "20 pièces d'argent", "30 pièces d'argent", "40 pièces d'argent"], correct: 1, verse: "Genèse 37:28" },
-            { level: 4, question: "Quel mensonge les frères ont-ils dit à Jacob ?", options: ["Qu'il était parti", "Qu'une bête avait dévoré Joseph", "Qu'il était vendu", "Qu'il était en Égypte"], correct: 1, verse: "Genèse 37:33" },
-            { level: 4, question: "Quel animal servit à tromper Jacob ?", options: ["Un agneau", "Un bouc", "Un taureau", "Un chien"], correct: 1, verse: "Genèse 37:31" },
-            { level: 4, question: "Quel don Joseph reçut-il de Dieu en Égypte ?", options: ["La force", "La richesse", "L'intelligence pour interpréter les rêves", "La beauté"], correct: 2, verse: "Genèse 41:16" },
-            { level: 4, question: "Combien d'années d'abondance y eut-il ?", options: ["Trois", "Cinq", "Sept", "Dix"], correct: 2, verse: "Genèse 41:26" },
-            { level: 4, question: "Qui administra les réserves de blé ?", options: ["Pharaon", "Potiphar", "Joseph", "Le chef des gardes"], correct: 2, verse: "Genèse 41:48" },
-            { level: 4, question: "Quel nom Pharaon donna-t-il à Joseph ?", options: ["Zaphnath-Paaneah", "Moïse", "Aaron", "Benjamin"], correct: 0, verse: "Genèse 41:45" },
-            { level: 4, question: "Comment s'appelait la femme de Joseph ?", options: ["Séphora", "Asnath", "Myriam", "Dina"], correct: 1, verse: "Genèse 41:45" },
-
-            // Niveau 6 (Questions 51-60) - Très difficile
-            { level: 5, question: "Quel est le nom du père d'Asnath ?", options: ["Potiphar", "Poti-Phéra", "Pharaon", "Jacob"], correct: 1, verse: "Genèse 41:45" },
-            { level: 5, question: "Quels sont les deux fils de Joseph ?", options: ["Ruben et Siméon", "Manassé et Éphraïm", "Juda et Benjamin", "Dan et Nephtali"], correct: 1, verse: "Genèse 41:51-52" },
-            { level: 5, question: "Lequel est né en premier ?", options: ["Manassé", "Éphraïm", "Les deux ensemble", "On ne sait pas"], correct: 0, verse: "Genèse 41:51" },
-            { level: 5, question: "Que signifie Manassé ?", options: ["Dieu m'a donné", "Dieu m'a fait oublier mes peines", "Dieu m'a béni", "Dieu m'a sauvé"], correct: 1, verse: "Genèse 41:51" },
-            { level: 5, question: "Que signifie Éphraïm ?", options: ["Dieu m'a rendu fécond", "Dieu m'a exaucé", "Dieu m'a protégé", "Dieu m'a choisi"], correct: 0, verse: "Genèse 41:52" },
-            { level: 5, question: "Combien de fois les frères de Joseph sont-ils venus en Égypte ?", options: ["Une fois", "Deux fois", "Trois fois", "Quatre fois"], correct: 1, verse: "Genèse 42-43" },
-            { level: 5, question: "Qui plaida pour Benjamin devant Joseph ?", options: ["Ruben", "Juda", "Siméon", "Lévi"], correct: 1, verse: "Genèse 44:18" },
-            { level: 5, question: "Pourquoi Joseph pleura-t-il ?", options: ["De joie", "De tristesse", "À cause de ses frères", "De fatigue"], correct: 2, verse: "Genèse 45:2" },
-            { level: 5, question: "Que Joseph reconnut-il dans son histoire ?", options: ["Le hasard", "Le plan de Dieu", "La malchance", "La justice"], correct: 1, verse: "Genèse 50:20" },
-            { level: 5, question: "Que fit Joseph à toute sa famille en Égypte ?", options: ["Les rejeta", "Les nourrit et les protégea", "Les oublia", "Les punit"], correct: 1, verse: "Genèse 47:12" },
-
-            // Niveau 7 (Questions 61-70) - Expert
-            { level: 6, question: "Quel fils de Jacob reçut la royauté ?", options: ["Ruben", "Juda", "Joseph", "Benjamin"], correct: 1, verse: "Genèse 49:10" },
-            { level: 6, question: "Quel fils de Jacob reçut une double part ?", options: ["Juda", "Ruben", "Joseph", "Lévi"], correct: 2, verse: "Genèse 48:22" },
-            { level: 6, question: "Qui bénit Jacob avant sa mort ?", options: ["Isaac", "Abraham", "Joseph", "Melchisédek"], correct: 0, verse: "Genèse 28:1" },
-            { level: 6, question: "Qui bénit les fils de Joseph ?", options: ["Isaac", "Jacob", "Joseph", "Pharaon"], correct: 1, verse: "Genèse 48:14" },
-            { level: 6, question: "Quelle main Jacob posa-t-il sur Éphraïm ?", options: ["La main gauche", "La main droite", "Les deux mains", "Aucune main"], correct: 1, verse: "Genèse 48:14" },
-            { level: 6, question: "Où Jacob est-il mort ?", options: ["En Canaan", "En Égypte", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 49:33" },
-            { level: 6, question: "Où Jacob fut-il enterré ?", options: ["En Égypte", "En Canaan", "À Ur", "À Babylone"], correct: 1, verse: "Genèse 50:13" },
-            { level: 6, question: "Qui accompagna le cortège funèbre de Jacob ?", options: ["Ses fils seulement", "Les Égyptiens seulement", "Les dignitaires d'Égypte", "Personne"], correct: 2, verse: "Genèse 50:7" },
-            { level: 6, question: "Quel message central ressort de la fin de la Genèse ?", options: ["La vengeance", "Dieu transforme le mal en bien", "La justice humaine", "La richesse"], correct: 1, verse: "Genèse 50:20" },
-            { level: 6, question: "Quel peuple naît réellement à la fin de la Genèse ?", options: ["Le peuple égyptien", "Le peuple d'Israël", "Le peuple cananéen", "Le peuple babylonien"], correct: 1, verse: "Genèse 50:24" }
-        ];
-
-        // ===============================
-        // FONCTIONS DE BASE
-        // ===============================
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function showMainButtons() {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            document.querySelector('.action-buttons').style.display = 'grid';
-            document.getElementById('programBtn').style.display = 'block';
-            document.getElementById('sermonsBtn').style.display = 'block';
-            document.getElementById('pastorBtn').style.display = 'block';
-            
-            // Animation de retour
-            const buttons = document.querySelectorAll('.action-buttons button, #programBtn, #sermonsBtn, #pastorBtn');
-            buttons.forEach((button, index) => {
-                button.style.animation = `buttonsAppear 0.8s ease-out ${index * 0.1}s both`;
-            });
-        }
-
-        function hideMainButtons() {
-            document.querySelector('.action-buttons').style.display = 'none';
-            document.getElementById('programBtn').style.display = 'none';
-            document.getElementById('sermonsBtn').style.display = 'none';
-            document.getElementById('pastorBtn').style.display = 'none';
-        }
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            hideMainButtons();
-            
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.classList.add('active-section');
-                
-                // Réinitialiser le quiz si on change de section
-                if (sectionId !== 'quizSection' && isQuizActive) {
-                    resetQuiz();
-                }
-                
-                // Animation d'entrée
-                const cards = section.querySelectorAll('.card, .prayer-section, .quiz-section, .sermons-section');
-                cards.forEach((card, index) => {
-                    card.style.animation = `sectionAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`;
-                });
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            // Supprimer les notifications existantes
-            document.querySelectorAll('.notification').forEach(notif => notif.remove());
-            
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.borderLeftColor = type === 'success' ? '#00b09b' : 
-                                               type === 'error' ? '#f5576c' : 
-                                               '#f46b45';
-            
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.5rem;">${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
-                    <span style="font-weight: 600;">${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.remove();
+                        // ===============================
+                        // FONCTIONS D'ANIMATION PARTICULES
+                        // ===============================
+                        function createParticles() {
+                            const particlesContainer = document.getElementById('particles');
+                            if (!particlesContainer) return;
+                            
+                            const particleCount = 30;
+                            
+                            for (let i = 0; i < particleCount; i++) {
+                                const particle = document.createElement('div');
+                                particle.className = 'particle';
+                                
+                                const size = Math.random() * 8 + 2;
+                                particle.style.width = `${size}px`;
+                                particle.style.height = `${size}px`;
+                                
+                                const startX = Math.random() * 100;
+                                particle.style.left = `${startX}%`;
+                                
+                                const animationDuration = Math.random() * 20 + 10;
+                                particle.style.animationDuration = `${animationDuration}s`;
+                                
+                                const animationDelay = Math.random() * 5;
+                                particle.style.animationDelay = `${animationDelay}s`;
+                                
+                                const gradient = Math.random();
+                                if (gradient < 0.33) {
+                                    particle.style.background = 'rgba(106, 17, 203, 0.15)';
+                                } else if (gradient < 0.66) {
+                                    particle.style.background = 'rgba(37, 117, 252, 0.15)';
+                                } else {
+                                    particle.style.background = 'rgba(255, 215, 0, 0.15)';
+                                }
+                                
+                                particlesContainer.appendChild(particle);
+                            }
                         }
-                    }, 500);
-                }
-            }, 4000);
-        }
 
-        // ===============================
-        // FONCTIONS POUR LE PARTAGE
-        // ===============================
-        function shareContent(type) {
-            let shareText = '';
-            let shareUrl = window.location.href;
-            
-            switch(type) {
-                case 'prayer':
-                    shareText = "🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte... »\n";
-                    shareText += "Vendredi 19 Décembre 2025\n\n";
-                    shareText += "Rejoignez-nous dans cette puissante prière pour marcher sur la voie sainte !\n\n";
-                    shareText += "#Prière #VoieSainte #Esaie358 #Bénédiction";
-                    break;
-                    
-                case 'quiz':
-                    shareText = "📖 Quiz Biblique - Le livre de la Genèse\n";
-                    shareText += "7 niveaux, 10 questions par niveau - Testez vos connaissances bibliques !\n\n";
-                    shareText += "Venez relever le défi et approfondir votre connaissance de la Parole de Dieu.\n\n";
-                    shareText += "#QuizBiblique #Genèse #Bible #ÉtudeBiblique";
-                    break;
-                    
-                case 'sermon':
-                    shareText = "📺 NOS PRÉDICATIONS - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "Découvrez la prédication : L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE\n\n";
-                    shareText += "Par Fr. Christian MANDEMBA - Thème : Luc 6:39\n";
-                    shareText += "Une réflexion profonde sur l'aveuglement spirituel et la lumière de Christ.\n\n";
-                    shareText += "#Prédication #AveuglementSpirituel #Luc639 #Enseignement";
-                    break;
-                    
-                case 'program':
-                    shareText = "📅 PROGRAMMES DE LA SEMAINE\n";
-                    shareText += "Assemblée des Saints Réunis de Binanga\n\n";
-                    shareText += "MERCREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
-                    shareText += "JEUDI : 23h - 3h - NUIT DE PRIÈRE\n";
-                    shareText += "VENDREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
-                    shareText += "SAMEDI : 8h - 12h - INTERCESSION\n";
-                    shareText += "DIMANCHE : 8h - 10h30 - CULTE D'ADORATION\n\n";
-                    shareText += "Venez nombreux ! #Programme #Culte #Prière #Église";
-                    break;
-            }
-            
-            // Vérifier si Web Share API est supporté
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Assemblée des Saints Réunis de Binanga',
-                    text: shareText,
-                    url: shareUrl
-                })
-                .then(() => {
-                    showNotification('Contenu partagé avec succès !', 'success');
-                })
-                .catch(error => {
-                    console.log('Erreur de partage:', error);
-                    fallbackShare(shareText);
-                });
-            } else {
-                fallbackShare(shareText);
-            }
-        }
+                        // ===============================
+                        // DONNÉES DU QUIZ BIBLIQUE
+                        // ===============================
+                        const allQuizQuestions = [
+                            // Niveau 1 (Questions 1-10) - Très facile
+                            { level: 0, question: "Qui a créé l'homme ?", options: ["Noé", "Abraham", "Dieu", "Adam"], correct: 2, verse: "Genèse 1:27" },
+                            { level: 0, question: "De quoi Dieu a-t-Il formé l'homme ?", options: ["D'eau", "De la poussière de la terre", "De pierre", "De bois"], correct: 1, verse: "Genèse 2:7" },
+                            { level: 0, question: "Que Dieu a-t-Il insufflé dans les narines de l'homme ?", options: ["L'âme", "L'esprit", "Un souffle de vie", "La sagesse"], correct: 2, verse: "Genèse 2:7" },
+                            { level: 0, question: "Quel est le rôle donné à l'homme dans le jardin ?", options: ["Se reposer", "Prier", "Cultiver et garder le jardin", "Explorer"], correct: 2, verse: "Genèse 2:15" },
+                            { level: 0, question: "Comment Dieu a-t-Il créé la femme ?", options: ["À partir d'argile", "À partir d'une côte de l'homme", "À partir de rien", "À partir d'eau"], correct: 1, verse: "Genèse 2:22" },
+                            { level: 0, question: "Quel commandement Dieu avait-Il donné à Adam dans le jardin ?", options: ["Ne pas manger de l'arbre de la connaissance", "Ne pas parler au serpent", "Ne pas sortir du jardin", "Ne pas toucher à l'arbre de vie"], correct: 0, verse: "Genèse 2:17" },
+                            { level: 0, question: "Après le péché, de quoi Adam et Ève se sont-ils couverts ?", options: ["De peaux", "De feuilles de figuier", "De terre", "De branches"], correct: 1, verse: "Genèse 3:7" },
+                            { level: 0, question: "Qui a cherché Adam après la désobéissance ?", options: ["L'ange", "Le serpent", "Dieu", "Abel"], correct: 2, verse: "Genèse 3:9" },
+                            { level: 0, question: "Que Dieu a-t-Il fait d'Adam et Ève après le péché ?", options: ["Les a pardonnés", "Les a chassés du jardin", "Les a maudits", "Les a oubliés"], correct: 1, verse: "Genèse 3:23" },
+                            { level: 0, question: "Quel animal parle à Ève dans le récit de la chute ?", options: ["Le lion", "Le serpent", "L'oiseau", "Le singe"], correct: 1, verse: "Genèse 3:1" },
 
-        function fallbackShare(shareText) {
-            navigator.clipboard.writeText(shareText)
-                .then(() => {
-                    showNotification('Contenu copié dans le presse-papier ! Vous pouvez maintenant le partager.', 'success');
-                })
-                .catch(err => {
-                    console.error('Erreur lors de la copie:', err);
-                    showNotification('Impossible de copier le contenu', 'error');
-                });
-        }
+                            // Niveau 2 (Questions 11-20) - Facile
+                            { level: 1, question: "Quel est le métier de Caïn ?", options: ["Forgeron", "Cultivateur", "Berger", "Pêcheur"], correct: 1, verse: "Genèse 4:2" },
+                            { level: 1, question: "Quel est le métier d'Abel ?", options: ["Cultivateur", "Berger", "Chasseur", "Artisan"], correct: 1, verse: "Genèse 4:2" },
+                            { level: 1, question: "Que dit Dieu à Caïn après le meurtre d'Abel ?", options: ["Va-t'en", "Où est ton frère Abel ?", "Tu es maudit", "Repens-toi"], correct: 1, verse: "Genèse 4:9" },
+                            { level: 1, question: "Quelle malédiction Caïn a-t-il reçue ?", options: ["Être aveugle", "Être errant et vagabond", "Ne plus parler", "Perdre sa force"], correct: 1, verse: "Genèse 4:12" },
+                            { level: 1, question: "Quel signe Dieu a-t-Il mis sur Caïn ?", options: ["Une croix", "Un signe pour le protéger", "Une étoile", "Un tatouage"], correct: 1, verse: "Genèse 4:15" },
+                            { level: 1, question: "Comment s'appelait le fils de Noé qui a vu la nudité de son père ?", options: ["Sem", "Japhet", "Cham", "Seth"], correct: 2, verse: "Genèse 9:22" },
+                            { level: 1, question: "Quels sont les deux fils de Noé qui ont couvert leur père ?", options: ["Sem et Cham", "Sem et Japhet", "Japhet et Cham", "Caïn et Abel"], correct: 1, verse: "Genèse 9:23" },
+                            { level: 1, question: "Quel est le premier animal mentionné dans l'arche ?", options: ["Le lion", "Les animaux purs et impurs", "La colombe", "Le serpent"], correct: 1, verse: "Genèse 7:2" },
+                            { level: 1, question: "Quel sacrifice Noé a-t-il offert après le déluge ?", options: ["Un agneau", "Un taureau", "Un holocauste", "Une colombe"], correct: 2, verse: "Genèse 8:20" },
+                            { level: 1, question: "Que Dieu a-t-Il promis concernant le déluge ?", options: ["Qu'il reviendra", "Qu'il ne détruirait plus la terre par l'eau", "Qu'il punira les méchants", "Qu'il enverra un sauveur"], correct: 1, verse: "Genèse 9:11" },
 
-        // ===============================
-        // FONCTIONS POUR LA SECTION PRIÈRE
-        // ===============================
-        function initializePrayerSection() {
-            const prayerTopicsDiv = document.getElementById('prayerTopics');
-            prayerTopicsDiv.innerHTML = '';
-            
-            // NOUVELLES DONNÉES DE PRIÈRE DU JOUR - VENDREDI 19 DÉCEMBRE 2025
-            const prayerData = [
-                {
-                    verse: "Psaume 145:3 - « L'Éternel est grand et très digne de louange, et sa grandeur est insondable. »",
-                    content: "Je veux que là où tu es mon frère, ma sœur, que tu puisses réaliser que sans Dieu tu n'es rien, réalise que tout ce que tu as vient de Dieu et commences déjà à le louer là où tu es. Réalises Sa grandeur et ses bienfaits, je veux que tu te laisses plonger dans les profondeurs de la louange."
-                },
-                {
-                    verse: "1 Pierre 2:24 - « Lui qui a porté lui-même nos péchés en son corps sur le bois, afin que morts aux péchés nous vivions pour la justice ; lui par les meurtrissures duquel vous avez été guéris. »",
-                    content: "Alors bien aimé je veux que tu puisses remercier Jesus pour l'œuvre de La Croix. Ce sacrifice qui a fait de nous ce que nous sommes aujourd'hui, enfants de Dieu. Dis lui merci pour tout ce qu'il a accepté à La Croix pour te sauver."
-                },
-                {
-                    verse: "Psaume 32:5 - « Je t'ai fait connaître mon péché, je n'ai pas caché mon iniquité… et tu as pardonné l'iniquité de mon péché. »",
-                    content: "Je veux maintenant que tu prennes ce temps pour lui montrer ton péché, et lui demander pardon pour tout ce que tu as fait. Humilie toi devant Dieu. Demande sa miséricorde et son pardon."
-                },
-                {
-                    verse: "Psaume 25:4-5 - « Éternel, fais-moi connaître tes voies, enseigne-moi tes sentiers. Conduis-moi dans ta vérité et instruis-moi. »",
-                    content: "Je veux que quelqu'un puisse demander à Dieu de toujours lui montrer le vrai chemin à suivre. Demande au Saint Esprit de ne pas te laisser suivre les voies du monde, ni leur influence mais que le Seigneur te garde toujours sur son chemin et ses voies."
-                },
-                {
-                    verse: "Matthieu 6:13 - « Ne nous induis pas en tentation, mais délivre-nous du malin. »",
-                    content: "Demande au Seigneur de t'aider même au milieu de la tentation que tu sois vainqueur, que l'ennemi ne réussisse pas à te détourner du plan de Dieu. Je sais que les choses sont de plus en plus difficiles, la vie est dure mais demande à Dieu que tu ne sois pas détourné à cause de tout ce que la chair te montre."
-                },
-                {
-                    verse: "Luc 17:5 - « Les apôtres dirent au Seigneur : Augmente-nous la foi. »",
-                    content: "Bien-aimé je sens que cette phrase c'est aussi ça ta prière d'aujourd'hui, alors que nous sommes réunis pour demander à Dieu de nous aider à suivre son chemin, tu dois savoir que si tu n'as pas la foi tu ne saura jamais suivre le chemin de Dieu. Alors demande à ce que Dieu puisse t'augmenter la foi. Que tu deviennes un chrétien rempli de foi."
-                },
-                {
-                    verse: "Luc 10:19 - « Voici, je vous ai donné le pouvoir de marcher sur les serpents et les scorpions, et sur toute la puissance de l'ennemi ; et rien ne pourra vous nuire. »",
-                    content: "Il y en a parmi nous qui sont restés bébé spirituel, ils racontent des histoires qui datent de 10 ans voir plus mais leur vie spirituelle c'est une vie d'un bébé car il y a des choses qui les empêchent de grandir spirituellement ou d'avancer spirituellement. Alors je veux que tu prennes le temps de chasser ce démon qui t'empêche de grandir, d'avancer spirituellement, ce démon qui te plonge toujours dans la distraction des réseaux sociaux, des amis, etc… chasse ce démon et demande au Seigneur de te libérer pour que tu le serves."
-                },
-                {
-                    verse: "1 Corinthiens 15:57 - « Mais grâces soient rendues à Dieu, qui nous donne la victoire par notre Seigneur Jésus-Christ. »",
-                    content: "Je veux maintenant que tu proclames ma victoire pour ta vie spirituelle. Remercie le Seigneur pour ce moment qu'il t'a donné. Et recommande le reste de temps entre les mains de Dieu."
-                }
-            ];
-            
-            prayerData.forEach((topic, index) => {
-                const topicDiv = document.createElement('div');
-                topicDiv.className = 'prayer-topic';
-                topicDiv.id = `prayerTopic${index}`;
-                topicDiv.innerHTML = `
-                    <div class="verse">${topic.verse}</div>
-                    <p>${topic.content}</p>
-                `;
-                prayerTopicsDiv.appendChild(topicDiv);
-            });
-            
-            updatePrayerProgress();
-        }
+                            // Niveau 3 (Questions 21-30) - Moyen
+                            { level: 2, question: "Comment s'appelait la ville que Dieu a épargnée lors de la destruction ?", options: ["Sodome", "Gomorrhe", "Tsoar", "Babylone"], correct: 2, verse: "Genèse 19:20" },
+                            { level: 2, question: "Que regarda la femme de Lot en fuyant ?", options: ["Devant elle", "Derrière elle", "Le ciel", "Ses enfants"], correct: 1, verse: "Genèse 19:26" },
+                            { level: 2, question: "Quel est le nom original de Sarah ?", options: ["Sara", "Saraï", "Rébecca", "Rachel"], correct: 1, verse: "Genèse 17:15" },
+                            { level: 2, question: "Quel est le nom original d'Abraham ?", options: ["Abel", "Abram", "Adam", "Aaron"], correct: 1, verse: "Genèse 17:5" },
+                            { level: 2, question: "Quel signe Dieu a-t-Il donné à Abraham pour l'alliance ?", options: ["Le sabbat", "La circoncision", "Le sacrifice", "La prière"], correct: 1, verse: "Genèse 17:10" },
+                            { level: 2, question: "Quel âge avait Ismaël lors de sa circoncision ?", options: ["7 ans", "8 ans", "13 ans", "21 ans"], correct: 2, verse: "Genèse 17:25" },
+                            { level: 2, question: "Quel roi Abraham a-t-il rencontré après une victoire ?", options: ["Pharaon", "Melchisédek", "Abimélec", "Nimrod"], correct: 1, verse: "Genèse 14:18" },
+                            { level: 2, question: "Que fit Abraham à Melchisédek ?", options: ["Lui donna la dîme", "Lui offrit un sacrifice", "Lui demanda conseil", "Se prosterna"], correct: 0, verse: "Genèse 14:20" },
+                            { level: 2, question: "Quel lien Lot avait-il avec Abraham ?", options: ["Son frère", "Son neveu", "Son cousin", "Son ami"], correct: 1, verse: "Genèse 12:5" },
+                            { level: 2, question: "Où Abraham a-t-il enterré Sara ?", options: ["Dans le jardin d'Eden", "Dans la caverne de Macpéla", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 23:19" },
 
-        function updatePrayerProgress() {
-            const progress = ((currentPrayerTopic) / 8) * 100;
-            const progressFill = document.getElementById('progressFill');
-            const currentTopicNumber = document.getElementById('currentTopicNumber');
-            
-            if (progressFill) {
-                progressFill.style.width = `${progress}%`;
-            }
-            if (currentTopicNumber) {
-                currentTopicNumber.textContent = currentPrayerTopic + 1;
-            }
-        }
+                            // Niveau 4 (Questions 31-40) - Moyen +
+                            { level: 3, question: "Comment Abraham a-t-il trouvé une femme pour Isaac ?", options: ["Par une vision", "Par l'intermédiaire de son serviteur", "Par un ange", "Par son propre voyage"], correct: 1, verse: "Genèse 24:4" },
+                            { level: 3, question: "Quel signe Rebecca donna-t-elle au serviteur ?", options: ["Elle lui donna à manger", "Elle lui donna à boire aux chameaux", "Elle lui offrit un cadeau", "Elle le bénit"], correct: 1, verse: "Genèse 24:19" },
+                            { level: 3, question: "Combien de chameaux accompagnaient le serviteur ?", options: ["Cinq chameaux", "Dix chameaux", "Vingt chameaux", "Un chameau"], correct: 1, verse: "Genèse 24:10" },
+                            { level: 3, question: "Où Isaac priait-il quand il vit Rebecca ?", options: ["Dans sa tente", "Dans les champs", "À la montagne", "Au puits"], correct: 1, verse: "Genèse 24:63" },
+                            { level: 3, question: "Quelle promesse Dieu a-t-Il faite à Jacob à Béthel ?", options: ["Il serait riche", "Il serait avec lui partout", "Il aurait beaucoup d'enfants", "Il vivrait longtemps"], correct: 1, verse: "Genèse 28:15" },
+                            { level: 3, question: "Combien de pierres Jacob utilisa-t-il comme oreiller ?", options: ["Une pierre", "Deux pierres", "Sept pierres", "Douze pierres"], correct: 0, verse: "Genèse 28:11" },
+                            { level: 3, question: "Que versa Jacob sur la pierre à Béthel ?", options: ["De l'eau", "Du vin", "De l'huile", "Du sang"], correct: 2, verse: "Genèse 28:18" },
+                            { level: 3, question: "Quel oncle a trompé Jacob ?", options: ["Abraham", "Isaac", "Laban", "Ésaü"], correct: 2, verse: "Genèse 29:25" },
+                            { level: 3, question: "Combien d'années Jacob a-t-il travaillé au total pour Laban ?", options: ["7 ans", "14 ans", "20 ans", "30 ans"], correct: 2, verse: "Genèse 31:41" },
+                            { level: 3, question: "Quel animal Jacob utilisait-il pour tromper Laban ?", options: ["Des brebis", "Des troupeaux tachetés et rayés", "Des chèvres", "Des bœufs"], correct: 1, verse: "Genèse 30:32" },
 
-        function startPrayer() {
-            currentPrayerTopic = 0;
-            prayerTimeLeft = 600;
-            isPrayerPaused = false;
-            
-            document.getElementById('startPrayerBtn').classList.add('hidden');
-            document.getElementById('pausePrayerBtn').classList.remove('hidden');
-            document.getElementById('finishPrayerBtn').classList.add('hidden');
-            document.getElementById('prayerClosure').classList.add('hidden');
-            document.getElementById('resumePrayerBtn').classList.add('hidden');
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const firstTopic = document.getElementById('prayerTopic0');
-            if (firstTopic) {
-                firstTopic.classList.add('active');
-            }
-            
-            updatePrayerProgress();
-            
-            startPrayerTimer();
-            
-            showNotification("Prière démarrée! 10 minutes par sujet.", 'success');
-        }
+                            // Niveau 5 (Questions 41-50) - Difficile
+                            { level: 4, question: "Quel fils de Jacob proposa de tuer Joseph ?", options: ["Juda", "Siméon", "Ruben", "Lévi"], correct: 2, verse: "Genèse 37:21" },
+                            { level: 4, question: "Qui proposa plutôt de vendre Joseph ?", options: ["Ruben", "Juda", "Siméon", "Dan"], correct: 1, verse: "Genèse 37:26" },
+                            { level: 4, question: "À combien Joseph a-t-il été vendu ?", options: ["10 pièces d'argent", "20 pièces d'argent", "30 pièces d'argent", "40 pièces d'argent"], correct: 1, verse: "Genèse 37:28" },
+                            { level: 4, question: "Quel mensonge les frères ont-ils dit à Jacob ?", options: ["Qu'il était parti", "Qu'une bête avait dévoré Joseph", "Qu'il était vendu", "Qu'il était en Égypte"], correct: 1, verse: "Genèse 37:33" },
+                            { level: 4, question: "Quel animal servit à tromper Jacob ?", options: ["Un agneau", "Un bouc", "Un taureau", "Un chien"], correct: 1, verse: "Genèse 37:31" },
+                            { level: 4, question: "Quel don Joseph reçut-il de Dieu en Égypte ?", options: ["La force", "La richesse", "L'intelligence pour interpréter les rêves", "La beauté"], correct: 2, verse: "Genèse 41:16" },
+                            { level: 4, question: "Combien d'années d'abondance y eut-il ?", options: ["Trois", "Cinq", "Sept", "Dix"], correct: 2, verse: "Genèse 41:26" },
+                            { level: 4, question: "Qui administra les réserves de blé ?", options: ["Pharaon", "Potiphar", "Joseph", "Le chef des gardes"], correct: 2, verse: "Genèse 41:48" },
+                            { level: 4, question: "Quel nom Pharaon donna-t-il à Joseph ?", options: ["Zaphnath-Paaneah", "Moïse", "Aaron", "Benjamin"], correct: 0, verse: "Genèse 41:45" },
+                            { level: 4, question: "Comment s'appelait la femme de Joseph ?", options: ["Séphora", "Asnath", "Myriam", "Dina"], correct: 1, verse: "Genèse 41:45" },
 
-        function pausePrayer() {
-            if (prayerTimerInterval) {
-                clearInterval(prayerTimerInterval);
-                prayerTimerInterval = null;
-                isPrayerPaused = true;
-                document.getElementById('pausePrayerBtn').classList.add('hidden');
-                document.getElementById('resumePrayerBtn').classList.remove('hidden');
-                document.getElementById('prayerTimer').classList.add('warning');
-                showNotification("Prière en pause", 'warning');
-            }
-        }
+                            // Niveau 6 (Questions 51-60) - Très difficile
+                            { level: 5, question: "Quel est le nom du père d'Asnath ?", options: ["Potiphar", "Poti-Phéra", "Pharaon", "Jacob"], correct: 1, verse: "Genèse 41:45" },
+                            { level: 5, question: "Quels sont les deux fils de Joseph ?", options: ["Ruben et Siméon", "Manassé et Éphraïm", "Juda et Benjamin", "Dan et Nephtali"], correct: 1, verse: "Genèse 41:51-52" },
+                            { level: 5, question: "Lequel est né en premier ?", options: ["Manassé", "Éphraïm", "Les deux ensemble", "On ne sait pas"], correct: 0, verse: "Genèse 41:51" },
+                            { level: 5, question: "Que signifie Manassé ?", options: ["Dieu m'a donné", "Dieu m'a fait oublier mes peines", "Dieu m'a béni", "Dieu m'a sauvé"], correct: 1, verse: "Genèse 41:51" },
+                            { level: 5, question: "Que signifie Éphraïm ?", options: ["Dieu m'a rendu fécond", "Dieu m'a exaucé", "Dieu m'a protégé", "Dieu m'a choisi"], correct: 0, verse: "Genèse 41:52" },
+                            { level: 5, question: "Combien de fois les frères de Joseph sont-ils venus en Égypte ?", options: ["Une fois", "Deux fois", "Trois fois", "Quatre fois"], correct: 1, verse: "Genèse 42-43" },
+                            { level: 5, question: "Qui plaida pour Benjamin devant Joseph ?", options: ["Ruben", "Juda", "Siméon", "Lévi"], correct: 1, verse: "Genèse 44:18" },
+                            { level: 5, question: "Pourquoi Joseph pleura-t-il ?", options: ["De joie", "De tristesse", "À cause de ses frères", "De fatigue"], correct: 2, verse: "Genèse 45:2" },
+                            { level: 5, question: "Que Joseph reconnut-il dans son histoire ?", options: ["Le hasard", "Le plan de Dieu", "La malchance", "La justice"], correct: 1, verse: "Genèse 50:20" },
+                            { level: 5, question: "Que fit Joseph à toute sa famille en Égypte ?", options: ["Les rejeta", "Les nourrit et les protégea", "Les oublia", "Les punit"], correct: 1, verse: "Genèse 47:12" },
 
-        function resumePrayer() {
-            if (isPrayerPaused) {
-                isPrayerPaused = false;
-                document.getElementById('resumePrayerBtn').classList.add('hidden');
-                document.getElementById('pausePrayerBtn').classList.remove('hidden');
-                document.getElementById('prayerTimer').classList.remove('warning');
-                startPrayerTimer();
-                showNotification("Prière reprise", 'success');
-            }
-        }
+                            // Niveau 7 (Questions 61-70) - Expert
+                            { level: 6, question: "Quel fils de Jacob reçut la royauté ?", options: ["Ruben", "Juda", "Joseph", "Benjamin"], correct: 1, verse: "Genèse 49:10" },
+                            { level: 6, question: "Quel fils de Jacob reçut une double part ?", options: ["Juda", "Ruben", "Joseph", "Lévi"], correct: 2, verse: "Genèse 48:22" },
+                            { level: 6, question: "Qui bénit Jacob avant sa mort ?", options: ["Isaac", "Abraham", "Joseph", "Melchisédek"], correct: 0, verse: "Genèse 28:1" },
+                            { level: 6, question: "Qui bénit les fils de Joseph ?", options: ["Isaac", "Jacob", "Joseph", "Pharaon"], correct: 1, verse: "Genèse 48:14" },
+                            { level: 6, question: "Quelle main Jacob posa-t-il sur Éphraïm ?", options: ["La main gauche", "La main droite", "Les deux mains", "Aucune main"], correct: 1, verse: "Genèse 48:14" },
+                            { level: 6, question: "Où Jacob est-il mort ?", options: ["En Canaan", "En Égypte", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 49:33" },
+                            { level: 6, question: "Où Jacob fut-il enterré ?", options: ["En Égypte", "En Canaan", "À Ur", "À Babylone"], correct: 1, verse: "Genèse 50:13" },
+                            { level: 6, question: "Qui accompagna le cortège funèbre de Jacob ?", options: ["Ses fils seulement", "Les Égyptiens seulement", "Les dignitaires d'Égypte", "Personne"], correct: 2, verse: "Genèse 50:7" },
+                            { level: 6, question: "Quel message central ressort de la fin de la Genèse ?", options: ["La vengeance", "Dieu transforme le mal en bien", "La justice humaine", "La richesse"], correct: 1, verse: "Genèse 50:20" },
+                            { level: 6, question: "Quel peuple naît réellement à la fin de la Genèse ?", options: ["Le peuple égyptien", "Le peuple d'Israël", "Le peuple cananéen", "Le peuple babylonien"], correct: 1, verse: "Genèse 50:24" }
+                        ];
 
-        function nextPrayerTopic() {
-            currentPrayerTopic++;
-            
-            if (currentPrayerTopic >= 8) {
-                finishPrayer();
-                return;
-            }
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const nextTopic = document.getElementById(`prayerTopic${currentPrayerTopic}`);
-            if (nextTopic) {
-                nextTopic.classList.add('active');
-            }
-            
-            prayerTimeLeft = 600;
-            const prayerTimer = document.getElementById('prayerTimer');
-            if (prayerTimer) {
-                prayerTimer.textContent = formatTime(prayerTimeLeft);
-                prayerTimer.classList.remove('warning');
-            }
-            
-            updatePrayerProgress();
-            
-            if (currentPrayerTopic === 7) {
-                showNotification("Dernier sujet de prière!", 'warning');
-            } else {
-                showNotification(`Sujet ${currentPrayerTopic + 1} sur 8`, 'success');
-            }
-        }
-
-        function finishPrayer() {
-            clearInterval(prayerTimerInterval);
-            prayerTimerInterval = null;
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const prayerTimer = document.getElementById('prayerTimer');
-            if (prayerTimer) {
-                prayerTimer.classList.add('hidden');
-            }
-            
-            document.getElementById('pausePrayerBtn').classList.add('hidden');
-            document.getElementById('resumePrayerBtn').classList.add('hidden');
-            document.getElementById('finishPrayerBtn').classList.add('hidden');
-            document.getElementById('prayerClosure').classList.remove('hidden');
-            
-            const progressFill = document.getElementById('progressFill');
-            if (progressFill) {
-                progressFill.style.width = '100%';
-            }
-            
-            const currentTopicNumber = document.getElementById('currentTopicNumber');
-            if (currentTopicNumber) {
-                currentTopicNumber.textContent = '8';
-            }
-            
-            showNotification("Prière terminée! Dieu vous bénisse!", 'success');
-            
-            // Animation de la section de clôture
-            const closureItems = document.querySelectorAll('#prayerClosure .message-item, #prayerClosure .reminder');
-            closureItems.forEach((item, index) => {
-                item.style.animation = `topicAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s both`;
-            });
-        }
-
-        function startPrayerTimer() {
-            clearInterval(prayerTimerInterval);
-            
-            prayerTimerInterval = setInterval(() => {
-                if (!isPrayerPaused) {
-                    prayerTimeLeft--;
-                    const prayerTimer = document.getElementById('prayerTimer');
-                    if (prayerTimer) {
-                        prayerTimer.textContent = formatTime(prayerTimeLeft);
-                    }
-                    
-                    if (prayerTimeLeft <= 30 && prayerTimeLeft > 0) {
-                        if (prayerTimer) {
-                            prayerTimer.classList.add('warning');
+                        // ===============================
+                        // FONCTIONS DE BASE
+                        // ===============================
+                        function formatTime(seconds) {
+                            const mins = Math.floor(seconds / 60);
+                            const secs = seconds % 60;
+                            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                         }
-                    }
-                    
-                    if (prayerTimeLeft <= 0) {
-                        clearInterval(prayerTimerInterval);
-                        
-                        showNotification("Temps écoulé! Passage au sujet suivant.", 'warning');
-                        
-                        if (currentPrayerTopic === 7) {
-                            document.getElementById('pausePrayerBtn').classList.add('hidden');
-                            document.getElementById('finishPrayerBtn').classList.remove('hidden');
-                        } else {
+
+                        function showMainButtons() {
+                            document.querySelectorAll('.content-section').forEach(section => {
+                                section.classList.remove('active-section');
+                            });
+                            
+                            document.querySelector('.action-buttons').style.display = 'grid';
+                            document.getElementById('programBtn').style.display = 'block';
+                            document.getElementById('sermonsBtn').style.display = 'block';
+                            document.getElementById('pastorBtn').style.display = 'block';
+                            
+                            // Animation de retour
+                            const buttons = document.querySelectorAll('.action-buttons button, #programBtn, #sermonsBtn, #pastorBtn');
+                            buttons.forEach((button, index) => {
+                                button.style.animation = `buttonsAppear 0.8s ease-out ${index * 0.1}s both`;
+                            });
+                        }
+
+                        function hideMainButtons() {
+                            document.querySelector('.action-buttons').style.display = 'none';
+                            document.getElementById('programBtn').style.display = 'none';
+                            document.getElementById('sermonsBtn').style.display = 'none';
+                            document.getElementById('pastorBtn').style.display = 'none';
+                        }
+
+                        function showSection(sectionId) {
+                            document.querySelectorAll('.content-section').forEach(section => {
+                                section.classList.remove('active-section');
+                            });
+                            
+                            hideMainButtons();
+                            
+                            const section = document.getElementById(sectionId);
+                            if (section) {
+                                section.classList.add('active-section');
+                                
+                                // Réinitialiser le quiz si on change de section
+                                if (sectionId !== 'quizSection' && isQuizActive) {
+                                    resetQuiz();
+                                }
+                                
+                                // Animation d'entrée
+                                const cards = section.querySelectorAll('.card, .prayer-section, .quiz-section, .sermons-section');
+                                cards.forEach((card, index) => {
+                                    card.style.animation = `sectionAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`;
+                                });
+                            }
+                        }
+
+                        function showNotification(message, type = 'success') {
+                            // Supprimer les notifications existantes
+                            document.querySelectorAll('.notification').forEach(notif => notif.remove());
+                            
+                            const notification = document.createElement('div');
+                            notification.className = 'notification';
+                            notification.style.borderLeftColor = type === 'success' ? '#00b09b' : 
+                                                               type === 'error' ? '#f5576c' : 
+                                                               '#f46b45';
+                            
+                            notification.innerHTML = `
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 1.5rem;">${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
+                                    <span style="font-weight: 600;">${message}</span>
+                                </div>
+                            `;
+                            
+                            document.body.appendChild(notification);
+                            
                             setTimeout(() => {
-                                nextPrayerTopic();
-                                startPrayerTimer();
-                            }, 3000);
+                                if (notification.parentNode) {
+                                    notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
+                                    setTimeout(() => {
+                                        if (notification.parentNode) {
+                                            notification.remove();
+                                        }
+                                    }, 500);
+                                }
+                            }, 4000);
                         }
-                    }
-                }
-            }, 1000);
-        }
 
-        // ===============================
-        // FONCTIONS POUR LE QUIZ
-        // ===============================
-        function initializeQuizSection() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            if (levelIndicator) {
-                levelIndicator.innerHTML = '';
-                
-                for (let i = 0; i < 7; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'level-dot';
-                    dot.id = `levelDot${i}`;
-                    levelIndicator.appendChild(dot);
-                }
-            }
-            updateLevelIndicator();
-        }
+                        // ===============================
+                        // FONCTIONS POUR LE PARTAGE
+                        // ===============================
+                        function shareContent(type) {
+                            let shareText = '';
+                            let shareUrl = window.location.href;
+                            
+                            switch(type) {
+                                case 'prayer':
+                                    shareText = "🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n";
+                                    shareText += "THÈME : ESAIE 35:8 - « Il y aura là un chemin frayé, une route, Qu'on appellera la voie sainte... »\n";
+                                    shareText += "Vendredi 19 Décembre 2025\n\n";
+                                    shareText += "Rejoignez-nous dans cette puissante prière pour marcher sur la voie sainte !\n\n";
+                                    shareText += "#Prière #VoieSainte #Esaie358 #Bénédiction";
+                                    break;
+                                    
+                                case 'quiz':
+                                    shareText = "📖 Quiz Biblique - Le livre de la Genèse\n";
+                                    shareText += "7 niveaux, 10 questions par niveau - Testez vos connaissances bibliques !\n\n";
+                                    shareText += "Venez relever le défi et approfondir votre connaissance de la Parole de Dieu.\n\n";
+                                    shareText += "#QuizBiblique #Genèse #Bible #ÉtudeBiblique";
+                                    break;
+                                    
+                                case 'sermon':
+                                    shareText = "📺 NOS PRÉDICATIONS - Assemblée des Saints Réunis de Binanga\n";
+                                    shareText += "Découvrez nos deux nouvelles prédications :\n";
+                                    shareText += "1. L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE\n";
+                                    shareText += "2. TEL EST, TELS NOUS SOMMES\n\n";
+                                    shareText += "Par Fr. Christian MANDEMBA\n";
+                                    shareText += "Des enseignements profonds pour édifier votre foi.\n\n";
+                                    shareText += "#Prédication #Enseignement #Bible #VieSpirituelle";
+                                    break;
+                                    
+                                case 'program':
+                                    shareText = "📅 PROGRAMMES DE LA SEMAINE\n";
+                                    shareText += "Assemblée des Saints Réunis de Binanga\n\n";
+                                    shareText += "MERCREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
+                                    shareText += "JEUDI : 23h - 3h - NUIT DE PRIÈRE\n";
+                                    shareText += "VENDREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
+                                    shareText += "SAMEDI : 8h - 12h - INTERCESSION\n";
+                                    shareText += "DIMANCHE : 8h - 10h30 - CULTE D'ADORATION\n\n";
+                                    shareText += "Venez nombreux ! #Programme #Culte #Prière #Église";
+                                    break;
+                            }
+                            
+                            // Vérifier si Web Share API est supporté
+                            if (navigator.share) {
+                                navigator.share({
+                                    title: 'Assemblée des Saints Réunis de Binanga',
+                                    text: shareText,
+                                    url: shareUrl
+                                })
+                                .then(() => {
+                                    showNotification('Contenu partagé avec succès !', 'success');
+                                })
+                                .catch(error => {
+                                    console.log('Erreur de partage:', error);
+                                    fallbackShare(shareText);
+                                });
+                            } else {
+                                fallbackShare(shareText);
+                            }
+                        }
 
-        function updateLevelIndicator() {
-            document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index === currentQuizLevel) {
-                    dot.classList.add('active');
-                } else if (index < currentQuizLevel) {
-                    dot.classList.add('completed');
-                }
-            });
-        }
+                        function fallbackShare(shareText) {
+                            navigator.clipboard.writeText(shareText)
+                                .then(() => {
+                                    showNotification('Contenu copié dans le presse-papier ! Vous pouvez maintenant le partager.', 'success');
+                                })
+                                .catch(err => {
+                                    console.error('Erreur lors de la copie:', err);
+                                    showNotification('Impossible de copier le contenu', 'error');
+                                });
+                        }
 
-        function getQuestionsForLevel(level) {
-            const levelQuestions = allQuizQuestions.filter(q => q.level === level);
-            return shuffleArray(levelQuestions).slice(0, 10);
-        }
+                        // ===============================
+                        // FONCTIONS POUR LA SECTION PRIÈRE
+                        // ===============================
+                        function initializePrayerSection() {
+                            const prayerTopicsDiv = document.getElementById('prayerTopics');
+                            prayerTopicsDiv.innerHTML = '';
+                            
+                            // NOUVELLES DONNÉES DE PRIÈRE DU JOUR - VENDREDI 19 DÉCEMBRE 2025
+                            const prayerData = [
+                                {
+                                    verse: "Psaume 145:3 - « L'Éternel est grand et très digne de louange, et sa grandeur est insondable. »",
+                                    content: "Je veux que là où tu es mon frère, ma sœur, que tu puisses réaliser que sans Dieu tu n'es rien, réalise que tout ce que tu as vient de Dieu et commences déjà à le louer là où tu es. Réalises Sa grandeur et ses bienfaits, je veux que tu te laisses plonger dans les profondeurs de la louange."
+                                },
+                                {
+                                    verse: "1 Pierre 2:24 - « Lui qui a porté lui-même nos péchés en son corps sur le bois, afin que morts aux péchés nous vivions pour la justice ; lui par les meurtrissures duquel vous avez été guéris. »",
+                                    content: "Alors bien aimé je veux que tu puisses remercier Jesus pour l'œuvre de La Croix. Ce sacrifice qui a fait de nous ce que nous sommes aujourd'hui, enfants de Dieu. Dis lui merci pour tout ce qu'il a accepté à La Croix pour te sauver."
+                                },
+                                {
+                                    verse: "Psaume 32:5 - « Je t'ai fait connaître mon péché, je n'ai pas caché mon iniquité… et tu as pardonné l'iniquité de mon péché. »",
+                                    content: "Je veux maintenant que tu prennes ce temps pour lui montrer ton péché, et lui demander pardon pour tout ce que tu as fait. Humilie toi devant Dieu. Demande sa miséricorde et son pardon."
+                                },
+                                {
+                                    verse: "Psaume 25:4-5 - « Éternel, fais-moi connaître tes voies, enseigne-moi tes sentiers. Conduis-moi dans ta vérité et instruis-moi. »",
+                                    content: "Je veux que quelqu'un puisse demander à Dieu de toujours lui montrer le vrai chemin à suivre. Demande au Saint Esprit de ne pas te laisser suivre les voies du monde, ni leur influence mais que le Seigneur te garde toujours sur son chemin et ses voies."
+                                },
+                                {
+                                    verse: "Matthieu 6:13 - « Ne nous induis pas en tentation, mais délivre-nous du malin. »",
+                                    content: "Demande au Seigneur de t'aider même au milieu de la tentation que tu sois vainqueur, que l'ennemi ne réussisse pas à te détourner du plan de Dieu. Je sais que les choses sont de plus en plus difficiles, la vie est dure mais demande à Dieu que tu ne sois pas détourné à cause de tout ce que la chair te montre."
+                                },
+                                {
+                                    verse: "Luc 17:5 - « Les apôtres dirent au Seigneur : Augmente-nous la foi. »",
+                                    content: "Bien-aimé je sens que cette phrase c'est aussi ça ta prière d'aujourd'hui, alors que nous sommes réunis pour demander à Dieu de nous aider à suivre son chemin, tu dois savoir que si tu n'as pas la foi tu ne saura jamais suivre le chemin de Dieu. Alors demande à ce que Dieu puisse t'augmenter la foi. Que tu deviennes un chrétien rempli de foi."
+                                },
+                                {
+                                    verse: "Luc 10:19 - « Voici, je vous ai donné le pouvoir de marcher sur les serpents et les scorpions, et sur toute la puissance de l'ennemi ; et rien ne pourra vous nuire. »",
+                                    content: "Il y en a parmi nous qui sont restés bébé spirituel, ils racontent des histoires qui datent de 10 ans voir plus mais leur vie spirituelle c'est une vie d'un bébé car il y a des choses qui les empêchent de grandir spirituellement ou d'avancer spirituellement. Alors je veux que tu prennes le temps de chasser ce démon qui t'empêche de grandir, d'avancer spirituellement, ce démon qui te plonge toujours dans la distraction des réseaux sociaux, des amis, etc… chasse ce démon et demande au Seigneur de te libérer pour que tu le serves."
+                                },
+                                {
+                                    verse: "1 Corinthiens 15:57 - « Mais grâces soient rendues à Dieu, qui nous donne la victoire par notre Seigneur Jésus-Christ. »",
+                                    content: "Je veux maintenant que tu proclames ma victoire pour ta vie spirituelle. Remercie le Seigneur pour ce moment qu'il t'a donné. Et recommande le reste de temps entre les mains de Dieu."
+                                }
+                            ];
+                            
+                            prayerData.forEach((topic, index) => {
+                                const topicDiv = document.createElement('div');
+                                topicDiv.className = 'prayer-topic';
+                                topicDiv.id = `prayerTopic${index}`;
+                                topicDiv.innerHTML = `
+                                    <div class="verse">${topic.verse}</div>
+                                    <p>${topic.content}</p>
+                                `;
+                                prayerTopicsDiv.appendChild(topicDiv);
+                            });
+                            
+                            updatePrayerProgress();
+                        }
 
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
+                        function updatePrayerProgress() {
+                            const progress = ((currentPrayerTopic) / 8) * 100;
+                            const progressFill = document.getElementById('progressFill');
+                            const currentTopicNumber = document.getElementById('currentTopicNumber');
+                            
+                            if (progressFill) {
+                                progressFill.style.width = `${progress}%`;
+                            }
+                            if (currentTopicNumber) {
+                                currentTopicNumber.textContent = currentPrayerTopic + 1;
+                            }
+                        }
 
-        function startQuiz() {
-            currentQuizLevel = 0;
-            currentQuestionIndex = 0;
-            quizScore = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            isQuizActive = true;
-            quizCompletedLevels = 0;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('startQuizBtn').classList.add('hidden');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizResults').classList.add('hidden');
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-            document.getElementById('quizTimer').classList.remove('warning');
-            
-            // Cacher tous les boutons du résultat
-            document.getElementById('continueQuizBtn').classList.add('hidden');
-            document.getElementById('retryLevelBtn').classList.add('hidden');
-            document.getElementById('finishQuizBtn').classList.add('hidden');
-            document.getElementById('restartQuizBtn').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            
-            showNotification("Quiz démarré! Niveau 1 - 3 minutes pour répondre.", 'success');
-        }
+                        function startPrayer() {
+                            currentPrayerTopic = 0;
+                            prayerTimeLeft = 600;
+                            isPrayerPaused = false;
+                            
+                            document.getElementById('startPrayerBtn').classList.add('hidden');
+                            document.getElementById('pausePrayerBtn').classList.remove('hidden');
+                            document.getElementById('finishPrayerBtn').classList.add('hidden');
+                            document.getElementById('prayerClosure').classList.add('hidden');
+                            document.getElementById('resumePrayerBtn').classList.add('hidden');
+                            
+                            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                                topic.classList.remove('active');
+                            });
+                            
+                            const firstTopic = document.getElementById('prayerTopic0');
+                            if (firstTopic) {
+                                firstTopic.classList.add('active');
+                            }
+                            
+                            updatePrayerProgress();
+                            
+                            startPrayerTimer();
+                            
+                            showNotification("Prière démarrée! 10 minutes par sujet.", 'success');
+                        }
 
-        function loadQuestion() {
-            if (currentQuestionIndex >= levelQuestions.length) {
-                evaluateLevelResults();
-                return;
-            }
-            
-            const question = levelQuestions[currentQuestionIndex];
-            
-            document.getElementById('questionText').textContent = 
-                `Niveau ${currentQuizLevel + 1} - Question ${currentQuestionIndex + 1}/10: ${question.question}`;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
-                optionDiv.onclick = () => selectAnswer(index, question.correct);
-                optionsContainer.appendChild(optionDiv);
-            });
-        }
+                        function pausePrayer() {
+                            if (prayerTimerInterval) {
+                                clearInterval(prayerTimerInterval);
+                                prayerTimerInterval = null;
+                                isPrayerPaused = true;
+                                document.getElementById('pausePrayerBtn').classList.add('hidden');
+                                document.getElementById('resumePrayerBtn').classList.remove('hidden');
+                                document.getElementById('prayerTimer').classList.add('warning');
+                                showNotification("Prière en pause", 'warning');
+                            }
+                        }
 
-        function selectAnswer(selectedIndex, correctIndex) {
-            const options = document.querySelectorAll('.option');
-            
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            options.forEach((option, index) => {
-                if (index === selectedIndex) {
-                    if (selectedIndex === correctIndex) {
-                        option.classList.add('correct');
-                        currentLevelScore++;
-                    } else {
-                        option.classList.add('incorrect');
-                        options[correctIndex].classList.add('correct');
-                    }
-                }
-                option.classList.add('selected');
-            });
-            
-            // Attendre 1 seconde avant de passer à la question suivante
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex >= levelQuestions.length) {
-                    evaluateLevelResults();
-                } else {
-                    loadQuestion();
-                }
-            }, 1000);
-        }
+                        function resumePrayer() {
+                            if (isPrayerPaused) {
+                                isPrayerPaused = false;
+                                document.getElementById('resumePrayerBtn').classList.add('hidden');
+                                document.getElementById('pausePrayerBtn').classList.remove('hidden');
+                                document.getElementById('prayerTimer').classList.remove('warning');
+                                startPrayerTimer();
+                                showNotification("Prière reprise", 'success');
+                            }
+                        }
 
-        function evaluateLevelResults() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            
-            const levelResult = document.getElementById('levelResult');
-            const resultLevelNumber = document.getElementById('resultLevelNumber');
-            const levelScore = document.getElementById('levelScore');
-            const levelMessage = document.getElementById('levelMessage');
-            
-            resultLevelNumber.textContent = currentQuizLevel + 1;
-            levelScore.textContent = `${currentLevelScore}/10`;
-            
-            // Ajouter le score du niveau au score total
-            quizScore += currentLevelScore;
-            
-            const isPerfectScore = currentLevelScore === 10;
-            
-            if (isPerfectScore) {
-                levelMessage.innerHTML = `
-                    <div class="level-message success">
-                        <strong>🎉 FÉLICITATIONS !</strong><br>
-                        Vous avez réussi le niveau ${currentQuizLevel + 1} avec un score parfait !<br>
-                        Score: ${currentLevelScore}/10<br><br>
-                        <small>Le prophète dit : "Celui qui médite la parole de Dieu jour et nuit réussira dans tout ce qu'il entreprend."</small>
-                    </div>
-                `;
-                
-                document.getElementById('continueQuizBtn').classList.remove('hidden');
-                document.getElementById('retryLevelBtn').classList.add('hidden');
-                document.getElementById('finishQuizBtn').classList.add('hidden');
-                document.getElementById('restartQuizBtn').classList.add('hidden');
-                
-                quizCompletedLevels++;
-                
-                // Mettre à jour l'indicateur de niveau
-                document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                    if (index <= currentQuizLevel) {
-                        dot.classList.add('completed');
-                    }
-                });
-                
-            } else {
-                levelMessage.innerHTML = `
-                    <div class="level-message fail">
-                        <strong>❌ Niveau non réussi</strong><br>
-                        Score: ${currentLevelScore}/10<br>
-                        <strong>Vous devez obtenir 10/10 (toutes les réponses correctes) pour passer au niveau suivant.</strong><br><br>
-                        <small>Le prophète dit : "La parole de Dieu est une lampe à nos pieds et une lumière sur notre sentier."</small>
-                    </div>
-                `;
-                
-                document.getElementById('continueQuizBtn').classList.add('hidden');
-                document.getElementById('retryLevelBtn').classList.remove('hidden');
-                document.getElementById('finishQuizBtn').classList.add('hidden');
-                document.getElementById('restartQuizBtn').classList.add('hidden');
-            }
-            
-            levelResult.classList.add('visible');
-            
-            // Afficher les boutons principaux de quiz
-            document.getElementById('quizMainControls').classList.remove('hidden');
-        }
+                        function nextPrayerTopic() {
+                            currentPrayerTopic++;
+                            
+                            if (currentPrayerTopic >= 8) {
+                                finishPrayer();
+                                return;
+                            }
+                            
+                            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                                topic.classList.remove('active');
+                            });
+                            
+                            const nextTopic = document.getElementById(`prayerTopic${currentPrayerTopic}`);
+                            if (nextTopic) {
+                                nextTopic.classList.add('active');
+                            }
+                            
+                            prayerTimeLeft = 600;
+                            const prayerTimer = document.getElementById('prayerTimer');
+                            if (prayerTimer) {
+                                prayerTimer.textContent = formatTime(prayerTimeLeft);
+                                prayerTimer.classList.remove('warning');
+                            }
+                            
+                            updatePrayerProgress();
+                            
+                            if (currentPrayerTopic === 7) {
+                                showNotification("Dernier sujet de prière!", 'warning');
+                            } else {
+                                showNotification(`Sujet ${currentPrayerTopic + 1} sur 8`, 'success');
+                            }
+                        }
 
-        function continueToNextLevel() {
-            if (currentQuizLevel >= 6) {
-                showFinalResults();
-                return;
-            }
-            
-            currentQuizLevel++;
-            currentQuestionIndex = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            isQuizActive = true;
-            
-            showNotification(`Niveau ${currentQuizLevel + 1} - 3 minutes pour répondre.`, 'success');
-        }
+                        function finishPrayer() {
+                            clearInterval(prayerTimerInterval);
+                            prayerTimerInterval = null;
+                            
+                            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                                topic.classList.remove('active');
+                            });
+                            
+                            const prayerTimer = document.getElementById('prayerTimer');
+                            if (prayerTimer) {
+                                prayerTimer.classList.add('hidden');
+                            }
+                            
+                            document.getElementById('pausePrayerBtn').classList.add('hidden');
+                            document.getElementById('resumePrayerBtn').classList.add('hidden');
+                            document.getElementById('finishPrayerBtn').classList.add('hidden');
+                            document.getElementById('prayerClosure').classList.remove('hidden');
+                            
+                            const progressFill = document.getElementById('progressFill');
+                            if (progressFill) {
+                                progressFill.style.width = '100%';
+                            }
+                            
+                            const currentTopicNumber = document.getElementById('currentTopicNumber');
+                            if (currentTopicNumber) {
+                                currentTopicNumber.textContent = '8';
+                            }
+                            
+                            showNotification("Prière terminée! Dieu vous bénisse!", 'success');
+                            
+                            // Animation de la section de clôture
+                            const closureItems = document.querySelectorAll('#prayerClosure .message-item, #prayerClosure .reminder');
+                            closureItems.forEach((item, index) => {
+                                item.style.animation = `topicAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s both`;
+                            });
+                        }
 
-        function retryLevel() {
-            currentQuestionIndex = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            isQuizActive = true;
-            
-            showNotification(`Nouvelle tentative - Niveau ${currentQuizLevel + 1}`, 'success');
-        }
+                        function startPrayerTimer() {
+                            clearInterval(prayerTimerInterval);
+                            
+                            prayerTimerInterval = setInterval(() => {
+                                if (!isPrayerPaused) {
+                                    prayerTimeLeft--;
+                                    const prayerTimer = document.getElementById('prayerTimer');
+                                    if (prayerTimer) {
+                                        prayerTimer.textContent = formatTime(prayerTimeLeft);
+                                    }
+                                    
+                                    if (prayerTimeLeft <= 30 && prayerTimeLeft > 0) {
+                                        if (prayerTimer) {
+                                            prayerTimer.classList.add('warning');
+                                        }
+                                    }
+                                    
+                                    if (prayerTimeLeft <= 0) {
+                                        clearInterval(prayerTimerInterval);
+                                        
+                                        showNotification("Temps écoulé! Passage au sujet suivant.", 'warning');
+                                        
+                                        if (currentPrayerTopic === 7) {
+                                            document.getElementById('pausePrayerBtn').classList.add('hidden');
+                                            document.getElementById('finishPrayerBtn').classList.remove('hidden');
+                                        } else {
+                                            setTimeout(() => {
+                                                nextPrayerTopic();
+                                                startPrayerTimer();
+                                            }, 3000);
+                                        }
+                                    }
+                                }
+                            }, 1000);
+                        }
 
-        function showFinalResults() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            document.getElementById('levelResult').classList.remove('visible');
-            
-            const totalPossibleScore = quizCompletedLevels * 10;
-            const percentage = totalPossibleScore > 0 ? Math.round((quizScore / totalPossibleScore) * 100) : 0;
-            
-            const resultsDiv = document.getElementById('quizResults');
-            resultsDiv.innerHTML = `
-                <div class="card">
-                    <h2>🏆 RÉSULTATS FINAUX DU QUIZ BIBLIQUE</h2>
-                    <div style="text-align: center; padding: 2rem;">
-                        <div class="level-score" style="font-size: 3rem; color: var(--gold-color);">
-                            ${quizCompletedLevels}/7
-                        </div>
-                        <p>Niveaux complétés avec succès</p>
-                        
-                        <div class="level-message ${percentage >= 100 ? 'success' : percentage >= 70 ? 'success' : 'fail'}" style="margin: 1.5rem 0;">
-                            ${quizCompletedLevels === 7 ? '🏆 CHAMPION ABSOLU ! Vous avez maîtrisé tous les niveaux de la Genèse !' : 
-                             quizCompletedLevels >= 5 ? '🌟 EXCELLENT ! Vous connaissez très bien la Genèse !' : 
-                             quizCompletedLevels >= 3 ? '👍 BON TRAVAIL ! Continuez à étudier la Parole de Dieu !' : 
-                             '📖 CONTINUEZ À ÉTUDIER ! Chaque jour dans la Parole vous rapproche de Dieu.'}
-                        </div>
-                        
-                        <div style="background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), transparent); padding: 1.5rem; border-radius: var(--border-radius); margin: 1.5rem 0; border: 1px solid rgba(106, 17, 203, 0.1);">
-                            <p><strong>Score total :</strong> ${quizScore}/${totalPossibleScore} (${percentage}%)</p>
-                            <p><strong>Niveaux réussis :</strong> ${quizCompletedLevels}/7</p>
-                            <p><strong>Temps total :</strong> ${Math.round((7 - quizCompletedLevels) * 3 + quizCompletedLevels * 3)} minutes</p>
-                        </div>
-                        
-                        <div class="quiz-controls" style="margin-top: 2rem;">
-                            <button onclick="restartQuiz()" class="btn-start">🔄 Recommencer le quiz</button>
-                            <button onclick="showMainButtons()" class="btn-finish">🏠 Retour à l'accueil</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            resultsDiv.classList.remove('hidden');
-            
-            // Animation du résultat
-            resultsDiv.style.animation = 'resultAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            
-            // Cacher les boutons principaux
-            document.getElementById('quizMainControls').classList.add('hidden');
-        }
+                        // ===============================
+                        // FONCTIONS POUR LE QUIZ
+                        // ===============================
+                        function initializeQuizSection() {
+                            const levelIndicator = document.getElementById('levelIndicator');
+                            if (levelIndicator) {
+                                levelIndicator.innerHTML = '';
+                                
+                                for (let i = 0; i < 7; i++) {
+                                    const dot = document.createElement('div');
+                                    dot.className = 'level-dot';
+                                    dot.id = `levelDot${i}`;
+                                    levelIndicator.appendChild(dot);
+                                }
+                            }
+                            updateLevelIndicator();
+                        }
 
-        function restartQuiz() {
-            currentQuizLevel = 0;
-            currentQuestionIndex = 0;
-            quizScore = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            isQuizActive = false;
-            quizCompletedLevels = 0;
-            levelQuestions = [];
-            
-            clearInterval(quizTimerInterval);
-            
-            document.getElementById('startQuizBtn').classList.remove('hidden');
-            document.getElementById('quizMainControls').classList.remove('hidden');
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizResults').classList.add('hidden');
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-            document.getElementById('quizTimer').classList.remove('warning');
-            
-            // Cacher tous les boutons du résultat
-            document.getElementById('continueQuizBtn').classList.add('hidden');
-            document.getElementById('retryLevelBtn').classList.add('hidden');
-            document.getElementById('finishQuizBtn').classList.add('hidden');
-            document.getElementById('restartQuizBtn').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            loadQuestion();
-            
-            showNotification("Quiz réinitialisé!", 'success');
-        }
+                        function updateLevelIndicator() {
+                            document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                                dot.classList.remove('active', 'completed');
+                                if (index === currentQuizLevel) {
+                                    dot.classList.add('active');
+                                } else if (index < currentQuizLevel) {
+                                    dot.classList.add('completed');
+                                }
+                            });
+                        }
 
-        function startQuizTimer() {
-            clearInterval(quizTimerInterval);
-            
-            quizTimerInterval = setInterval(() => {
-                if (isQuizActive) {
-                    quizTimeLeft--;
-                    document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-                    
-                    if (quizTimeLeft <= 30 && quizTimeLeft > 0) {
-                        document.getElementById('quizTimer').classList.add('warning');
-                    }
-                    
-                    if (quizTimeLeft <= 0) {
-                        clearInterval(quizTimerInterval);
-                        showNotification("Temps écoulé pour ce niveau!", 'error');
-                        evaluateLevelResults();
-                    }
-                }
-            }, 1000);
-        }
+                        function getQuestionsForLevel(level) {
+                            const levelQuestions = allQuizQuestions.filter(q => q.level === level);
+                            return shuffleArray(levelQuestions).slice(0, 10);
+                        }
 
-        function resetQuiz() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-        }
+                        function shuffleArray(array) {
+                            const shuffled = [...array];
+                            for (let i = shuffled.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                            }
+                            return shuffled;
+                        }
 
-        // ===============================
-        // FONCTIONS POUR LA PUBLICITÉ
-        // ===============================
-        function showAdvertisement() {
-            const currentSection = document.querySelector('.content-section.active-section');
-            const sectionId = currentSection ? currentSection.id : '';
-            
-            // Vérifier si on est dans les sections autorisées
-            const allowedSections = ['', 'programSection', 'sermonsSection']; // '' = écran d'accueil
-            
-            if (!allowedSections.includes(sectionId)) {
-                return;
-            }
-            
-            // Vérifier si assez de temps s'est écoulé depuis la dernière publicité (2 minutes)
-            const now = Date.now();
-            if (now - lastAdTime < 120000) { // 120000 ms = 2 minutes
-                return;
-            }
-            
-            lastAdTime = now;
-            adCountdown = 45;
-            
-            const adElement = document.getElementById('advertisement');
-            const adCountdownElement = document.getElementById('adCountdown');
-            
-            adElement.classList.remove('hidden');
-            adCountdownElement.textContent = adCountdown;
-            
-            // Démarrer le compte à rebours
-            clearInterval(adCountdownInterval);
-            adCountdownInterval = setInterval(() => {
-                adCountdown--;
-                adCountdownElement.textContent = adCountdown;
-                
-                if (adCountdown <= 0) {
-                    closeAd();
-                }
-            }, 1000);
-        }
+                        function startQuiz() {
+                            currentQuizLevel = 0;
+                            currentQuestionIndex = 0;
+                            quizScore = 0;
+                            currentLevelScore = 0;
+                            quizTimeLeft = 180;
+                            isQuizActive = true;
+                            quizCompletedLevels = 0;
+                            
+                            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+                            
+                            document.getElementById('startQuizBtn').classList.add('hidden');
+                            document.getElementById('quizMainControls').classList.add('hidden');
+                            document.getElementById('levelResult').classList.remove('visible');
+                            document.getElementById('quizResults').classList.add('hidden');
+                            document.getElementById('questionContainer').style.display = 'block';
+                            document.getElementById('quizTimer').style.display = 'block';
+                            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
+                            document.getElementById('quizTimer').classList.remove('warning');
+                            
+                            // Cacher tous les boutons du résultat
+                            document.getElementById('continueQuizBtn').classList.add('hidden');
+                            document.getElementById('retryLevelBtn').classList.add('hidden');
+                            document.getElementById('finishQuizBtn').classList.add('hidden');
+                            document.getElementById('restartQuizBtn').classList.add('hidden');
+                            
+                            updateLevelIndicator();
+                            
+                            loadQuestion();
+                            
+                            startQuizTimer();
+                            
+                            showNotification("Quiz démarré! Niveau 1 - 3 minutes pour répondre.", 'success');
+                        }
 
-        function closeAd() {
-            const adElement = document.getElementById('advertisement');
-            adElement.style.animation = 'adPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
-            setTimeout(() => {
-                adElement.classList.add('hidden');
-                adElement.style.animation = '';
-            }, 600);
-            clearInterval(adCountdownInterval);
-        }
+                        function loadQuestion() {
+                            if (currentQuestionIndex >= levelQuestions.length) {
+                                evaluateLevelResults();
+                                return;
+                            }
+                            
+                            const question = levelQuestions[currentQuestionIndex];
+                            
+                            document.getElementById('questionText').textContent = 
+                                `Niveau ${currentQuizLevel + 1} - Question ${currentQuestionIndex + 1}/10: ${question.question}`;
+                            
+                            const optionsContainer = document.getElementById('optionsContainer');
+                            optionsContainer.innerHTML = '';
+                            
+                            question.options.forEach((option, index) => {
+                                const optionDiv = document.createElement('div');
+                                optionDiv.className = 'option';
+                                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+                                optionDiv.onclick = () => selectAnswer(index, question.correct);
+                                optionsContainer.appendChild(optionDiv);
+                            });
+                        }
 
-        function startAdTimer() {
-            // Afficher la première publicité après 10 secondes
-            setTimeout(showAdvertisement, 10000);
-            
-            // Puis toutes les 2 minutes
-            adInterval = setInterval(showAdvertisement, 120000);
-        }
+                        function selectAnswer(selectedIndex, correctIndex) {
+                            const options = document.querySelectorAll('.option');
+                            
+                            options.forEach(option => {
+                                option.style.pointerEvents = 'none';
+                            });
+                            
+                            options.forEach((option, index) => {
+                                if (index === selectedIndex) {
+                                    if (selectedIndex === correctIndex) {
+                                        option.classList.add('correct');
+                                        currentLevelScore++;
+                                    } else {
+                                        option.classList.add('incorrect');
+                                        options[correctIndex].classList.add('correct');
+                                    }
+                                }
+                                option.classList.add('selected');
+                            });
+                            
+                            // Attendre 1 seconde avant de passer à la question suivante
+                            setTimeout(() => {
+                                currentQuestionIndex++;
+                                if (currentQuestionIndex >= levelQuestions.length) {
+                                    evaluateLevelResults();
+                                } else {
+                                    loadQuestion();
+                                }
+                            }, 1000);
+                        }
 
-        // ===============================
-        // INITIALISATION PWA
-        // ===============================
-        function initializePWA() {
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                
-                setTimeout(() => {
-                    const installBanner = document.getElementById('installBanner');
-                    if (installBanner && deferredPrompt) {
-                        installBanner.classList.remove('hidden');
-                    }
-                }, 3000);
-            });
+                        function evaluateLevelResults() {
+                            clearInterval(quizTimerInterval);
+                            isQuizActive = false;
+                            
+                            document.getElementById('questionContainer').style.display = 'none';
+                            document.getElementById('quizTimer').style.display = 'none';
+                            
+                            const levelResult = document.getElementById('levelResult');
+                            const resultLevelNumber = document.getElementById('resultLevelNumber');
+                            const levelScore = document.getElementById('levelScore');
+                            const levelMessage = document.getElementById('levelMessage');
+                            
+                            resultLevelNumber.textContent = currentQuizLevel + 1;
+                            levelScore.textContent = `${currentLevelScore}/10`;
+                            
+                            // Ajouter le score du niveau au score total
+                            quizScore += currentLevelScore;
+                            
+                            const isPerfectScore = currentLevelScore === 10;
+                            
+                            if (isPerfectScore) {
+                                levelMessage.innerHTML = `
+                                    <div class="level-message success">
+                                        <strong>🎉 FÉLICITATIONS !</strong><br>
+                                        Vous avez réussi le niveau ${currentQuizLevel + 1} avec un score parfait !<br>
+                                        Score: ${currentLevelScore}/10<br><br>
+                                        <small>Le prophète dit : "Celui qui médite la parole de Dieu jour et nuit réussira dans tout ce qu'il entreprend."</small>
+                                    </div>
+                                `;
+                                
+                                document.getElementById('continueQuizBtn').classList.remove('hidden');
+                                document.getElementById('retryLevelBtn').classList.add('hidden');
+                                document.getElementById('finishQuizBtn').classList.add('hidden');
+                                document.getElementById('restartQuizBtn').classList.add('hidden');
+                                
+                                quizCompletedLevels++;
+                                
+                                // Mettre à jour l'indicateur de niveau
+                                document.querySelectorAll('.level-dot').forEach((dot, index) => {
+                                    if (index <= currentQuizLevel) {
+                                        dot.classList.add('completed');
+                                    }
+                                });
+                                
+                            } else {
+                                levelMessage.innerHTML = `
+                                    <div class="level-message fail">
+                                        <strong>❌ Niveau non réussi</strong><br>
+                                        Score: ${currentLevelScore}/10<br>
+                                        <strong>Vous devez obtenir 10/10 (toutes les réponses correctes) pour passer au niveau suivant.</strong><br><br>
+                                        <small>Le prophète dit : "La parole de Dieu est une lampe à nos pieds et une lumière sur notre sentier."</small>
+                                    </div>
+                                `;
+                                
+                                document.getElementById('continueQuizBtn').classList.add('hidden');
+                                document.getElementById('retryLevelBtn').classList.remove('hidden');
+                                document.getElementById('finishQuizBtn').classList.add('hidden');
+                                document.getElementById('restartQuizBtn').classList.add('hidden');
+                            }
+                            
+                            levelResult.classList.add('visible');
+                            
+                            // Afficher les boutons principaux de quiz
+                            document.getElementById('quizMainControls').classList.remove('hidden');
+                        }
 
-            window.addEventListener('appinstalled', () => {
-                deferredPrompt = null;
-                const installBanner = document.getElementById('installBanner');
-                if (installBanner) {
-                    installBanner.classList.add('hidden');
-                }
-                showNotification('Application installée avec succès!', 'success');
-            });
+                        function continueToNextLevel() {
+                            if (currentQuizLevel >= 6) {
+                                showFinalResults();
+                                return;
+                            }
+                            
+                            currentQuizLevel++;
+                            currentQuestionIndex = 0;
+                            currentLevelScore = 0;
+                            quizTimeLeft = 180;
+                            
+                            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+                            
+                            document.getElementById('questionContainer').style.display = 'block';
+                            document.getElementById('quizTimer').style.display = 'block';
+                            document.getElementById('levelResult').classList.remove('visible');
+                            document.getElementById('quizMainControls').classList.add('hidden');
+                            
+                            updateLevelIndicator();
+                            
+                            loadQuestion();
+                            
+                            startQuizTimer();
+                            isQuizActive = true;
+                            
+                            showNotification(`Niveau ${currentQuizLevel + 1} - 3 minutes pour répondre.`, 'success');
+                        }
 
-            const installBannerBtn = document.getElementById('installBannerBtn');
-            if (installBannerBtn) {
-                installBannerBtn.addEventListener('click', async () => {
-                    if (!deferredPrompt) return;
-                    
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    
-                    if (outcome === 'accepted') {
-                        console.log('Utilisateur a accepté l\'installation');
-                    }
-                    deferredPrompt = null;
-                });
-            }
+                        function retryLevel() {
+                            currentQuestionIndex = 0;
+                            currentLevelScore = 0;
+                            quizTimeLeft = 180;
+                            
+                            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+                            
+                            document.getElementById('questionContainer').style.display = 'block';
+                            document.getElementById('quizTimer').style.display = 'block';
+                            document.getElementById('levelResult').classList.remove('visible');
+                            document.getElementById('quizMainControls').classList.add('hidden');
+                            
+                            loadQuestion();
+                            
+                            startQuizTimer();
+                            isQuizActive = true;
+                            
+                            showNotification(`Nouvelle tentative - Niveau ${currentQuizLevel + 1}`, 'success');
+                        }
 
-            const dismissBannerBtn = document.getElementById('dismissBannerBtn');
-            if (dismissBannerBtn) {
-                dismissBannerBtn.addEventListener('click', () => {
-                    const installBanner = document.getElementById('installBanner');
-                    if (installBanner) {
-                        installBanner.classList.add('hidden');
-                    }
-                });
-            }
-        }
+                        function showFinalResults() {
+                            clearInterval(quizTimerInterval);
+                            isQuizActive = false;
+                            
+                            document.getElementById('questionContainer').style.display = 'none';
+                            document.getElementById('quizTimer').style.display = 'none';
+                            document.getElementById('levelResult').classList.remove('visible');
+                            
+                            const totalPossibleScore = quizCompletedLevels * 10;
+                            const percentage = totalPossibleScore > 0 ? Math.round((quizScore / totalPossibleScore) * 100) : 0;
+                            
+                            const resultsDiv = document.getElementById('quizResults');
+                            resultsDiv.innerHTML = `
+                                <div class="card">
+                                    <h2>🏆 RÉSULTATS FINAUX DU QUIZ BIBLIQUE</h2>
+                                    <div style="text-align: center; padding: 2rem;">
+                                        <div class="level-score" style="font-size: 3rem; color: var(--gold-color);">
+                                            ${quizCompletedLevels}/7
+                                        </div>
+                                        <p>Niveaux complétés avec succès</p>
+                                        
+                                        <div class="level-message ${percentage >= 100 ? 'success' : percentage >= 70 ? 'success' : 'fail'}" style="margin: 1.5rem 0;">
+                                            ${quizCompletedLevels === 7 ? '🏆 CHAMPION ABSOLU ! Vous avez maîtrisé tous les niveaux de la Genèse !' : 
+                                             quizCompletedLevels >= 5 ? '🌟 EXCELLENT ! Vous connaissez très bien la Genèse !' : 
+                                             quizCompletedLevels >= 3 ? '👍 BON TRAVAIL ! Continuez à étudier la Parole de Dieu !' : 
+                                             '📖 CONTINUEZ À ÉTUDIER ! Chaque jour dans la Parole vous rapproche de Dieu.'}
+                                        </div>
+                                        
+                                        <div style="background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), transparent); padding: 1.5rem; border-radius: var(--border-radius); margin: 1.5rem 0; border: 1px solid rgba(106, 17, 203, 0.1);">
+                                            <p><strong>Score total :</strong> ${quizScore}/${totalPossibleScore} (${percentage}%)</p>
+                                            <p><strong>Niveaux réussis :</strong> ${quizCompletedLevels}/7</p>
+                                            <p><strong>Temps total :</strong> ${Math.round((7 - quizCompletedLevels) * 3 + quizCompletedLevels * 3)} minutes</p>
+                                        </div>
+                                        
+                                        <div class="quiz-controls" style="margin-top: 2rem;">
+                                            <button onclick="restartQuiz()" class="btn-start">🔄 Recommencer le quiz</button>
+                                            <button onclick="showMainButtons()" class="btn-finish">🏠 Retour à l'accueil</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            resultsDiv.classList.remove('hidden');
+                            
+                            // Animation du résultat
+                            resultsDiv.style.animation = 'resultAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                            
+                            // Cacher les boutons principaux
+                            document.getElementById('quizMainControls').classList.add('hidden');
+                        }
 
-        // ===============================
-        // INITIALISATION DE L'APPLICATION
-        // ===============================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Créer les particules
-            createParticles();
-            
-            // Initialiser PWA
-            initializePWA();
-            
-            // Initialiser les sections
-            initializePrayerSection();
-            initializeQuizSection();
-            
-            // Masquer toutes les sections de contenu au démarrage
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            // Démarrer le timer pour les publicités
-            startAdTimer();
-            
-            // Gestionnaires d'événements - Boutons principaux
-            document.getElementById('prayerBtn').addEventListener('click', function() {
-                showSection('prayerSection');
-            });
-            
-            document.getElementById('bibleQuizBtn').addEventListener('click', function() {
-                showSection('quizSection');
-            });
-            
-            document.getElementById('programBtn').addEventListener('click', function() {
-                showSection('programSection');
-            });
-            
-            document.getElementById('sermonsBtn').addEventListener('click', function() {
-                showSection('sermonsSection');
-            });
-            
-            document.getElementById('pastorBtn').addEventListener('click', function() {
-                window.open('https://wa.me/243851729059?text=Bonjour%20Pasteur,%20je%20viens%20de%20l%27application%20de%20l%27%C3%A9glise', '_blank');
-            });
-            
-            // Gestionnaires - Prière
-            document.getElementById('startPrayerBtn').addEventListener('click', startPrayer);
-            document.getElementById('pausePrayerBtn').addEventListener('click', pausePrayer);
-            document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
-            document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
-            
-            // Gestionnaires - Quiz
-            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
-            document.getElementById('continueQuizBtn').addEventListener('click', continueToNextLevel);
-            document.getElementById('retryLevelBtn').addEventListener('click', retryLevel);
-            document.getElementById('finishQuizBtn').addEventListener('click', function() {
-                showFinalResults();
-            });
-            document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
-            
-            // Effet de survol amélioré pour tous les boutons
-            const allButtons = document.querySelectorAll('button');
-            allButtons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    if (!this.disabled) {
-                        this.style.transform = 'translateY(-5px) scale(1.05)';
-                    }
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    if (!this.disabled) {
-                        this.style.transform = '';
-                    }
-                });
-            });
-        });
-    </script>
+                        function restartQuiz() {
+                            currentQuizLevel = 0;
+                            currentQuestionIndex = 0;
+                            quizScore = 0;
+                            currentLevelScore = 0;
+                            quizTimeLeft = 180;
+                            isQuizActive = false;
+                            quizCompletedLevels = 0;
+                            levelQuestions = [];
+                            
+                            clearInterval(quizTimerInterval);
+                            
+                            document.getElementById('startQuizBtn').classList.remove('hidden');
+                            document.getElementById('quizMainControls').classList.remove('hidden');
+                            document.getElementById('levelResult').classList.remove('visible');
+                            document.getElementById('quizResults').classList.add('hidden');
+                            document.getElementById('questionContainer').style.display = 'block';
+                            document.getElementById('quizTimer').style.display = 'block';
+                            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
+                            document.getElementById('quizTimer').classList.remove('warning');
+                            
+                            // Cacher tous les boutons du résultat
+                            document.getElementById('continueQuizBtn').classList.add('hidden');
+                            document.getElementById('retryLevelBtn').classList.add('hidden');
+                            document.getElementById('finishQuizBtn').classList.add('hidden');
+                            document.getElementById('restartQuizBtn').classList.add('hidden');
+                            
+                            updateLevelIndicator();
+                            
+                            levelQuestions = getQuestionsForLevel(currentQuizLevel);
+                            loadQuestion();
+                            
+                            showNotification("Quiz réinitialisé!", 'success');
+                        }
+
+                        function startQuizTimer() {
+                            clearInterval(quizTimerInterval);
+                            
+                            quizTimerInterval = setInterval(() => {
+                                if (isQuizActive) {
+                                    quizTimeLeft--;
+                                    document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
+                                    
+                                    if (quizTimeLeft <= 30 && quizTimeLeft > 0) {
+                                        document.getElementById('quizTimer').classList.add('warning');
+                                    }
+                                    
+                                    if (quizTimeLeft <= 0) {
+                                        clearInterval(quizTimerInterval);
+                                        showNotification("Temps écoulé pour ce niveau!", 'error');
+                                        evaluateLevelResults();
+                                    }
+                                }
+                            }, 1000);
+                        }
+
+                        function resetQuiz() {
+                            clearInterval(quizTimerInterval);
+                            isQuizActive = false;
+                        }
+
+                        // ===============================
+                        // FONCTIONS POUR LA PUBLICITÉ
+                        // ===============================
+                        function showAdvertisement() {
+                            const currentSection = document.querySelector('.content-section.active-section');
+                            const sectionId = currentSection ? currentSection.id : '';
+                            
+                            // Vérifier si on est dans les sections autorisées
+                            const allowedSections = ['', 'programSection', 'sermonsSection']; // '' = écran d'accueil
+                            
+                            if (!allowedSections.includes(sectionId)) {
+                                return;
+                            }
+                            
+                            // Vérifier si assez de temps s'est écoulé depuis la dernière publicité (2 minutes)
+                            const now = Date.now();
+                            if (now - lastAdTime < 120000) { // 120000 ms = 2 minutes
+                                return;
+                            }
+                            
+                            lastAdTime = now;
+                            adCountdown = 45;
+                            
+                            const adElement = document.getElementById('advertisement');
+                            const adCountdownElement = document.getElementById('adCountdown');
+                            
+                            adElement.classList.remove('hidden');
+                            adCountdownElement.textContent = adCountdown;
+                            
+                            // Démarrer le compte à rebours
+                            clearInterval(adCountdownInterval);
+                            adCountdownInterval = setInterval(() => {
+                                adCountdown--;
+                                adCountdownElement.textContent = adCountdown;
+                                
+                                if (adCountdown <= 0) {
+                                    closeAd();
+                                }
+                            }, 1000);
+                        }
+
+                        function closeAd() {
+                            const adElement = document.getElementById('advertisement');
+                            adElement.style.animation = 'adPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
+                            setTimeout(() => {
+                                adElement.classList.add('hidden');
+                                adElement.style.animation = '';
+                            }, 600);
+                            clearInterval(adCountdownInterval);
+                        }
+
+                        function startAdTimer() {
+                            // Afficher la première publicité après 10 secondes
+                            setTimeout(showAdvertisement, 10000);
+                            
+                            // Puis toutes les 2 minutes
+                            adInterval = setInterval(showAdvertisement, 120000);
+                        }
+
+                        // ===============================
+                        // INITIALISATION PWA
+                        // ===============================
+                        function initializePWA() {
+                            window.addEventListener('beforeinstallprompt', (e) => {
+                                e.preventDefault();
+                                deferredPrompt = e;
+                                
+                                setTimeout(() => {
+                                    const installBanner = document.getElementById('installBanner');
+                                    if (installBanner && deferredPrompt) {
+                                        installBanner.classList.remove('hidden');
+                                    }
+                                }, 3000);
+                            });
+
+                            window.addEventListener('appinstalled', () => {
+                                deferredPrompt = null;
+                                const installBanner = document.getElementById('installBanner');
+                                if (installBanner) {
+                                    installBanner.classList.add('hidden');
+                                }
+                                showNotification('Application installée avec succès!', 'success');
+                            });
+
+                            const installBannerBtn = document.getElementById('installBannerBtn');
+                            if (installBannerBtn) {
+                                installBannerBtn.addEventListener('click', async () => {
+                                    if (!deferredPrompt) return;
+                                    
+                                    deferredPrompt.prompt();
+                                    const { outcome } = await deferredPrompt.userChoice;
+                                    
+                                    if (outcome === 'accepted') {
+                                        console.log('Utilisateur a accepté l\'installation');
+                                    }
+                                    deferredPrompt = null;
+                                });
+                            }
+
+                            const dismissBannerBtn = document.getElementById('dismissBannerBtn');
+                            if (dismissBannerBtn) {
+                                dismissBannerBtn.addEventListener('click', () => {
+                                    const installBanner = document.getElementById('installBanner');
+                                    if (installBanner) {
+                                        installBanner.classList.add('hidden');
+                                    }
+                                });
+                            }
+                        }
+
+                        // ===============================
+                        // INITIALISATION DE L'APPLICATION
+                        // ===============================
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Créer les particules
+                            createParticles();
+                            
+                            // Initialiser PWA
+                            initializePWA();
+                            
+                            // Initialiser les sections
+                            initializePrayerSection();
+                            initializeQuizSection();
+                            
+                            // Masquer toutes les sections de contenu au démarrage
+                            document.querySelectorAll('.content-section').forEach(section => {
+                                section.classList.remove('active-section');
+                            });
+                            
+                            // Démarrer le timer pour les publicités
+                            startAdTimer();
+                            
+                            // Gestionnaires d'événements - Boutons principaux
+                            document.getElementById('prayerBtn').addEventListener('click', function() {
+                                showSection('prayerSection');
+                            });
+                            
+                            document.getElementById('bibleQuizBtn').addEventListener('click', function() {
+                                showSection('quizSection');
+                            });
+                            
+                            document.getElementById('programBtn').addEventListener('click', function() {
+                                showSection('programSection');
+                            });
+                            
+                            document.getElementById('sermonsBtn').addEventListener('click', function() {
+                                showSection('sermonsSection');
+                            });
+                            
+                            document.getElementById('pastorBtn').addEventListener('click', function() {
+                                window.open('https://wa.me/243851729059?text=Bonjour%20Pasteur,%20je%20viens%20de%20l%27application%20de%20l%27%C3%A9glise', '_blank');
+                            });
+                            
+                            // Gestionnaires - Prière
+                            document.getElementById('startPrayerBtn').addEventListener('click', startPrayer);
+                            document.getElementById('pausePrayerBtn').addEventListener('click', pausePrayer);
+                            document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
+                            document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
+                            
+                            // Gestionnaires - Quiz
+                            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+                            document.getElementById('continueQuizBtn').addEventListener('click', continueToNextLevel);
+                            document.getElementById('retryLevelBtn').addEventListener('click', retryLevel);
+                            document.getElementById('finishQuizBtn').addEventListener('click', function() {
+                                showFinalResults();
+                            });
+                            document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
+                            
+                            // Effet de survol amélioré pour tous les boutons
+                            const allButtons = document.querySelectorAll('button');
+                            allButtons.forEach(button => {
+                                button.addEventListener('mouseenter', function() {
+                                    if (!this.disabled) {
+                                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                                    }
+                                });
+                                
+                                button.addEventListener('mouseleave', function() {
+                                    if (!this.disabled) {
+                                        this.style.transform = '';
+                                    }
+                                });
+                            });
+                        });
+                    </script>
 </body>
 </html>
