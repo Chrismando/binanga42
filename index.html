@@ -720,6 +720,19 @@
             box-shadow: 0 8px 25px rgba(142, 45, 226, 0.4);
         }
 
+        .btn-next-topic {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-next-topic:hover:not(:disabled) {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+
         .prayer-progress {
             margin-top: 2rem;
             text-align: center;
@@ -1664,7 +1677,7 @@
                 </div>
             </div>
 
-            <!-- Section prière du jour - MIS À JOUR POUR SAMEDI 20 DÉCEMBRE 2025 -->
+            <!-- Section prière du jour - NOUVELLE VERSION DYNAMIQUE -->
             <div id="prayerSection" class="content-section">
                 <button class="back-button" onclick="showMainButtons()">
                     <span class="icon">←</span> Retour
@@ -1672,9 +1685,9 @@
                 
                 <div class="prayer-section">
                     <div class="prayer-header">
-                        <h2>🙏 Prière du jour - Samedi 20 Décembre 2025</h2>
-                        <p><strong>THÈME : « Je suis le bon berger. Je connais mes brebis, et elles me connaissent. »<br>
-                        <em>Jean 10:14</em></strong></p>
+                        <h2 id="prayerDayTitle">🙏 Prière du jour</h2>
+                        <p id="prayerTheme"><strong>THÈME : <span id="currentTheme"></span></strong><br>
+                        <em id="currentDate"></em></p>
                         
                         <div class="text-center mt-1">
                             <button onclick="shareContent('prayer')" class="share-button">
@@ -1685,7 +1698,7 @@
 
                     <div class="prayer-progress">
                         <div class="progress-text">
-                            Sujet <span id="currentTopicNumber">1</span> sur 6
+                            Sujet <span id="currentTopicNumber">1</span> sur 7
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
@@ -1702,6 +1715,7 @@
                         <button id="startPrayerBtn" class="btn-start">🚀 Commencer la prière</button>
                         <button id="pausePrayerBtn" class="btn-pause hidden">⏸️ Pause</button>
                         <button id="resumePrayerBtn" class="btn-resume hidden">▶️ Reprendre</button>
+                        <button id="nextTopicBtn" class="btn-next-topic hidden">⏭️ Sujet suivant</button>
                         <button id="finishPrayerBtn" class="btn-finish hidden">✅ Terminer la prière</button>
                     </div>
 
@@ -1713,7 +1727,7 @@
                         
                         <div class="reminder">
                             <h3>📢 Rappel important</h3>
-                            <p>Il y aura réunion de prière aujourd'hui à <strong>8h00 - 12h00</strong>.<br>
+                            <p id="nextProgramInfo">Il y aura réunion de prière aujourd'hui à <strong>8h00 - 12h00</strong>.<br>
                             Intercession - Tout le monde est prié d'être présent.</p>
                             <p>Que Dieu vous bénisse et vous garde.</p>
                         </div>
@@ -1777,7 +1791,7 @@
         <!-- Pied de page -->
         <footer class="footer">
             <p>© 2025 Assemblée des Saints Réunis de Binanga</p>
-            <p class="app-version">Application v3.0 - Fonctionne hors connexion</p>
+            <p class="app-version">Application v4.0 - Thèmes de prière dynamiques</p>
             <p class="creator">Créée par MandO'Tech</p>
         </footer>
     </div>
@@ -1810,6 +1824,7 @@
         let prayerTimerInterval = null;
         let prayerTimeLeft = 600;
         let isPrayerPaused = false;
+        let currentPrayerTheme = 0; // 0 pour Lundi 22, 1 pour Mardi 23
 
         // Variables pour le quiz
         let currentQuizLevel = 0;
@@ -1828,11 +1843,95 @@
         let adCountdownInterval = null;
         let lastAdTime = 0;
 
-        // Variables pour gérer la date et l'affichage dynamique
-        let currentDate = new Date();
-        let currentDay = currentDate.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
-        let currentHour = currentDate.getHours();
-        let currentMinute = currentDate.getMinutes();
+        // ===============================
+        // DONNÉES DES THÈMES DE PRIÈRE
+        // ===============================
+        const prayerThemes = [
+            {
+                date: "Lundi 22 Décembre 2025",
+                title: "Prière du jour - Lundi 22 Décembre 2025",
+                theme: "RESTER FIDÈLES À DIEU JUSQU'À LA FIN DE L'ANNÉE",
+                topics: [
+                    {
+                        verse: "Psaume 103:1",
+                        text: "« Mon âme, bénis l'Éternel, et n'oublie aucun de ses bienfaits. »",
+                        content: "Louons Dieu pour la vie, la protection et Sa fidélité tout au long de l'année."
+                    },
+                    {
+                        verse: "1 Jean 1:9",
+                        text: "« S'il nous confessons nos péchés, Il est fidèle et juste pour nous les pardonner. »",
+                        content: "Demandons pardon pour nos fautes et nos manquements, et recevons la grâce de Dieu."
+                    },
+                    {
+                        verse: "Psaume 143:10",
+                        text: "« Enseigne-moi à faire ta volonté, car tu es mon Dieu. »",
+                        content: "Prions pour obéir à Dieu et marcher selon ce qu'Il attend de nous."
+                    },
+                    {
+                        verse: "1 Corinthiens 16:13",
+                        text: "« Veillez, demeurez fermes dans la foi. »",
+                        content: "Demandons la force de rester attachés à Dieu jusqu'à la fin de l'année."
+                    },
+                    {
+                        verse: "Psaume 121:7",
+                        text: "« L'Éternel te gardera de tout mal. »",
+                        content: "Prions pour que Dieu nous protège de tout ce qui peut nous éloigner de Lui."
+                    },
+                    {
+                        verse: "Colossiens 3:15",
+                        text: "« Que la paix de Christ règne dans vos cœurs. »",
+                        content: "Demandons la paix, l'amour et l'unité dans nos familles."
+                    },
+                    {
+                        verse: "Proverbes 3:5",
+                        text: "« Confie-toi en l'Éternel de tout ton cœur. »",
+                        content: "Remettons les derniers jours de l'année entre les mains de Dieu avec confiance."
+                    }
+                ]
+            },
+            {
+                date: "Mardi 23 Décembre 2025",
+                title: "Prière du jour - Mardi 23 Décembre 2025",
+                theme: "SE PRÉPARER À ENTRER DANS UNE NOUVELLE SAISON AVEC DIEU",
+                topics: [
+                    {
+                        verse: "Jérémie 29:11",
+                        text: "« Car je connais les projets que j'ai formés sur vous. »",
+                        content: "Remercions Dieu pour l'avenir qu'Il prépare pour nous."
+                    },
+                    {
+                        verse: "Psaume 51:10",
+                        text: "« Ô Dieu, crée en moi un cœur pur. »",
+                        content: "Demandons à Dieu de purifier nos cœurs avant d'entrer dans une nouvelle saison."
+                    },
+                    {
+                        verse: "Proverbes 16:9",
+                        text: "« L'homme fait des projets, mais l'Éternel dirige ses pas. »",
+                        content: "Prions pour que Dieu nous montre la bonne direction."
+                    },
+                    {
+                        verse: "Ésaïe 40:31",
+                        text: "« Ceux qui se confient en l'Éternel renouvellent leur force. »",
+                        content: "Demandons à Dieu de renouveler notre foi et notre énergie spirituelle."
+                    },
+                    {
+                        verse: "Psaume 37:5",
+                        text: "« Recommande ton sort à l'Éternel, mets en Lui ta confiance. »",
+                        content: "Confions à Dieu nos projets et nos activités futures."
+                    },
+                    {
+                        verse: "Proverbes 22:6",
+                        text: "« Instruis l'enfant selon la voie qu'il doit suivre. »",
+                        content: "Prions pour que nos enfants marchent dans les voies de Dieu."
+                    },
+                    {
+                        verse: "Romains 15:13",
+                        text: "« Que le Dieu de l'espérance vous remplisse de toute joie et de toute paix. »",
+                        content: "Demandons à Dieu la paix et l'espérance pour les jours à venir."
+                    }
+                ]
+            }
+        ];
 
         // ===============================
         // FONCTIONS D'ANIMATION PARTICULES
@@ -2006,6 +2105,11 @@
             if (section) {
                 section.classList.add('active-section');
                 
+                // Si c'est la section de prière, initialiser avec le bon thème
+                if (sectionId === 'prayerSection') {
+                    initializePrayerSection();
+                }
+                
                 // Réinitialiser le quiz si on change de section
                 if (sectionId !== 'quizSection' && isQuizActive) {
                     resetQuiz();
@@ -2059,9 +2163,10 @@
             
             switch(type) {
                 case 'prayer':
-                    shareText = "🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "THÈME : « Je suis le bon berger. Je connais mes brebis, et elles me connaissent. » (Jean 10:14)\n";
-                    shareText += "Samedi 20 Décembre 2025\n\n";
+                    const currentTheme = prayerThemes[currentPrayerTheme];
+                    shareText = `🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n`;
+                    shareText += `THÈME : ${currentTheme.theme}\n`;
+                    shareText += `${currentTheme.date}\n\n`;
                     shareText += "Rejoignez-nous dans cette puissante prière pour connaître le Bon Berger !\n\n";
                     shareText += "#Prière #BonBerger #Jean10 #Bénédiction";
                     break;
@@ -2126,58 +2231,98 @@
         }
 
         // ===============================
-        // FONCTIONS POUR LA SECTION PRIÈRE - MIS À JOUR
+        // FONCTIONS POUR LA SECTION PRIÈRE - NOUVELLE VERSION DYNAMIQUE
         // ===============================
         function initializePrayerSection() {
+            // Déterminer le thème basé sur la date actuelle
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.getMonth() + 1; // Janvier = 0
+            
+            // Pour les tests, on peut forcer currentPrayerTheme à 0 ou 1
+            // currentPrayerTheme = 0; // Lundi 22
+            // currentPrayerTheme = 1; // Mardi 23
+            
+            // Logique réelle : si on est le 22, thème 0, si on est le 23, thème 1
+            // if (day === 22 && month === 12) {
+            //     currentPrayerTheme = 0;
+            // } else if (day === 23 && month === 12) {
+            //     currentPrayerTheme = 1;
+            // }
+            
+            // Pour démo, on utilise la date réelle
+            currentPrayerTheme = (day === 22 && month === 12) ? 0 : 1;
+            
+            const currentTheme = prayerThemes[currentPrayerTheme];
+            
+            // Mettre à jour le titre et le thème
+            document.getElementById('prayerDayTitle').textContent = `🙏 ${currentTheme.title}`;
+            document.getElementById('currentTheme').textContent = currentTheme.theme;
+            document.getElementById('currentDate').textContent = currentTheme.date;
+            
+            // Mettre à jour le texte de partage
+            updateShareButtonText();
+            
+            // Générer les sujets de prière
             const prayerTopicsDiv = document.getElementById('prayerTopics');
             prayerTopicsDiv.innerHTML = '';
             
-            // NOUVELLES DONNÉES DE PRIÈRE DU JOUR - SAMEDI 20 DÉCEMBRE 2025
-            const prayerData = [
-                {
-                    verse: "Psaume 121:7-8 - « Le Seigneur te gardera de tout mal, Il gardera ton âme ; le Seigneur gardera ton départ et ton arrivée, dès maintenant et à toujours. »",
-                    content: "REMERCIONS CELUI NE DORT JAMAIS ET QUI EST TOUJOURS LÀ POUR NOUS GARDER, POUR VEUILLEZ SUR NOS VIES. REMERCIONS LE SEIGNEUR POUR LE SOUFFLE DE VIE."
-                },
-                {
-                    verse: "Psaume 103:3 - « C'est Lui qui pardonne toutes tes iniquités, qui guérit toutes tes maladies. »",
-                    content: "NOUS ALLONS NOUS HUMILIER POUR LUI DEMANDER PARDON POUR TOUTES LES CHOSES QUE NOUS AVONS FAITES QUI N'ONT PAS PLU AU SEIGNEUR. DEMANDONS AU SEIGNEUR SA MISÉRICORDE ET SON PARDON SUR NOS VIES AINSI QUE SUR NOS FAMILLES."
-                },
-                {
-                    verse: "1 Pierre 2:25 - « Nous étions errants comme des brebis, mais maintenant nous sommes retournés vers le Berger et le Gardien de nos âmes. »",
-                    content: "ON VA DEMANDER AU SEIGNEUR D'ETRE NOTRE BERGER POUR L'ANNEE QUI COMMENCE. DIS LUI QUE TU NE VEUX PAS VIVRE COMME UNE BREBIS ÉGARÉE MAIS NOUS VOULONS VRAIMENT AVOIR LE BERGER AUPRES DE NOUS. NOUS VOULONS QUE NOS VIES DÉPENDENT DE LUI LE BERGER DANS TOUT CE QUE NOUS ALLONS FAIRE."
-                },
-                {
-                    verse: "Jean 10:14 - « Je suis le bon berger. Je connais mes brebis, et elles me connaissent. »",
-                    content: "DEMANDE AU SEIGNEUR DE T'AIDER A LE CONNAITRE NON COMME TOI TU PENSES LE CONNAITRE MAIS COMME LUI VEUT QUE TU LUI CONNAISSES. DIS AU SEIGNEUR QUE JE VEUX TE CONNAITRE ET ETRE RECONNAÎTRE LE SON DE TA VOIX."
-                },
-                {
-                    verse: "Psaume 23:1 - « L'Éternel est mon berger : je ne manquerai de rien. »",
-                    content: "DEMANDE MAINTENANT A TON BERGER DE TE DONNER CE DONT TU AS BESOIN ET DEMANDE LUI D'ELOIGNER LA PAUVRETE DANS TA MAISON, QU'IL TE COMBLE DE SES RICHESSES."
-                },
-                {
-                    verse: "Romains 8:37 - « Mais dans toutes ces choses nous sommes plus que vainqueurs par Celui qui nous a aimés. »",
-                    content: "ON PEUT MAINTENANT PROCLAMER LA VICTOIRE SUR NOS ENNEMIS. JE VEUX QUE TU PUISSES DEJA VOIR LA VICTOIRE. OUI JE SAIS QUE LA TEMPETE ET LE VENT SONT LA MAIS JE VEUX QUE TU PUISSES DEJA VOIR LA SITUATION CALME ET QUE TU PROCLAMES LE NOM DE JESUS AU DESSUS DE TOUT COMBAT."
-                }
-            ];
-            
-            prayerData.forEach((topic, index) => {
+            currentTheme.topics.forEach((topic, index) => {
                 const topicDiv = document.createElement('div');
                 topicDiv.className = 'prayer-topic';
                 topicDiv.id = `prayerTopic${index}`;
                 topicDiv.innerHTML = `
-                    <div class="verse">${topic.verse}</div>
+                    <div class="verse">
+                        <strong>${topic.verse}</strong><br>
+                        ${topic.text}
+                    </div>
                     <p>${topic.content}</p>
                 `;
                 prayerTopicsDiv.appendChild(topicDiv);
             });
             
-            // Mettre à jour le nombre total de sujets
-            document.getElementById('currentTopicNumber').textContent = 1;
+            // Réinitialiser les variables de prière
+            currentPrayerTopic = 0;
+            prayerTimeLeft = 600;
+            isPrayerPaused = false;
+            
+            // Mettre à jour l'interface
+            updatePrayerUI();
+        }
+
+        function updatePrayerUI() {
+            // Cacher tous les sujets
+            document.querySelectorAll('.prayer-topic').forEach(topic => {
+                topic.classList.remove('active');
+            });
+            
+            // Afficher le premier sujet
+            const firstTopic = document.getElementById('prayerTopic0');
+            if (firstTopic) {
+                firstTopic.classList.add('active');
+            }
+            
+            // Mettre à jour la progression
             updatePrayerProgress();
+            
+            // Réinitialiser le timer
+            const prayerTimer = document.getElementById('prayerTimer');
+            if (prayerTimer) {
+                prayerTimer.textContent = formatTime(prayerTimeLeft);
+                prayerTimer.classList.remove('warning', 'hidden');
+            }
+            
+            // Réinitialiser les boutons
+            document.getElementById('startPrayerBtn').classList.remove('hidden');
+            document.getElementById('pausePrayerBtn').classList.add('hidden');
+            document.getElementById('resumePrayerBtn').classList.add('hidden');
+            document.getElementById('nextTopicBtn').classList.add('hidden');
+            document.getElementById('finishPrayerBtn').classList.add('hidden');
+            document.getElementById('prayerClosure').classList.add('hidden');
         }
 
         function updatePrayerProgress() {
-            const progress = ((currentPrayerTopic) / 6) * 100;
+            const progress = ((currentPrayerTopic) / 7) * 100;
             const progressFill = document.getElementById('progressFill');
             const currentTopicNumber = document.getElementById('currentTopicNumber');
             
@@ -2196,6 +2341,7 @@
             
             document.getElementById('startPrayerBtn').classList.add('hidden');
             document.getElementById('pausePrayerBtn').classList.remove('hidden');
+            document.getElementById('nextTopicBtn').classList.remove('hidden');
             document.getElementById('finishPrayerBtn').classList.add('hidden');
             document.getElementById('prayerClosure').classList.add('hidden');
             document.getElementById('resumePrayerBtn').classList.add('hidden');
@@ -2242,7 +2388,7 @@
         function nextPrayerTopic() {
             currentPrayerTopic++;
             
-            if (currentPrayerTopic >= 6) {
+            if (currentPrayerTopic >= 7) {
                 finishPrayer();
                 return;
             }
@@ -2265,10 +2411,12 @@
             
             updatePrayerProgress();
             
-            if (currentPrayerTopic === 5) {
-                showNotification("Dernier sujet de prière!", 'warning');
+            if (currentPrayerTopic === 6) {
+                document.getElementById('nextTopicBtn').classList.add('hidden');
+                document.getElementById('finishPrayerBtn').classList.remove('hidden');
+                showNotification("Dernier sujet de prière! Terminez quand vous êtes prêt.", 'warning');
             } else {
-                showNotification(`Sujet ${currentPrayerTopic + 1} sur 6`, 'success');
+                showNotification(`Sujet ${currentPrayerTopic + 1} sur 7`, 'success');
             }
         }
 
@@ -2287,6 +2435,7 @@
             
             document.getElementById('pausePrayerBtn').classList.add('hidden');
             document.getElementById('resumePrayerBtn').classList.add('hidden');
+            document.getElementById('nextTopicBtn').classList.add('hidden');
             document.getElementById('finishPrayerBtn').classList.add('hidden');
             document.getElementById('prayerClosure').classList.remove('hidden');
             
@@ -2297,7 +2446,7 @@
             
             const currentTopicNumber = document.getElementById('currentTopicNumber');
             if (currentTopicNumber) {
-                currentTopicNumber.textContent = '6';
+                currentTopicNumber.textContent = '7';
             }
             
             showNotification("Prière terminée! Dieu vous bénisse!", 'success');
@@ -2329,20 +2478,24 @@
                     if (prayerTimeLeft <= 0) {
                         clearInterval(prayerTimerInterval);
                         
-                        showNotification("Temps écoulé! Passage au sujet suivant.", 'warning');
+                        showNotification("Temps écoulé! Vous pouvez passer au sujet suivant.", 'warning');
                         
-                        if (currentPrayerTopic === 5) {
+                        if (currentPrayerTopic === 6) {
                             document.getElementById('pausePrayerBtn').classList.add('hidden');
+                            document.getElementById('nextTopicBtn').classList.add('hidden');
                             document.getElementById('finishPrayerBtn').classList.remove('hidden');
-                        } else {
-                            setTimeout(() => {
-                                nextPrayerTopic();
-                                startPrayerTimer();
-                            }, 3000);
                         }
                     }
                 }
             }, 1000);
+        }
+
+        function updateShareButtonText() {
+            const currentTheme = prayerThemes[currentPrayerTheme];
+            const shareButton = document.querySelector('#prayerSection .share-button');
+            if (shareButton) {
+                shareButton.innerHTML = `<span class="icon">📤</span> Partager la prière du ${currentTheme.date.split(' ')[0]}`;
+            }
         }
 
         // ===============================
@@ -2883,95 +3036,6 @@
         }
 
         // ===============================
-        // FONCTION POUR METTRE À JOUR LE PROGRAMME DYNAMIQUEMENT
-        // ===============================
-        function updateProgramBasedOnDate() {
-            const today = new Date();
-            const day = today.getDate();
-            const month = today.getMonth() + 1;
-            const year = today.getFullYear();
-            const hour = today.getHours();
-            const minute = today.getMinutes();
-            
-            // Vérifier si on est après dimanche 21 décembre 2025 10h30
-            const isAfterSunday1030 = (year === 2025 && month === 12 && day >= 22) || 
-                                     (year === 2025 && month === 12 && day === 21 && hour >= 10 && minute >= 30);
-            
-            const programSection = document.getElementById('programSection');
-            if (!programSection) return;
-            
-            const programContent = programSection.querySelector('.content');
-            if (!programContent) return;
-            
-            if (isAfterSunday1030) {
-                // Mettre à jour le programme pour afficher les nuits de prière
-                programContent.innerHTML = `
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> LUNDI 22 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> MARDI 23 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> MERCREDI 24 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> JEUDI 25 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> VENDREDI 26 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> SAMEDI 27 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> DIMANCHE 28 DÉCEMBRE</h3>
-                        <p><span class="program-time">00h00 - 3h00 :</span> NUIT DE PRIÈRE - Alpha et Oméga</p>
-                        <p><span class="program-time">8h00 - 10h30 :</span> CULTE D'ADORATION</p>
-                    </div>
-                    <div class="reminder" style="margin-top: 1.5rem;">
-                        <h3>✨ SÉRIE "21 HEURES AVEC JESUS" ✨</h3>
-                        <p><strong>THÈME : ALPHA ET OMÉGA</strong><br>
-                        <em>« Je suis l'alpha et l'oméga, le premier et le dernier, le commencement et la fin. »</em><br>
-                        <strong>Apocalypse 22:13</strong></p>
-                        <p>Une semaine complète de prières nocturnes pour terminer l'année dans la présence de Dieu !</p>
-                    </div>
-                `;
-            } else {
-                // Afficher le programme régulier
-                programContent.innerHTML = `
-                    <div class="program-item">
-                        <h3><span class="icon">⏰</span> MERCREDI</h3>
-                        <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🌙</span> JEUDI</h3>
-                        <p><span class="program-time">23h - 3h :</span> NUIT DE PRIÈRE</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">⏰</span> VENDREDI</h3>
-                        <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">🙏</span> SAMEDI</h3>
-                        <p><span class="program-time">8h - 12h :</span> INTERCESSION</p>
-                    </div>
-                    <div class="program-item">
-                        <h3><span class="icon">✝</span> DIMANCHE</h3>
-                        <p><span class="program-time">8h - 10h30 :</span> CULTE D'ADORATION</p>
-                        <p><em>Thème : Alpha et Oméga (Apocalypse 22:13)</em></p>
-                    </div>
-                `;
-            }
-        }
-
-        // ===============================
         // INITIALISATION DE L'APPLICATION
         // ===============================
         document.addEventListener('DOMContentLoaded', function() {
@@ -2984,9 +3048,6 @@
             // Initialiser les sections
             initializePrayerSection();
             initializeQuizSection();
-            
-            // Mettre à jour le programme en fonction de la date
-            updateProgramBasedOnDate();
             
             // Masquer toutes les sections de contenu au démarrage
             document.querySelectorAll('.content-section').forEach(section => {
@@ -3021,6 +3082,7 @@
             document.getElementById('startPrayerBtn').addEventListener('click', startPrayer);
             document.getElementById('pausePrayerBtn').addEventListener('click', pausePrayer);
             document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
+            document.getElementById('nextTopicBtn').addEventListener('click', nextPrayerTopic);
             document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
             
             // Gestionnaires - Quiz
@@ -3047,6 +3109,19 @@
                     }
                 });
             });
+            
+            // Afficher un message de bienvenue
+            setTimeout(() => {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.getMonth() + 1;
+                
+                if (day === 22 && month === 12) {
+                    showNotification("Aujourd'hui : Prière du Lundi 22 Décembre - Rester fidèles à Dieu", 'success');
+                } else if (day === 23 && month === 12) {
+                    showNotification("Aujourd'hui : Prière du Mardi 23 Décembre - Se préparer pour une nouvelle saison", 'success');
+                }
+            }, 2000);
         });
     </script>
 </body>
