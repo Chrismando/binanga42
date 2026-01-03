@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#6a11cb">
+    <meta name="theme-color" content="#8B4513">
+    <title>Assemblée des Saints Réunis de Binanga</title>
     
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EK7FF535EK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,12 +15,10 @@
       gtag('config', 'G-EK7FF535EK');
     </script>
     
-    <!-- Manifest pour PWA -->
+    <!-- Manifest PWA -->
     <link rel="manifest" href="manifest.json">
     
-    <title>Assemblée des Saints Réunis de Binanga</title>
-    
-    <!-- Service Worker Registration -->
+    <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -32,1249 +31,528 @@
         }
     </script>
     
+    <!-- Styles -->
     <style>
-        /* Variables CSS - NOUVEAU DESIGN MAGNIFIQUE */
+        /* =============================== */
+        /* VARIABLES CSS - DESIGN ÉGLISE ANCIENNE */
+        /* =============================== */
         :root {
-            --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FFED4E 100%);
-            --purple-gradient: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
-            --success-gradient: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-            --warning-gradient: linear-gradient(135deg, #f46b45 0%, #eea849 100%);
-            --light-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --dark-bg: linear-gradient(135deg, #232526 0%, #414345 100%);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.25);
-            --border-radius: 20px;
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gold-primary: #D4AF37;
+            --gold-secondary: #FFD700;
+            --gold-light: #FFF8DC;
+            --bronze-dark: #8B4513;
+            --bronze-medium: #A0522D;
+            --bronze-light: #DEB887;
+            --stained-glass-blue: #1E3A8A;
+            --stained-glass-purple: #4C1D95;
+            --stained-glass-red: #991B1B;
+            --stained-glass-green: #065F46;
+            --parchment: #F5EEDC;
+            --parchment-dark: #E8D5B5;
+            --stone-gray: #6B7280;
+            --stone-dark: #374151;
+            --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s ease;
         }
 
-        /* Reset et styles de base */
+        /* =============================== */
+        /* RESET ET STYLES DE BASE */
+        /* =============================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Crimson Text', 'Times New Roman', serif;
             line-height: 1.8;
-            color: #333;
-            background: var(--light-bg);
+            color: #2C1810;
+            background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
             min-height: 100vh;
+            position: relative;
             overflow-x: hidden;
-            animation: gradientBackground 20s ease infinite;
-            background-size: 400% 400%;
         }
 
-        @keyframes gradientBackground {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.05) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.03) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
+        /* =============================== */
+        /* CONTENEUR PRINCIPAL */
+        /* =============================== */
         .container {
             max-width: 100%;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
         }
 
-        /* En-tête avec effet verre */
+        /* =============================== */
+        /* EN-TÊTE - DESIGN VITRAIL */
+        /* =============================== */
         .header {
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, 
+                var(--stained-glass-purple) 0%,
+                var(--stained-glass-blue) 25%,
+                var(--stained-glass-green) 50%,
+                var(--stained-glass-red) 75%,
+                var(--bronze-dark) 100%);
             color: white;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             text-align: center;
-            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
-            min-height: 280px;
+            min-height: 320px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            animation: headerGlow 8s ease-in-out infinite alternate;
+            animation: stainedGlassGlow 8s ease-in-out infinite alternate;
+            box-shadow: var(--shadow-heavy);
+            border-bottom: 8px solid var(--gold-primary);
         }
 
-        @keyframes headerGlow {
-            0% { box-shadow: 0 10px 40px rgba(106, 17, 203, 0.4); }
-            100% { box-shadow: 0 10px 60px rgba(37, 117, 252, 0.6); }
+        @keyframes stainedGlassGlow {
+            0% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            100% { 
+                background-position: 100% 50%;
+                filter: brightness(1.1);
+            }
         }
 
         .header::before {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.1) 50%, transparent 80%),
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
             z-index: 1;
         }
 
         .logo-container {
             position: relative;
-            z-index: 3;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            animation: floatLogo 6s ease-in-out infinite;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            animation: floatHoly 6s ease-in-out infinite;
         }
 
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+        @keyframes floatHoly {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5));
+            }
+            50% { 
+                transform: translateY(-15px) rotate(1deg);
+                filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.8));
+            }
         }
 
-        /* Logo avec effet néon */
         .church-logo {
-            width: 220px;
-            height: 220px;
+            width: 180px;
+            height: 180px;
             object-fit: contain;
             border-radius: 50%;
-            border: 6px solid rgba(255, 255, 255, 0.3);
+            border: 6px solid var(--gold-primary);
+            background: rgba(255, 255, 255, 0.95);
             box-shadow: 
-                0 0 30px rgba(255, 215, 0, 0.6),
-                0 0 60px rgba(255, 215, 0, 0.3),
-                0 0 90px rgba(255, 215, 0, 0.1),
-                inset 0 0 40px rgba(255, 255, 255, 0.2);
+                0 0 30px rgba(212, 175, 55, 0.8),
+                0 0 60px rgba(212, 175, 55, 0.4),
+                0 0 90px rgba(212, 175, 55, 0.2),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
             position: relative;
-            background: white;
-            animation: logoPulse 4s ease-in-out infinite, logoRotate 20s linear infinite;
-            transition: var(--transition);
+            animation: holyGlow 4s ease-in-out infinite;
+            transition: var(--transition-smooth);
         }
 
-        @keyframes logoPulse {
+        @keyframes holyGlow {
             0%, 100% { 
                 box-shadow: 
-                    0 0 30px rgba(255, 215, 0, 0.6),
-                    0 0 60px rgba(255, 215, 0, 0.3),
-                    0 0 90px rgba(255, 215, 0, 0.1),
-                    inset 0 0 40px rgba(255, 255, 255, 0.2);
-                transform: scale(1);
+                    0 0 30px rgba(212, 175, 55, 0.8),
+                    0 0 60px rgba(212, 175, 55, 0.4),
+                    0 0 90px rgba(212, 175, 55, 0.2),
+                    inset 0 0 40px rgba(255, 255, 255, 0.3);
             }
             50% { 
                 box-shadow: 
-                    0 0 40px rgba(255, 215, 0, 0.8),
-                    0 0 80px rgba(255, 215, 0, 0.4),
-                    0 0 120px rgba(255, 215, 0, 0.2),
-                    inset 0 0 50px rgba(255, 255, 255, 0.3);
-                transform: scale(1.05);
+                    0 0 40px rgba(212, 175, 55, 1),
+                    0 0 80px rgba(212, 175, 55, 0.6),
+                    0 0 120px rgba(212, 175, 55, 0.3),
+                    inset 0 0 50px rgba(255, 255, 255, 0.4);
             }
-        }
-
-        @keyframes logoRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .logo-placeholder {
-            width: 220px;
-            height: 220px;
+            width: 180px;
+            height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6rem;
-            color: white;
-            background: var(--gold-gradient);
+            font-size: 4.5rem;
+            color: var(--gold-primary);
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF8DC 100%);
             border-radius: 50%;
-            border: 6px solid rgba(255, 255, 255, 0.3);
+            border: 6px solid var(--gold-primary);
             box-shadow: 
-                0 0 30px rgba(255, 215, 0, 0.6),
-                0 0 60px rgba(255, 215, 0, 0.3),
-                0 0 90px rgba(255, 215, 0, 0.1),
-                inset 0 0 40px rgba(255, 255, 255, 0.2);
-            animation: logoPulse 4s ease-in-out infinite, logoRotate 20s linear infinite;
+                0 0 30px rgba(212, 175, 55, 0.8),
+                0 0 60px rgba(212, 175, 55, 0.4),
+                0 0 90px rgba(212, 175, 55, 0.2),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            animation: holyGlow 4s ease-in-out infinite;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: white;
-            font-weight: 800;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 3;
-            background: linear-gradient(45deg, #fff, #FFD700);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: textShimmer 3s ease-in-out infinite alternate;
+        .church-name {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            font-size: 2.8rem;
+            margin: 0.5rem 0;
+            color: var(--gold-light);
+            font-weight: 700;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 0.8rem;
+            animation: nameGlitter 3s ease-in-out infinite alternate;
         }
 
-        @keyframes textShimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        @keyframes nameGlitter {
+            0% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.5); }
+            100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.8); }
         }
 
-        .gospel-message {
-            background: rgba(255, 215, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border-left: 4px solid #FFD700;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: var(--border-radius);
+        .church-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--gold-primary), 
+                transparent);
+        }
+
+        .scripture-verse {
             font-style: italic;
-            font-size: 1rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            z-index: 3;
-            animation: fadeIn 1s ease-out;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--gold-primary);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            animation: verseFadeIn 2s ease-out;
         }
 
-        /* Contenu principal */
+        @keyframes verseFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =============================== */
+        /* CONTENU PRINCIPAL */
+        /* =============================== */
         .main-content {
-            flex: 1;
-            padding: 2rem;
+            padding: 2.5rem 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
-            animation: contentAppear 1s ease-out;
+            animation: contentReveal 1s ease-out;
         }
 
-        @keyframes contentAppear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes contentReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Boutons d'action principaux - DESIGN AMÉLIORÉ */
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-            animation: buttonsAppear 0.8s ease-out 0.3s both;
-        }
-
-        @keyframes buttonsAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1) 0%, 
+                rgba(139, 69, 19, 0.05) 100%);
             border-radius: var(--border-radius);
-            padding: 1.2rem;
-            font-weight: 700;
-            transition: var(--transition-fast);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            gap: 0.8rem;
-            position: relative;
-            overflow: hidden;
-            min-height: 70px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-        }
-
-        button:hover::before {
-            animation: shine 1.5s ease-in-out;
-        }
-
-        @keyframes shine {
-            100% { transform: translateX(100%); }
-        }
-
-        button:active {
-            transform: scale(0.95) translateY(5px);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .btn-prayer {
-            background: var(--purple-gradient);
-            color: white;
-            box-shadow: 0 8px 30px rgba(142, 45, 226, 0.4);
-        }
-
-        .btn-prayer:hover:not(:disabled) {
-            background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 100%);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(142, 45, 226, 0.6);
-        }
-
-        .btn-bible {
-            background: var(--success-gradient);
-            color: white;
-            box-shadow: 0 8px 30px rgba(0, 176, 155, 0.4);
-        }
-
-        .btn-bible:hover:not(:disabled) {
-            background: linear-gradient(135deg, #96c93d 0%, #00b09b 100%);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(0, 176, 155, 0.6);
-        }
-
-        .btn-pastor {
-            background: var(--secondary-gradient);
-            color: white;
-            width: 100%;
-            margin-top: 1rem;
-            box-shadow: 0 8px 30px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-pastor:hover:not(:disabled) {
-            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
-        }
-
-        .btn-program {
-            background: var(--primary-gradient);
-            color: white;
-            width: 100%;
-            margin-top: 1rem;
-            box-shadow: 0 8px 30px rgba(106, 17, 203, 0.4);
-        }
-
-        .btn-program:hover:not(:disabled) {
-            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(106, 17, 203, 0.6);
-        }
-
-        .btn-sermons {
-            background: var(--warning-gradient);
-            color: white;
-            width: 100%;
-            margin-top: 1rem;
-            box-shadow: 0 8px 30px rgba(244, 107, 69, 0.4);
-        }
-
-        .btn-sermons:hover:not(:disabled) {
-            background: linear-gradient(135deg, #eea849 0%, #f46b45 100%);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(244, 107, 69, 0.6);
-        }
-
-        /* Bouton partager */
-        .share-button {
-            background: var(--gold-gradient);
-            color: #333;
-            padding: 0.8rem 1.5rem;
-            margin-top: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-        }
-
-        .share-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
-        }
-
-        /* Sections de contenu (masquées par défaut) */
-        .content-section {
-            display: none;
-            animation: sectionAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes sectionAppear {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px) scale(0.95);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
+        .welcome-message::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: var(--primary-gradient);
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--gold-primary),
+                var(--bronze-dark),
+                var(--gold-primary));
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card h2 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(106, 17, 203, 0.1);
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        .welcome-message h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--bronze-dark);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--bronze-dark), var(--gold-primary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            font-weight: 700;
         }
 
-        .icon {
-            margin-right: 1rem;
-            font-size: 1.5rem;
-            animation: iconFloat 3s ease-in-out infinite;
+        /* =============================== */
+        /* BOUTONS D'ACTION - DESIGN ANCIEN */
+        /* =============================== */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0;
         }
 
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Contenu des cartes */
-        .program-item {
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), rgba(37, 117, 252, 0.05));
-            border-radius: 15px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 5px solid #6a11cb;
-            transition: var(--transition-fast);
+        .action-button {
             position: relative;
+            background: linear-gradient(135deg, 
+                var(--bronze-medium) 0%,
+                var(--bronze-dark) 100%);
+            color: var(--gold-light);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 1.8rem 1.5rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
             overflow: hidden;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            box-shadow: var(--shadow-heavy);
+            border: 2px solid var(--gold-primary);
+            animation: buttonReveal 0.8s ease-out;
+            text-decoration: none;
         }
 
-        .program-item::before {
+        @keyframes buttonReveal {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .action-button:nth-child(1) { animation-delay: 0.1s; }
+        .action-button:nth-child(2) { animation-delay: 0.2s; }
+        .action-button:nth-child(3) { animation-delay: 0.3s; }
+        .action-button:nth-child(4) { animation-delay: 0.4s; }
+        .action-button:nth-child(5) { animation-delay: 0.5s; }
+
+        .action-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(106, 17, 203, 0.1), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(212, 175, 55, 0.2), 
+                transparent);
+            transition: 0.6s;
         }
 
-        .program-item:hover::before {
+        .action-button:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 
+                0 15px 40px rgba(139, 69, 19, 0.4),
+                0 0 30px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, 
+                var(--bronze-dark) 0%,
+                var(--bronze-medium) 100%);
+            color: var(--gold-primary);
+        }
+
+        .action-button:hover::before {
             left: 100%;
         }
 
-        .program-item:hover {
-            transform: translateX(10px) translateY(-5px);
-            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.15);
-        }
-
-        .program-item h3 {
-            color: #2c3e50;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            font-size: 1.2rem;
-        }
-
-        .program-item p {
-            margin-bottom: 0.5rem;
-            padding-left: 1.8rem;
-            font-size: 1.1rem;
-        }
-
-        .program-time {
-            color: #6a11cb;
-            font-weight: 700;
-            background: rgba(106, 17, 203, 0.1);
-            padding: 0.2rem 0.5rem;
-            border-radius: 5px;
-            animation: timePulse 2s infinite;
-        }
-
-        @keyframes timePulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* Section prédications */
-        .sermons-section {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 237, 78, 0.05));
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 215, 0, 0.1);
-        }
-
-        /* Stylisation spéciale pour les liens de prédication */
-        .sermon-link {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        .sermon-link:hover {
-            transform: translateX(10px) translateY(-5px);
-        }
-
-        .sermon-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--success-gradient);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            animation: badgePulse 2s infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* Section prière du jour */
-        .prayer-section {
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), rgba(142, 45, 226, 0.05));
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(142, 45, 226, 0.1);
-        }
-
-        .prayer-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .prayer-topic {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid #8e2de2;
-            display: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        .action-button:active {
+            transform: translateY(-4px) scale(1.01);
             transition: var(--transition-fast);
         }
 
-        .prayer-topic.active {
-            display: block;
-            animation: topicAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes topicAppear {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .verse {
-            font-style: italic;
-            color: #6a11cb;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), transparent);
-            border-radius: 10px;
-            border-left: 3px solid #FFD700;
-            font-size: 1.1rem;
-            animation: verseGlow 4s infinite alternate;
-        }
-
-        @keyframes verseGlow {
-            from { box-shadow: 0 0 10px rgba(106, 17, 203, 0.1); }
-            to { box-shadow: 0 0 20px rgba(106, 17, 203, 0.2); }
-        }
-
-        .timer {
+        .action-button .icon {
             font-size: 2.5rem;
-            font-weight: 800;
-            color: #6a11cb;
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            font-family: 'Courier New', monospace;
-            animation: timerPulse 2s infinite;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: var(--transition-smooth);
         }
 
-        .timer::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--purple-gradient);
-            border-radius: var(--border-radius);
-            z-index: -1;
-            animation: timerBorder 3s linear infinite;
+        .action-button:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.5));
         }
 
-        @keyframes timerBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes timerPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .timer.warning {
-            color: #f5576c;
-            animation: warningPulse 1s infinite;
-        }
-
-        @keyframes warningPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .prayer-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-start {
-            background: var(--success-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(0, 176, 155, 0.4);
-        }
-
-        .btn-pause {
-            background: var(--warning-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(244, 107, 69, 0.4);
-        }
-
-        .btn-resume {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.4);
-        }
-
-        .btn-finish {
-            background: var(--purple-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(142, 45, 226, 0.4);
-        }
-
-        .btn-next-topic {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-next-topic:hover:not(:disabled) {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
-        }
-
-        .prayer-progress {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .progress-text {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(106, 17, 203, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--purple-gradient);
-            width: 0%;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 20px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: progressShine 2s infinite;
-        }
-
-        @keyframes progressShine {
-            0% { left: -20px; }
-            100% { left: 100%; }
-        }
-
-        /* Section quiz biblique */
-        .quiz-section {
-            background: linear-gradient(135deg, rgba(0, 176, 155, 0.05), rgba(150, 201, 61, 0.05));
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 176, 155, 0.1);
-        }
-
-        .quiz-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .level-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .level-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #ddd;
-            transition: var(--transition-fast);
-            position: relative;
-        }
-
-        .level-dot.active {
-            background: var(--success-gradient);
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(0, 176, 155, 0.6);
-            animation: dotPulse 2s infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1.3); }
-            50% { transform: scale(1.5); }
-        }
-
-        .level-dot.completed {
-            background: var(--primary-gradient);
-            transform: scale(1.1);
-        }
-
-        .question-container {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: questionAppear 0.6s ease-out;
-        }
-
-        @keyframes questionAppear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: #2c3e50;
-            line-height: 1.6;
-        }
-
-        .options-container {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .option {
-            padding: 1.2rem;
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), transparent);
-            border: 2px solid rgba(106, 17, 203, 0.2);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition-fast);
+        .button-label {
             font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
+            letter-spacing: 0.5px;
+            margin-top: 0.3rem;
         }
 
-        .option:hover:not(.selected) {
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), transparent);
-            transform: translateX(10px) scale(1.02);
-            border-color: rgba(106, 17, 203, 0.4);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.1);
-        }
-
-        .option.selected.correct {
-            background: linear-gradient(135deg, rgba(0, 176, 155, 0.15), transparent);
-            border-color: #00b09b;
-            color: #00b09b;
-            animation: correctAnswer 0.5s ease-out;
-        }
-
-        @keyframes correctAnswer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .option.selected.incorrect {
-            background: linear-gradient(135deg, rgba(245, 87, 108, 0.15), transparent);
-            border-color: #f5576c;
-            color: #f5576c;
-            animation: incorrectAnswer 0.5s ease-out;
-        }
-
-        @keyframes incorrectAnswer {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .option.selected {
-            pointer-events: none;
-        }
-
-        .quiz-timer {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #6a11cb;
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            font-family: 'Courier New', monospace;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-        }
-
-        .quiz-timer::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--primary-gradient);
-            border-radius: var(--border-radius);
-            z-index: -1;
-            animation: timerBorder 3s linear infinite;
-        }
-
-        .quiz-timer.warning {
-            color: #f5576c;
-            animation: warningPulse 1s infinite;
-        }
-
-        .quiz-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .level-result {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-top: 1.5rem;
-            text-align: center;
-            display: none;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            animation: resultAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes resultAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .level-result.visible {
-            display: block;
-        }
-
-        .level-score {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #6a11cb;
-            margin: 1.5rem 0;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: scoreGlow 2s infinite alternate;
-        }
-
-        @keyframes scoreGlow {
-            from { text-shadow: 0 0 20px rgba(106, 17, 203, 0.3); }
-            to { text-shadow: 0 0 30px rgba(106, 17, 203, 0.5); }
-        }
-
-        .level-message {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .level-message.success {
-            background: linear-gradient(135deg, rgba(0, 176, 155, 0.1), transparent);
-            border-left: 5px solid #00b09b;
-            color: #2c3e50;
-            animation: successGlow 3s infinite alternate;
-        }
-
-        @keyframes successGlow {
-            from { box-shadow: 0 0 15px rgba(0, 176, 155, 0.1); }
-            to { box-shadow: 0 0 25px rgba(0, 176, 155, 0.2); }
-        }
-
-        .level-message.fail {
-            background: linear-gradient(135deg, rgba(245, 87, 108, 0.1), transparent);
-            border-left: 5px solid #f5576c;
-            color: #2c3e50;
-        }
-
-        .btn-next {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.4);
-        }
-
-        .btn-retry {
-            background: var(--warning-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(244, 107, 69, 0.4);
-        }
-
-        .btn-restart {
-            background: var(--success-gradient);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 25px rgba(0, 176, 155, 0.4);
-        }
-
-        /* Pied de page */
-        .footer {
-            background: var(--dark-bg);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gold-gradient);
-        }
-
-        .app-version {
+        .button-subtitle {
             font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 1rem;
-            color: #FFD700;
-        }
-
-        .creator {
-            font-size: 0.9rem;
-            color: #FFD700;
-            margin-top: 1rem;
-            font-weight: 600;
-        }
-
-        /* Bannière d'installation */
-        .install-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--primary-gradient);
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 -5px 30px rgba(106, 17, 203, 0.4);
-            z-index: 1000;
-            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        
-        .install-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .install-icon {
-            font-size: 1.8rem;
-            animation: installBounce 2s infinite;
-        }
-
-        @keyframes installBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        .install-text {
-            flex: 1;
-            line-height: 1.4;
-        }
-        
-        .install-text small {
             opacity: 0.9;
-            display: block;
-            font-size: 0.85rem;
-        }
-        
-        .btn-install {
-            background: var(--success-gradient);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-            box-shadow: 0 5px 20px rgba(0, 176, 155, 0.4);
-            transition: var(--transition-fast);
-        }
-        
-        .btn-install:hover {
-            background: linear-gradient(135deg, #96c93d 0%, #00b09b 100%);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 176, 155, 0.6);
-        }
-        
-        .btn-dismiss {
-            background: transparent;
-            color: white;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            padding: 0 0.8rem;
-            transition: var(--transition-fast);
+            font-weight: normal;
+            margin-top: 0.2rem;
         }
 
-        .btn-dismiss:hover {
-            transform: rotate(90deg) scale(1.2);
+        /* =============================== */
+        /* CARTES INFORMATIVES */
+        /* =============================== */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        /* Utilitaires */
-        .hidden {
-            display: none !important;
-        }
-
-        .visible {
-            display: block !important;
-        }
-
-        .active-section {
-            display: block !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-
-        .reminder {
-            background: linear-gradient(135deg, rgba(244, 107, 69, 0.1), rgba(238, 168, 73, 0.1));
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border-left: 5px solid #f46b45;
-            text-align: center;
-            animation: reminderPulse 4s infinite;
-        }
-
-        @keyframes reminderPulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(244, 107, 69, 0.1); }
-            50% { box-shadow: 0 0 25px rgba(244, 107, 69, 0.2); }
-        }
-
-        .back-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .back-button:hover:not(:disabled) {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
-        }
-
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: white;
-            padding: 1.2rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border-left: 5px solid #00b09b;
-            z-index: 2000;
-            animation: notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 350px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        @keyframes notificationSlide {
-            from { transform: translateX(100%) translateY(-20px); opacity: 0; }
-            to { transform: translateX(0) translateY(0); opacity: 1; }
-        }
-
-        /* NOUVELLE PUBLICITÉ - DESIGN AMÉLIORÉ ET PLUS PETITE */
-        .advertisement {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .info-card {
             background: linear-gradient(135deg, 
-                rgba(106, 17, 203, 0.97) 0%, 
-                rgba(37, 117, 252, 0.97) 100%);
-            color: white;
-            padding: 1.5rem;
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(248, 240, 228, 0.9) 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                var(--gold-primary),
+                var(--bronze-dark));
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .info-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--bronze-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .info-card p {
+            color: var(--stone-dark);
+            line-height: 1.7;
+        }
+
+        /* =============================== */
+        /* BANNIÈRE PUBLICITAIRE - DESIGN ÉGLISE ANCIENNE */
+        /* =============================== */
+        .ad-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: linear-gradient(135deg, 
+                rgba(139, 69, 19, 0.95) 0%,
+                rgba(76, 29, 149, 0.95) 50%,
+                rgba(30, 58, 138, 0.95) 100%);
+            color: var(--gold-light);
+            padding: 1.2rem;
             border-radius: 15px;
             box-shadow: 
-                0 15px 40px rgba(0,0,0,0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
-            z-index: 3000;
-            text-align: center;
-            max-width: 90%;
-            width: 350px;
-            animation: adPop 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(212, 175, 55, 0.3);
+            z-index: 1000;
+            animation: bannerSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold-primary);
             overflow: hidden;
         }
 
-        .advertisement::before {
+        @keyframes bannerSlideUp {
+            from { 
+                opacity: 0;
+                transform: translateX(-50%) translateY(100px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .ad-banner::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 4px;
-            background: var(--gold-gradient);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes adPop {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
+            background: linear-gradient(90deg, 
+                var(--gold-primary),
+                var(--stained-glass-red),
+                var(--gold-primary));
+            animation: shimmer 3s infinite linear;
         }
 
         @keyframes shimmer {
@@ -1282,238 +560,168 @@
             100% { background-position: 500px 0; }
         }
 
-        .advertisement h3 {
-            color: #FFD700;
+        .ad-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 0.8rem;
+        }
+
+        .ad-title {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.4rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            font-weight: 800;
+            color: var(--gold-primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .advertisement p {
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-            font-size: 0.95rem;
-            opacity: 0.95;
-        }
-
-        .advertisement .ad-time {
-            font-size: 1.8rem;
-            color: #FFD700;
-            font-weight: 800;
-            margin: 0.8rem 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            animation: timeGlow 2s infinite alternate;
-            font-family: 'Courier New', monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            display: inline-block;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        @keyframes timeGlow {
-            from { 
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-            }
-            to { 
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4);
-                box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-            }
-        }
-
-        .advertisement .ad-subtitle {
-            color: #FFD700;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .advertisement .ad-theme {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 3px solid #FFD700;
-            padding: 0.6rem;
-            border-radius: 5px;
-            margin: 0.6rem 0;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .advertisement .ad-close {
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            background: rgba(255,255,255,0.2);
-            color: white;
+        .ad-close {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
             border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.2rem;
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            transition: var(--transition-fast);
-            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 10;
-            font-weight: bold;
+            transition: var(--transition-fast);
         }
 
-        .advertisement .ad-close:hover {
-            background: rgba(255,255,255,0.3);
+        .ad-close:hover {
+            background: rgba(212, 175, 55, 0.4);
             transform: rotate(90deg) scale(1.1);
         }
 
-        .advertisement .ad-countdown {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            margin-top: 1rem;
+        .ad-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .ad-icon {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: iconPulse 2s infinite alternate;
+        }
+
+        @keyframes iconPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .ad-schedule {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .schedule-day {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        .schedule-day:last-child {
+            border-bottom: none;
+        }
+
+        .day-name {
             font-weight: 600;
-            color: #FFD700;
-            background: rgba(0,0,0,0.2);
-            padding: 0.3rem 0.6rem;
-            border-radius: 12px;
-            display: inline-block;
+            color: var(--gold-light);
         }
 
-        /* Loading animations */
-        .loading {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(106, 17, 203, 0.3);
-            border-radius: 50%;
-            border-top-color: #6a11cb;
-            animation: spin 1s ease-in-out infinite;
+        .day-time {
+            color: var(--gold-secondary);
+            font-weight: 600;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .day-activity {
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .church-logo, .logo-placeholder {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .logo-placeholder {
-                font-size: 4rem;
-            }
-            
-            .card {
-                padding: 1.5rem;
-            }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .prayer-controls, .quiz-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .advertisement {
-                width: 95%;
-                padding: 1.2rem;
-            }
-            
-            .advertisement h3 {
-                font-size: 1.2rem;
-            }
-            
-            .advertisement .ad-time {
-                font-size: 1.6rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .church-logo, .logo-placeholder {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .logo-placeholder {
-                font-size: 3.5rem;
-            }
-            
-            .main-content {
-                padding: 1rem;
-            }
-            
-            .timer, .quiz-timer {
-                font-size: 1.8rem;
-                padding: 1rem;
-            }
-            
-            .install-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 0.8rem;
-            }
-            
-            .notification {
-                right: 10px;
-                left: 10px;
-                max-width: none;
-            }
-            
-            .level-score {
-                font-size: 2.5rem;
-            }
-            
-            .advertisement {
-                width: 95%;
-                padding: 1rem;
-            }
-            
-            .advertisement h3 {
-                font-size: 1.1rem;
-            }
-            
-            .advertisement .ad-time {
-                font-size: 1.4rem;
-            }
+        .ad-footer {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Scrollbar personnalisée */
-        ::-webkit-scrollbar {
-            width: 10px;
+        /* =============================== */
+        /* PIED DE PAGE */
+        /* =============================== */
+        .footer {
+            background: linear-gradient(135deg, 
+                var(--bronze-dark) 0%,
+                var(--stone-dark) 100%);
+            color: var(--gold-light);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 4rem;
+            position: relative;
+            border-top: 6px solid var(--gold-primary);
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(106, 17, 203, 0.1);
-            border-radius: 5px;
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-gradient);
-            border-radius: 5px;
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+        .footer p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
         }
 
-        /* Effets de particules */
-        .particles {
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .app-version {
+            font-size: 0.9rem;
+            color: var(--gold-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .creator {
+            font-size: 0.9rem;
+            color: var(--gold-primary);
+            font-weight: 600;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* =============================== */
+        /* ANIMATIONS DE PARTICULES (VITRAIL) */
+        /* =============================== */
+        .stained-glass-particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -1523,1606 +731,556 @@
             z-index: 0;
         }
 
-        .particle {
+        .glass-particle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            animation: float 15s infinite linear;
+            opacity: 0;
+            animation: floatParticle 20s infinite linear;
         }
 
-        @keyframes float {
+        @keyframes floatParticle {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
             }
             10% {
-                opacity: 1;
+                opacity: 0.3;
             }
             90% {
-                opacity: 1;
+                opacity: 0.3;
             }
             100% {
-                transform: translateY(-100vh) rotate(360deg);
+                transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
         }
+
+        /* =============================== */
+        /* RESPONSIVE DESIGN */
+        /* =============================== */
+        @media (max-width: 768px) {
+            .header {
+                min-height: 280px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .church-name {
+                font-size: 2.2rem;
+            }
+            
+            .church-logo,
+            .logo-placeholder {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .logo-placeholder {
+                font-size: 3.5rem;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .action-button {
+                padding: 1.5rem 1rem;
+                min-height: 90px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .ad-banner {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .ad-title {
+                font-size: 1.2rem;
+            }
+            
+            .ad-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .ad-icon {
+                justify-self: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .church-name {
+                font-size: 1.8rem;
+            }
+            
+            .scripture-verse {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+            
+            .welcome-message h2 {
+                font-size: 1.8rem;
+            }
+            
+            .action-button {
+                font-size: 1.2rem;
+            }
+            
+            .ad-banner {
+                bottom: 10px;
+                padding: 0.8rem;
+            }
+        }
+
+        /* =============================== */
+        /* SCROLLBAR PERSONNALISÉE */
+        /* =============================== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(180deg, 
+                var(--parchment-dark),
+                var(--parchment));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                var(--gold-primary),
+                var(--bronze-medium));
+            border-radius: 5px;
+            border: 2px solid var(--parchment);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, 
+                var(--gold-secondary),
+                var(--bronze-dark));
+        }
     </style>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Effets de particules -->
-    <div class="particles" id="particles"></div>
-
+    <!-- Particules de vitrail -->
+    <div class="stained-glass-particles" id="stainedGlassParticles"></div>
+    
+    <!-- Conteneur principal -->
     <div class="container">
-        <!-- En-tête simplifié avec logo seul -->
+        <!-- En-tête -->
         <header class="header">
             <div class="logo-container">
-                <img src="binanga.png" alt="Logo de l'église" class="church-logo" onerror="this.style.display='none'; document.querySelector('.logo-placeholder').style.display='flex';">
-                <div class="logo-placeholder" style="display: none;">✝</div>
-                <h1>Assemblée des Saints Réunis de Binanga</h1>
+                <img src="binanga.png" alt="Logo de l'église" class="church-logo" 
+                     onerror="this.style.display='none'; document.querySelector('.logo-placeholder').style.display='flex';">
+                <div class="logo-placeholder" style="display: none;">
+                    <i class="fas fa-church"></i>
+                </div>
+                <h1 class="church-name">Assemblée des Saints Réunis de Binanga</h1>
             </div>
             
-            <div class="gospel-message">
-                "Car je n'ai pas eu la pensée de savoir parmi vous autre chose que Jésus-Christ, et Jésus-Christ crucifié."<br>
-                <em>1 Corinthiens 2:2</em>
+            <div class="scripture-verse">
+                "Car je n'ai pas eu la pensée de savoir parmi vous autre chose que Jésus-Christ, et Jésus-Christ crucifié."
+                <br><em>1 Corinthiens 2:2</em>
             </div>
         </header>
-
+        
         <!-- Contenu principal -->
         <main class="main-content">
-            <!-- Boutons d'action principaux -->
-            <div class="action-buttons">
-                <button id="prayerBtn" class="btn-prayer">
-                    <span class="icon">🙏</span> Prière du jour
-                </button>
-                <button id="bibleQuizBtn" class="btn-bible">
-                    <span class="icon">📖</span> Je connais la Bible
-                </button>
-            </div>
-
-            <!-- Boutons secondaires -->
-            <button id="programBtn" class="btn-program">
-                <span class="icon">📅</span> Voir les programmes
-            </button>
-
-            <button id="sermonsBtn" class="btn-sermons">
-                <span class="icon">🎵</span> NOS PRÉDICATIONS
-            </button>
-
-            <button id="pastorBtn" class="btn-pastor">
-                <span class="icon">💬</span> Message au pasteur
-            </button>
-
-            <!-- Section programmes -->
-            <div id="programSection" class="content-section">
-                <button class="back-button" onclick="showMainButtons()">
-                    <span class="icon">←</span> Retour
-                </button>
+            <!-- Message de bienvenue -->
+            <section class="welcome-message">
+                <h2>Bienvenue dans la Maison de Dieu</h2>
+                <p>Une communauté de foi où nous célébrons la présence de Dieu, étudions Sa Parole et grandissons ensemble dans l'amour du Christ. Rejoignez-nous pour vivre des moments de prière, d'adoration et de communion fraternelle.</p>
+            </section>
+            
+            <!-- Boutons d'action -->
+            <div class="action-grid">
+                <a href="priere.html" class="action-button">
+                    <div class="icon">🙏</div>
+                    <div class="button-label">Prière du Jour</div>
+                    <div class="button-subtitle">Thèmes de prière quotidiens</div>
+                </a>
                 
-                <section class="card">
-                    <h2><span class="icon">📅</span> Programmes de la semaine</h2>
-                    <div class="content">
-                        <div class="program-item">
-                            <h3><span class="icon">⏰</span> MERCREDI</h3>
-                            <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
-                        </div>
-                        <div class="program-item">
-                            <h3><span class="icon">🌙</span> JEUDI</h3>
-                            <p><span class="program-time">23h - 3h :</span> NUIT DE PRIÈRE</p>
-                        </div>
-                        <div class="program-item">
-                            <h3><span class="icon">⏰</span> VENDREDI</h3>
-                            <p><span class="program-time">17h - 19h :</span> ENSEIGNEMENT ET PRIÈRE</p>
-                        </div>
-                        <div class="program-item">
-                            <h3><span class="icon">🙏</span> SAMEDI</h3>
-                            <p><span class="program-time">8h - 12h :</span> INTERCESSION</p>
-                        </div>
-                        <div class="program-item">
-                            <h3><span class="icon">✝</span> DIMANCHE</h3>
-                            <p><span class="program-time">8h - 10h30 :</span> CULTE D'ADORATION</p>
-                        </div>
-                    </div>
-                    
-                    <div class="text-center mt-2">
-                        <button onclick="shareContent('program')" class="share-button">
-                            <span class="icon">📤</span> Partager le programme
-                        </button>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Section prédications - NOUVELLE VERSION -->
-            <div id="sermonsSection" class="content-section">
-                <button class="back-button" onclick="showMainButtons()">
-                    <span class="icon">←</span> Retour
-                </button>
+                <a href="quiz.html" class="action-button">
+                    <div class="icon">📖</div>
+                    <div class="button-label">Je Connais la Bible</div>
+                    <div class="button-subtitle">Quiz biblique interactif</div>
+                </a>
                 
-                <div class="sermons-section">
-                    <div class="card">
-                        <h2><span class="icon">📖</span> NOS PRÉDICATIONS</h2>
-                        <p class="mb-2">Explorez nos enseignements bibliques et soyez édifiés dans votre foi.</p>
-                        
-                        <a href="aveugle.html" class="sermon-link">
-                            <div class="program-item">
-                                <div class="sermon-badge">Nouveau</div>
-                                <h3><span class="icon">👁️</span> L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE</h3>
-                                <p>Par Fr. Christian MANDEMBA</p>
-                                <p><strong>Thème :</strong> Luc 6:39 - Un aveugle peut-il conduire un autre aveugle ?</p>
-                                <p><em>Cliquez pour lire cette puissante prédication →</em></p>
-                            </div>
-                        </a>
-                        
-                        <a href="souffle.html" class="sermon-link">
-                            <div class="program-item">
-                                <div class="sermon-badge">Nouveau</div>
-                                <h3><span class="icon">🌬️</span> TEL EST, TELS NOUS SOMMES</h3>
-                                <p>Par Fr. Christian MANDEMBA</p>
-                                <p><strong>Thème :</strong> 1 Jean 4:17 - « Tel Il est, tels nous sommes dans ce monde »</p>
-                                <p><em>Cliquez pour lire cette puissante prédication →</em></p>
-                            </div>
-                        </a>
-                        
-                        <div class="program-item" style="opacity: 0.7; cursor: not-allowed;">
-                            <h3><span class="icon">⏳</span> D'AUTRES PRÉDICATIONS À VENIR</h3>
-                            <p>Nous préparons d'autres enseignements pour vous.</p>
-                            <p><em>Bientôt disponible...</em></p>
-                        </div>
-                    </div>
-                    
-                    <div class="text-center mt-2">
-                        <button onclick="shareContent('sermon')" class="share-button">
-                            <span class="icon">📤</span> Partager nos prédications
-                        </button>
-                    </div>
+                <a href="programme.html" class="action-button">
+                    <div class="icon">📅</div>
+                    <div class="button-label">Programme Hebdomadaire</div>
+                    <div class="button-subtitle">Horaires des cultes</div>
+                </a>
+                
+                <a href="predications.html" class="action-button">
+                    <div class="icon">🎵</div>
+                    <div class="button-label">Nos Prédications</div>
+                    <div class="button-subtitle">Enseignements audio et texte</div>
+                </a>
+                
+                <a href="contact.html" class="action-button">
+                    <div class="icon">💬</div>
+                    <div class="button-label">Contact & Messages</div>
+                    <div class="button-subtitle">Contacter le pasteur</div>
+                </a>
+            </div>
+            
+            <!-- Cartes informatives -->
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>Notre Vision</h3>
+                    <p>Être une assemblée de disciples engagés à vivre et à partager l'Évangile de Jésus-Christ, en transformant des vies et en construisant une communauté de foi solide ancrée dans la Parole de Dieu.</p>
                 </div>
-            </div>
-
-            <!-- Section prière du jour - NOUVELLE VERSION DYNAMIQUE -->
-            <div id="prayerSection" class="content-section">
-                <button class="back-button" onclick="showMainButtons()">
-                    <span class="icon">←</span> Retour
-                </button>
                 
-                <div class="prayer-section">
-                    <div class="prayer-header">
-                        <h2 id="prayerDayTitle">🙏 Prière du jour</h2>
-                        <p id="prayerTheme"><strong>THÈME : <span id="currentTheme"></span></strong><br>
-                        <em id="currentDate"></em></p>
-                        
-                        <div class="text-center mt-1">
-                            <button onclick="shareContent('prayer')" class="share-button">
-                                <span class="icon">📤</span> Partager cette prière
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="prayer-progress">
-                        <div class="progress-text">
-                            Sujet <span id="currentTopicNumber">1</span> sur 7
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
-                        </div>
-                    </div>
-
-                    <div id="prayerTopics">
-                        <!-- Les sujets de prière seront insérés ici dynamiquement -->
-                    </div>
-
-                    <div class="timer" id="prayerTimer">10:00</div>
-
-                    <div class="prayer-controls">
-                        <button id="startPrayerBtn" class="btn-start">🚀 Commencer la prière</button>
-                        <button id="pausePrayerBtn" class="btn-pause hidden">⏸️ Pause</button>
-                        <button id="resumePrayerBtn" class="btn-resume hidden">▶️ Reprendre</button>
-                        <button id="nextTopicBtn" class="btn-next-topic hidden">⏭️ Sujet suivant</button>
-                        <button id="finishPrayerBtn" class="btn-finish hidden">✅ Terminer la prière</button>
-                    </div>
-
-                    <div id="prayerClosure" class="hidden mt-2">
-                        <div class="message-item">
-                            <h3>Prière de clôture</h3>
-                            <p>Seigneur nous te disons merci pour tout ce que tu nous as donné. Nous sommes venus à toi vide mais nous le croyons que nous sommes sortis de cette prière remplis de ton amour et de ta grâce. Viens nous aider à surmonter toutes les tentations et les épreuves de la vie en ton nom nous avons ainsi prié et nous disons Amen.</p>
-                        </div>
-                        
-                        <div class="reminder">
-                            <h3>📢 Rappel important</h3>
-                            <p id="nextProgramInfo">Il y aura réunion de prière aujourd'hui à <strong>8h00 - 12h00</strong>.<br>
-                            Intercession - Tout le monde est prié d'être présent.</p>
-                            <p>Que Dieu vous bénisse et vous garde.</p>
-                        </div>
-                    </div>
+                <div class="info-card">
+                    <h3>Nos Valeurs</h3>
+                    <p>L'amour fraternel, la prière fervente, l'étude sérieuse de la Bible, le service désintéressé et l'évangélisation passionnée sont les piliers de notre communauté chrétienne.</p>
                 </div>
-            </div>
-
-            <!-- Section quiz biblique -->
-            <div id="quizSection" class="content-section">
-                <button class="back-button" onclick="showMainButtons()">
-                    <span class="icon">←</span> Retour
-                </button>
                 
-                <div class="quiz-section">
-                    <div class="quiz-header">
-                        <h2>📖 Quiz Biblique - Le livre de la Genèse</h2>
-                        <p>7 niveaux, 10 questions par niveau - 3 minutes par niveau</p>
-                        <p><small>Score requis pour passer au niveau suivant : 10/10 (toutes les réponses correctes)</small></p>
-                    </div>
-
-                    <div class="level-indicator" id="levelIndicator">
-                        <!-- Les indicateurs de niveau seront insérés ici -->
-                    </div>
-
-                    <div class="quiz-timer" id="quizTimer">03:00</div>
-
-                    <div class="question-container" id="questionContainer">
-                        <div class="question-text" id="questionText"></div>
-                        <div class="options-container" id="optionsContainer"></div>
-                    </div>
-
-                    <div class="level-result" id="levelResult">
-                        <h3>Résultats du Niveau <span id="resultLevelNumber">1</span></h3>
-                        <div class="level-score" id="levelScore">0/10</div>
-                        <div class="level-message" id="levelMessage"></div>
-                        <div class="quiz-controls">
-                            <button id="continueQuizBtn" class="btn-next mt-1 hidden">Niveau suivant</button>
-                            <button id="retryLevelBtn" class="btn-retry mt-1 hidden">Réessayer ce niveau</button>
-                            <button id="finishQuizBtn" class="btn-finish mt-1 hidden">Terminer le quiz</button>
-                            <button id="restartQuizBtn" class="btn-restart mt-1 hidden">🔄 Recommencer le quiz</button>
-                        </div>
-                    </div>
-
-                    <div class="quiz-controls" id="quizMainControls">
-                        <button id="startQuizBtn" class="btn-start">🎯 Commencer le quiz</button>
-                    </div>
-
-                    <div id="quizResults" class="hidden mt-2">
-                        <!-- Les résultats finaux seront affichés ici -->
-                    </div>
-                    
-                    <div class="text-center mt-2">
-                        <button onclick="shareContent('quiz')" class="share-button">
-                            <span class="icon">📤</span> Partager ce quiz
-                        </button>
-                    </div>
+                <div class="info-card">
+                    <h3>Rejoignez-nous</h3>
+                    <p>Que vous soyez nouveau dans la foi ou chrétien de longue date, vous êtes le bienvenu parmi nous. Venez découvrir la joie de marcher avec Dieu au sein d'une communauté aimante.</p>
                 </div>
             </div>
         </main>
-
+        
+        <!-- Bannière publicitaire -->
+        <div id="adBanner" class="ad-banner">
+            <div class="ad-header">
+                <div class="ad-title">
+                    <i class="fas fa-church"></i>
+                    Programme des Cultes
+                </div>
+                <button class="ad-close" onclick="closeAdBanner()">&times;</button>
+            </div>
+            
+            <div class="ad-content">
+                <div class="ad-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                
+                <div class="ad-schedule">
+                    <div class="schedule-day">
+                        <span class="day-name">Mercredi</span>
+                        <span class="day-time">17h - 19h</span>
+                        <span class="day-activity">Prière & Enseignement</span>
+                    </div>
+                    <div class="schedule-day">
+                        <span class="day-name">Jeudi</span>
+                        <span class="day-time">Nuit</span>
+                        <span class="day-activity">Nuit de Prière</span>
+                    </div>
+                    <div class="schedule-day">
+                        <span class="day-name">Vendredi</span>
+                        <span class="day-time">17h - 19h</span>
+                        <span class="day-activity">Prière & Enseignement</span>
+                    </div>
+                    <div class="schedule-day">
+                        <span class="day-name">Samedi</span>
+                        <span class="day-time">8h - 12h</span>
+                        <span class="day-activity">Prière & Rendez-vous</span>
+                    </div>
+                    <div class="schedule-day">
+                        <span class="day-name">Dimanche</span>
+                        <span class="day-time">8h - 10h30</span>
+                        <span class="day-activity">Culte d'Adoration</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ad-footer">
+                Venez nombreux célébrer le Seigneur avec nous cette semaine !
+            </div>
+        </div>
+        
         <!-- Pied de page -->
         <footer class="footer">
-            <p>© 2025 Assemblée des Saints Réunis de Binanga</p>
-            <p class="app-version">Application v4.0 - Thèmes de prière dynamiques</p>
-            <p class="creator">Créée par MandO'Tech</p>
+            <div class="footer-content">
+                <p class="copyright">© 2026 Assemblée des Saints Réunis de Binanga</p>
+                <p>Tous droits réservés</p>
+                <p class="app-version">Application v5.0 - Design Église Ancienne</p>
+                <p class="creator">Développé avec ❤️ par MandO'Tech</p>
+            </div>
         </footer>
     </div>
-
-    <!-- Bannière d'installation PWA -->
-    <div id="installBanner" class="install-banner hidden">
-        <div class="install-content">
-            <span class="install-icon">⬇️</span>
-            <div class="install-text">
-                <strong>Installer l'application</strong>
-                <small>Pour une meilleure expérience hors ligne</small>
-            </div>
-            <button id="installBannerBtn" class="btn-install">Installer</button>
-            <button id="dismissBannerBtn" class="btn-dismiss">&times;</button>
-        </div>
-    </div>
-
-    <!-- NOUVELLE PUBLICITÉ - DESIGN AMÉLIORÉ ET PLUS PETITE -->
-    <div id="advertisement" class="advertisement hidden">
-        <!-- Le contenu sera mis à jour dynamiquement par JavaScript -->
-    </div>
-
-    <!-- Script principal AVEC PARTICULES ET FONCTIONNALITÉS MISE À JOUR -->
+    
+    <!-- Scripts JavaScript -->
     <script>
         // ===============================
-        // VARIABLES GLOBALES
+        // INITIALISATION
         // ===============================
-        let deferredPrompt = null;
-        let currentPrayerTopic = 0;
-        let prayerTimerInterval = null;
-        let prayerTimeLeft = 600;
-        let isPrayerPaused = false;
-        let currentPrayerTheme = 0; // 0 pour Lundi 22, 1 pour Mardi 23
-
-        // Variables pour le quiz
-        let currentQuizLevel = 0;
-        let currentQuestionIndex = 0;
-        let quizScore = 0;
-        let currentLevelScore = 0;
-        let quizTimerInterval = null;
-        let quizTimeLeft = 180;
-        let isQuizActive = false;
-        let levelQuestions = [];
-        let quizCompletedLevels = 0;
-
-        // Variables pour la publicité
-        let adInterval = null;
-        let adCountdown = 45;
-        let adCountdownInterval = null;
-        let lastAdTime = 0;
-
+        document.addEventListener('DOMContentLoaded', function() {
+            // Créer les particules de vitrail
+            createStainedGlassParticles();
+            
+            // Initialiser PWA
+            initializePWA();
+            
+            // Gestionnaire pour les boutons d'action
+            initializeActionButtons();
+            
+            // Afficher la bannière après 3 secondes
+            setTimeout(() => {
+                showAdBanner();
+            }, 3000);
+            
+            // Vérifier si l'utilisateur a déjà fermé la bannière
+            checkAdBannerState();
+            
+            // Animation au chargement
+            animatePageElements();
+        });
+        
         // ===============================
-        // DONNÉES DES THÈMES DE PRIÈRE
+        // PARTICULES DE VITRAIL
         // ===============================
-        const prayerThemes = [
-            {
-                date: "Lundi 22 Décembre 2025",
-                title: "Prière du jour - Lundi 22 Décembre 2025",
-                theme: "RESTER FIDÈLES À DIEU JUSQU'À LA FIN DE L'ANNÉE",
-                topics: [
-                    {
-                        verse: "Psaume 103:1",
-                        text: "« Mon âme, bénis l'Éternel, et n'oublie aucun de ses bienfaits. »",
-                        content: "Louons Dieu pour la vie, la protection et Sa fidélité tout au long de l'année."
-                    },
-                    {
-                        verse: "1 Jean 1:9",
-                        text: "« S'il nous confessons nos péchés, Il est fidèle et juste pour nous les pardonner. »",
-                        content: "Demandons pardon pour nos fautes et nos manquements, et recevons la grâce de Dieu."
-                    },
-                    {
-                        verse: "Psaume 143:10",
-                        text: "« Enseigne-moi à faire ta volonté, car tu es mon Dieu. »",
-                        content: "Prions pour obéir à Dieu et marcher selon ce qu'Il attend de nous."
-                    },
-                    {
-                        verse: "1 Corinthiens 16:13",
-                        text: "« Veillez, demeurez fermes dans la foi. »",
-                        content: "Demandons la force de rester attachés à Dieu jusqu'à la fin de l'année."
-                    },
-                    {
-                        verse: "Psaume 121:7",
-                        text: "« L'Éternel te gardera de tout mal. »",
-                        content: "Prions pour que Dieu nous protège de tout ce qui peut nous éloigner de Lui."
-                    },
-                    {
-                        verse: "Colossiens 3:15",
-                        text: "« Que la paix de Christ règne dans vos cœurs. »",
-                        content: "Demandons la paix, l'amour et l'unité dans nos familles."
-                    },
-                    {
-                        verse: "Proverbes 3:5",
-                        text: "« Confie-toi en l'Éternel de tout ton cœur. »",
-                        content: "Remettons les derniers jours de l'année entre les mains de Dieu avec confiance."
-                    }
-                ]
-            },
-            {
-                date: "Mardi 23 Décembre 2025",
-                title: "Prière du jour - Mardi 23 Décembre 2025",
-                theme: "SE PRÉPARER À ENTRER DANS UNE NOUVELLE SAISON AVEC DIEU",
-                topics: [
-                    {
-                        verse: "Jérémie 29:11",
-                        text: "« Car je connais les projets que j'ai formés sur vous. »",
-                        content: "Remercions Dieu pour l'avenir qu'Il prépare pour nous."
-                    },
-                    {
-                        verse: "Psaume 51:10",
-                        text: "« Ô Dieu, crée en moi un cœur pur. »",
-                        content: "Demandons à Dieu de purifier nos cœurs avant d'entrer dans une nouvelle saison."
-                    },
-                    {
-                        verse: "Proverbes 16:9",
-                        text: "« L'homme fait des projets, mais l'Éternel dirige ses pas. »",
-                        content: "Prions pour que Dieu nous montre la bonne direction."
-                    },
-                    {
-                        verse: "Ésaïe 40:31",
-                        text: "« Ceux qui se confient en l'Éternel renouvellent leur force. »",
-                        content: "Demandons à Dieu de renouveler notre foi et notre énergie spirituelle."
-                    },
-                    {
-                        verse: "Psaume 37:5",
-                        text: "« Recommande ton sort à l'Éternel, mets en Lui ta confiance. »",
-                        content: "Confions à Dieu nos projets et nos activités futures."
-                    },
-                    {
-                        verse: "Proverbes 22:6",
-                        text: "« Instruis l'enfant selon la voie qu'il doit suivre. »",
-                        content: "Prions pour que nos enfants marchent dans les voies de Dieu."
-                    },
-                    {
-                        verse: "Romains 15:13",
-                        text: "« Que le Dieu de l'espérance vous remplisse de toute joie et de toute paix. »",
-                        content: "Demandons à Dieu la paix et l'espérance pour les jours à venir."
-                    }
-                ]
-            }
-        ];
-
-        // ===============================
-        // FONCTIONS D'ANIMATION PARTICULES
-        // ===============================
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
+        function createStainedGlassParticles() {
+            const particlesContainer = document.getElementById('stainedGlassParticles');
             if (!particlesContainer) return;
             
-            const particleCount = 30;
+            const particleCount = 25;
+            const colors = [
+                'rgba(212, 175, 55, 0.4)',    // Or
+                'rgba(30, 58, 138, 0.4)',     // Bleu vitrail
+                'rgba(76, 29, 149, 0.4)',     // Violet vitrail
+                'rgba(153, 27, 27, 0.4)',     // Rouge vitrail
+                'rgba(6, 95, 70, 0.4)'        // Vert vitrail
+            ];
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
+                particle.className = 'glass-particle';
                 
-                const size = Math.random() * 8 + 2;
+                // Taille aléatoire
+                const size = Math.random() * 15 + 5;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
+                // Position de départ aléatoire
                 const startX = Math.random() * 100;
                 particle.style.left = `${startX}%`;
                 
-                const animationDuration = Math.random() * 20 + 10;
+                // Durée d'animation aléatoire
+                const animationDuration = Math.random() * 25 + 15;
                 particle.style.animationDuration = `${animationDuration}s`;
                 
-                const animationDelay = Math.random() * 5;
+                // Délai d'animation aléatoire
+                const animationDelay = Math.random() * 10;
                 particle.style.animationDelay = `${animationDelay}s`;
                 
-                const gradient = Math.random();
-                if (gradient < 0.33) {
-                    particle.style.background = 'rgba(106, 17, 203, 0.15)';
-                } else if (gradient < 0.66) {
-                    particle.style.background = 'rgba(37, 117, 252, 0.15)';
-                } else {
-                    particle.style.background = 'rgba(255, 215, 0, 0.15)';
-                }
+                // Couleur aléatoire
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                particle.style.backgroundColor = colors[colorIndex];
+                
+                // Effet de flou
+                particle.style.filter = `blur(${Math.random() * 3 + 1}px)`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
-
+        
         // ===============================
-        // DONNÉES DU QUIZ BIBLIQUE
+        // BANNIÈRE PUBLICITAIRE
         // ===============================
-        const allQuizQuestions = [
-            // Niveau 1 (Questions 1-10) - Très facile
-            { level: 0, question: "Qui a créé l'homme ?", options: ["Noé", "Abraham", "Dieu", "Adam"], correct: 2, verse: "Genèse 1:27" },
-            { level: 0, question: "De quoi Dieu a-t-Il formé l'homme ?", options: ["D'eau", "De la poussière de la terre", "De pierre", "De bois"], correct: 1, verse: "Genèse 2:7" },
-            { level: 0, question: "Que Dieu a-t-Il insufflé dans les narines de l'homme ?", options: ["L'âme", "L'esprit", "Un souffle de vie", "La sagesse"], correct: 2, verse: "Genèse 2:7" },
-            { level: 0, question: "Quel est le rôle donné à l'homme dans le jardin ?", options: ["Se reposer", "Prier", "Cultiver et garder le jardin", "Explorer"], correct: 2, verse: "Genèse 2:15" },
-            { level: 0, question: "Comment Dieu a-t-Il créé la femme ?", options: ["À partir d'argile", "À partir d'une côte de l'homme", "À partir de rien", "À partir d'eau"], correct: 1, verse: "Genèse 2:22" },
-            { level: 0, question: "Quel commandement Dieu avait-Il donné à Adam dans le jardin ?", options: ["Ne pas manger de l'arbre de la connaissance", "Ne pas parler au serpent", "Ne pas sortir du jardin", "Ne pas toucher à l'arbre de vie"], correct: 0, verse: "Genèse 2:17" },
-            { level: 0, question: "Après le péché, de quoi Adam et Ève se sont-ils couverts ?", options: ["De peaux", "De feuilles de figuier", "De terre", "De branches"], correct: 1, verse: "Genèse 3:7" },
-            { level: 0, question: "Qui a cherché Adam après la désobéissance ?", options: ["L'ange", "Le serpent", "Dieu", "Abel"], correct: 2, verse: "Genèse 3:9" },
-            { level: 0, question: "Que Dieu a-t-Il fait d'Adam et Ève après le péché ?", options: ["Les a pardonnés", "Les a chassés du jardin", "Les a maudits", "Les a oubliés"], correct: 1, verse: "Genèse 3:23" },
-            { level: 0, question: "Quel animal parle à Ève dans le récit de la chute ?", options: ["Le lion", "Le serpent", "L'oiseau", "Le singe"], correct: 1, verse: "Genèse 3:1" },
-
-            // Niveau 2 (Questions 11-20) - Facile
-            { level: 1, question: "Quel est le métier de Caïn ?", options: ["Forgeron", "Cultivateur", "Berger", "Pêcheur"], correct: 1, verse: "Genèse 4:2" },
-            { level: 1, question: "Quel est le métier d'Abel ?", options: ["Cultivateur", "Berger", "Chasseur", "Artisan"], correct: 1, verse: "Genèse 4:2" },
-            { level: 1, question: "Que dit Dieu à Caïn après le meurtre d'Abel ?", options: ["Va-t'en", "Où est ton frère Abel ?", "Tu es maudit", "Repens-toi"], correct: 1, verse: "Genèse 4:9" },
-            { level: 1, question: "Quelle malédiction Caïn a-t-il reçue ?", options: ["Être aveugle", "Être errant et vagabond", "Ne plus parler", "Perdre sa force"], correct: 1, verse: "Genèse 4:12" },
-            { level: 1, question: "Quel signe Dieu a-t-Il mis sur Caïn ?", options: ["Une croix", "Un signe pour le protéger", "Une étoile", "Un tatouage"], correct: 1, verse: "Genèse 4:15" },
-            { level: 1, question: "Comment s'appelait le fils de Noé qui a vu la nudité de son père ?", options: ["Sem", "Japhet", "Cham", "Seth"], correct: 2, verse: "Genèse 9:22" },
-            { level: 1, question: "Quels sont les deux fils de Noé qui ont couvert leur père ?", options: ["Sem et Cham", "Sem et Japhet", "Japhet et Cham", "Caïn et Abel"], correct: 1, verse: "Genèse 9:23" },
-            { level: 1, question: "Quel est le premier animal mentionné dans l'arche ?", options: ["Le lion", "Les animaux purs et impurs", "La colombe", "Le serpent"], correct: 1, verse: "Genèse 7:2" },
-            { level: 1, question: "Quel sacrifice Noé a-t-il offert après le déluge ?", options: ["Un agneau", "Un taureau", "Un holocauste", "Une colombe"], correct: 2, verse: "Genèse 8:20" },
-            { level: 1, question: "Que Dieu a-t-Il promis concernant le déluge ?", options: ["Qu'il reviendra", "Qu'il ne détruirait plus la terre par l'eau", "Qu'il punira les méchants", "Qu'il enverra un sauveur"], correct: 1, verse: "Genèse 9:11" },
-
-            // Niveau 3 (Questions 21-30) - Moyen
-            { level: 2, question: "Comment s'appelait la ville que Dieu a épargnée lors de la destruction ?", options: ["Sodome", "Gomorrhe", "Tsoar", "Babylone"], correct: 2, verse: "Genèse 19:20" },
-            { level: 2, question: "Que regarda la femme de Lot en fuyant ?", options: ["Devant elle", "Derrière elle", "Le ciel", "Ses enfants"], correct: 1, verse: "Genèse 19:26" },
-            { level: 2, question: "Quel est le nom original de Sarah ?", options: ["Sara", "Saraï", "Rébecca", "Rachel"], correct: 1, verse: "Genèse 17:15" },
-            { level: 2, question: "Quel est le nom original d'Abraham ?", options: ["Abel", "Abram", "Adam", "Aaron"], correct: 1, verse: "Genèse 17:5" },
-            { level: 2, question: "Quel signe Dieu a-t-Il donné à Abraham pour l'alliance ?", options: ["Le sabbat", "La circoncision", "Le sacrifice", "La prière"], correct: 1, verse: "Genèse 17:10" },
-            { level: 2, question: "Quel âge avait Ismaël lors de sa circoncision ?", options: ["7 ans", "8 ans", "13 ans", "21 ans"], correct: 2, verse: "Genèse 17:25" },
-            { level: 2, question: "Quel roi Abraham a-t-il rencontré après une victoire ?", options: ["Pharaon", "Melchisédek", "Abimélec", "Nimrod"], correct: 1, verse: "Genèse 14:18" },
-            { level: 2, question: "Que fit Abraham à Melchisédek ?", options: ["Lui donna la dîme", "Lui offrit un sacrifice", "Lui demanda conseil", "Se prosterna"], correct: 0, verse: "Genèse 14:20" },
-            { level: 2, question: "Quel lien Lot avait-il avec Abraham ?", options: ["Son frère", "Son neveu", "Son cousin", "Son ami"], correct: 1, verse: "Genèse 12:5" },
-            { level: 2, question: "Où Abraham a-t-il enterré Sara ?", options: ["Dans le jardin d'Eden", "Dans la caverne de Macpéla", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 23:19" },
-
-            // Niveau 4 (Questions 31-40) - Moyen +
-            { level: 3, question: "Comment Abraham a-t-il trouvé une femme pour Isaac ?", options: ["Par une vision", "Par l'intermédiaire de son serviteur", "Par un ange", "Par son propre voyage"], correct: 1, verse: "Genèse 24:4" },
-            { level: 3, question: "Quel signe Rebecca donna-t-elle au serviteur ?", options: ["Elle lui donna à manger", "Elle lui donna à boire aux chameaux", "Elle lui offrit un cadeau", "Elle le bénit"], correct: 1, verse: "Genèse 24:19" },
-            { level: 3, question: "Combien de chameaux accompagnaient le serviteur ?", options: ["Cinq chameaux", "Dix chameaux", "Vingt chameaux", "Un chameau"], correct: 1, verse: "Genèse 24:10" },
-            { level: 3, question: "Où Isaac priait-il quand il vit Rebecca ?", options: ["Dans sa tente", "Dans les champs", "À la montagne", "Au puits"], correct: 1, verse: "Genèse 24:63" },
-            { level: 3, question: "Quelle promesse Dieu a-t-Il faite à Jacob à Béthel ?", options: ["Il serait riche", "Il serait avec lui partout", "Il aurait beaucoup d'enfants", "Il vivrait longtemps"], correct: 1, verse: "Genèse 28:15" },
-            { level: 3, question: "Combien de pierres Jacob utilisa-t-il comme oreiller ?", options: ["Une pierre", "Deux pierres", "Sept pierres", "Douze pierres"], correct: 0, verse: "Genèse 28:11" },
-            { level: 3, question: "Que versa Jacob sur la pierre à Béthel ?", options: ["De l'eau", "Du vin", "De l'huile", "Du sang"], correct: 2, verse: "Genèse 28:18" },
-            { level: 3, question: "Quel oncle a trompé Jacob ?", options: ["Abraham", "Isaac", "Laban", "Ésaü"], correct: 2, verse: "Genèse 29:25" },
-            { level: 3, question: "Combien d'années Jacob a-t-il travaillé au total pour Laban ?", options: ["7 ans", "14 ans", "20 ans", "30 ans"], correct: 2, verse: "Genèse 31:41" },
-            { level: 3, question: "Quel animal Jacob utilisait-il pour tromper Laban ?", options: ["Des brebis", "Des troupeaux tachetés et rayés", "Des chèvres", "Des bœufs"], correct: 1, verse: "Genèse 30:32" },
-
-            // Niveau 5 (Questions 41-50) - Difficile
-            { level: 4, question: "Quel fils de Jacob proposa de tuer Joseph ?", options: ["Juda", "Siméon", "Ruben", "Lévi"], correct: 2, verse: "Genèse 37:21" },
-            { level: 4, question: "Qui proposa plutôt de vendre Joseph ?", options: ["Ruben", "Juda", "Siméon", "Dan"], correct: 1, verse: "Genèse 37:26" },
-            { level: 4, question: "À combien Joseph a-t-il été vendu ?", options: ["10 pièces d'argent", "20 pièces d'argent", "30 pièces d'argent", "40 pièces d'argent"], correct: 1, verse: "Genèse 37:28" },
-            { level: 4, question: "Quel mensonge les frères ont-ils dit à Jacob ?", options: ["Qu'il était parti", "Qu'une bête avait dévoré Joseph", "Qu'il était vendu", "Qu'il était en Égypte"], correct: 1, verse: "Genèse 37:33" },
-            { level: 4, question: "Quel animal servit à tromper Jacob ?", options: ["Un agneau", "Un bouc", "Un taureau", "Un chien"], correct: 1, verse: "Genèse 37:31" },
-            { level: 4, question: "Quel don Joseph reçut-il de Dieu en Égypte ?", options: ["La force", "La richesse", "L'intelligence pour interpréter les rêves", "La beauté"], correct: 2, verse: "Genèse 41:16" },
-            { level: 4, question: "Combien d'années d'abondance y eut-il ?", options: ["Trois", "Cinq", "Sept", "Dix"], correct: 2, verse: "Genèse 41:26" },
-            { level: 4, question: "Qui administra les réserves de blé ?", options: ["Pharaon", "Potiphar", "Joseph", "Le chef des gardes"], correct: 2, verse: "Genèse 41:48" },
-            { level: 4, question: "Quel nom Pharaon donna-t-il à Joseph ?", options: ["Zaphnath-Paaneah", "Moïse", "Aaron", "Benjamin"], correct: 0, verse: "Genèse 41:45" },
-            { level: 4, question: "Comment s'appelait la femme de Joseph ?", options: ["Séphora", "Asnath", "Myriam", "Dina"], correct: 1, verse: "Genèse 41:45" },
-
-            // Niveau 6 (Questions 51-60) - Très difficile
-            { level: 5, question: "Quel est le nom du père d'Asnath ?", options: ["Potiphar", "Poti-Phéra", "Pharaon", "Jacob"], correct: 1, verse: "Genèse 41:45" },
-            { level: 5, question: "Quels sont les deux fils de Joseph ?", options: ["Ruben et Siméon", "Manassé et Éphraïm", "Juda et Benjamin", "Dan et Nephtali"], correct: 1, verse: "Genèse 41:51-52" },
-            { level: 5, question: "Lequel est né en premier ?", options: ["Manassé", "Éphraïm", "Les deux ensemble", "On ne sait pas"], correct: 0, verse: "Genèse 41:51" },
-            { level: 5, question: "Que signifie Manassé ?", options: ["Dieu m'a donné", "Dieu m'a fait oublier mes peines", "Dieu m'a béni", "Dieu m'a sauvé"], correct: 1, verse: "Genèse 41:51" },
-            { level: 5, question: "Que signifie Éphraïm ?", options: ["Dieu m'a rendu fécond", "Dieu m'a exaucé", "Dieu m'a protégé", "Dieu m'a choisi"], correct: 0, verse: "Genèse 41:52" },
-            { level: 5, question: "Combien de fois les frères de Joseph sont-ils venus en Égypte ?", options: ["Une fois", "Deux fois", "Trois fois", "Quatre fois"], correct: 1, verse: "Genèse 42-43" },
-            { level: 5, question: "Qui plaida pour Benjamin devant Joseph ?", options: ["Ruben", "Juda", "Siméon", "Lévi"], correct: 1, verse: "Genèse 44:18" },
-            { level: 5, question: "Pourquoi Joseph pleura-t-il ?", options: ["De joie", "De tristesse", "À cause de ses frères", "De fatigue"], correct: 2, verse: "Genèse 45:2" },
-            { level: 5, question: "Que Joseph reconnut-il dans son histoire ?", options: ["Le hasard", "Le plan de Dieu", "La malchance", "La justice"], correct: 1, verse: "Genèse 50:20" },
-            { level: 5, question: "Que fit Joseph à toute sa famille en Égypte ?", options: ["Les rejeta", "Les nourrit et les protégea", "Les oublia", "Les punit"], correct: 1, verse: "Genèse 47:12" },
-
-            // Niveau 7 (Questions 61-70) - Expert
-            { level: 6, question: "Quel fils de Jacob reçut la royauté ?", options: ["Ruben", "Juda", "Joseph", "Benjamin"], correct: 1, verse: "Genèse 49:10" },
-            { level: 6, question: "Quel fils de Jacob reçut une double part ?", options: ["Juda", "Ruben", "Joseph", "Lévi"], correct: 2, verse: "Genèse 48:22" },
-            { level: 6, question: "Qui bénit Jacob avant sa mort ?", options: ["Isaac", "Abraham", "Joseph", "Melchisédek"], correct: 0, verse: "Genèse 28:1" },
-            { level: 6, question: "Qui bénit les fils de Joseph ?", options: ["Isaac", "Jacob", "Joseph", "Pharaon"], correct: 1, verse: "Genèse 48:14" },
-            { level: 6, question: "Quelle main Jacob posa-t-il sur Éphraïm ?", options: ["La main gauche", "La main droite", "Les deux mains", "Aucune main"], correct: 1, verse: "Genèse 48:14" },
-            { level: 6, question: "Où Jacob est-il mort ?", options: ["En Canaan", "En Égypte", "À Béthel", "À Hébron"], correct: 1, verse: "Genèse 49:33" },
-            { level: 6, question: "Où Jacob fut-il enterré ?", options: ["En Égypte", "En Canaan", "À Ur", "À Babylone"], correct: 1, verse: "Genèse 50:13" },
-            { level: 6, question: "Qui accompagna le cortège funèbre de Jacob ?", options: ["Ses fils seulement", "Les Égyptiens seulement", "Les dignitaires d'Égypte", "Personne"], correct: 2, verse: "Genèse 50:7" },
-            { level: 6, question: "Quel message central ressort de la fin de la Genèse ?", options: ["La vengeance", "Dieu transforme le mal en bien", "La justice humaine", "La richesse"], correct: 1, verse: "Genèse 50:20" },
-            { level: 6, question: "Quel peuple naît réellement à la fin de la Genèse ?", options: ["Le peuple égyptien", "Le peuple d'Israël", "Le peuple cananéen", "Le peuple babylonien"], correct: 1, verse: "Genèse 50:24" }
-        ];
-
-        // ===============================
-        // FONCTIONS DE BASE
-        // ===============================
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function showMainButtons() {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
+        function showAdBanner() {
+            const adBanner = document.getElementById('adBanner');
+            if (!adBanner) return;
             
-            document.querySelector('.action-buttons').style.display = 'grid';
-            document.getElementById('programBtn').style.display = 'block';
-            document.getElementById('sermonsBtn').style.display = 'block';
-            document.getElementById('pastorBtn').style.display = 'block';
+            // Vérifier si l'utilisateur a déjà fermé la bannière
+            const adClosed = localStorage.getItem('adBannerClosed');
+            if (adClosed === 'true') return;
             
-            // Animation de retour
-            const buttons = document.querySelectorAll('.action-buttons button, #programBtn, #sermonsBtn, #pastorBtn');
-            buttons.forEach((button, index) => {
-                button.style.animation = `buttonsAppear 0.8s ease-out ${index * 0.1}s both`;
-            });
-        }
-
-        function hideMainButtons() {
-            document.querySelector('.action-buttons').style.display = 'none';
-            document.getElementById('programBtn').style.display = 'none';
-            document.getElementById('sermonsBtn').style.display = 'none';
-            document.getElementById('pastorBtn').style.display = 'none';
-        }
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
+            adBanner.style.display = 'block';
+            adBanner.style.animation = 'bannerSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             
-            hideMainButtons();
-            
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.classList.add('active-section');
-                
-                // Si c'est la section de prière, initialiser avec le bon thème
-                if (sectionId === 'prayerSection') {
-                    initializePrayerSection();
+            // Fermer automatiquement après 30 secondes
+            setTimeout(() => {
+                if (adBanner.style.display !== 'none') {
+                    closeAdBanner();
                 }
-                
-                // Réinitialiser le quiz si on change de section
-                if (sectionId !== 'quizSection' && isQuizActive) {
-                    resetQuiz();
-                }
-                
-                // Animation d'entrée
-                const cards = section.querySelectorAll('.card, .prayer-section, .quiz-section, .sermons-section');
-                cards.forEach((card, index) => {
-                    card.style.animation = `sectionAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`;
-                });
-            }
+            }, 30000);
         }
-
-        function showNotification(message, type = 'success') {
-            // Supprimer les notifications existantes
-            document.querySelectorAll('.notification').forEach(notif => notif.remove());
+        
+        function closeAdBanner() {
+            const adBanner = document.getElementById('adBanner');
+            if (!adBanner) return;
             
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.borderLeftColor = type === 'success' ? '#00b09b' : 
-                                               type === 'error' ? '#f5576c' : 
-                                               '#f46b45';
-            
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.5rem;">${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
-                    <span style="font-weight: 600;">${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
+            adBanner.style.animation = 'bannerSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
             
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.remove();
-                        }
-                    }, 500);
-                }
-            }, 4000);
-        }
-
-        // ===============================
-        // FONCTIONS POUR LE PARTAGE
-        // ===============================
-        function shareContent(type) {
-            let shareText = '';
-            let shareUrl = window.location.href;
-            
-            switch(type) {
-                case 'prayer':
-                    const currentTheme = prayerThemes[currentPrayerTheme];
-                    shareText = `🙏 Prière du jour - Assemblée des Saints Réunis de Binanga\n`;
-                    shareText += `THÈME : ${currentTheme.theme}\n`;
-                    shareText += `${currentTheme.date}\n\n`;
-                    shareText += "Rejoignez-nous dans cette puissante prière pour connaître le Bon Berger !\n\n";
-                    shareText += "#Prière #BonBerger #Jean10 #Bénédiction";
-                    break;
-                    
-                case 'quiz':
-                    shareText = "📖 Quiz Biblique - Le livre de la Genèse\n";
-                    shareText += "7 niveaux, 10 questions par niveau - Testez vos connaissances bibliques !\n\n";
-                    shareText += "Venez relever le défi et approfondir votre connaissance de la Parole de Dieu.\n\n";
-                    shareText += "#QuizBiblique #Genèse #Bible #ÉtudeBiblique";
-                    break;
-                    
-                case 'sermon':
-                    shareText = "📺 NOS PRÉDICATIONS - Assemblée des Saints Réunis de Binanga\n";
-                    shareText += "Découvrez nos deux nouvelles prédications :\n";
-                    shareText += "1. L'AVEUGLE QUI CONDUIT UN AUTRE AVEUGLE\n";
-                    shareText += "2. TEL EST, TELS NOUS SOMMES\n\n";
-                    shareText += "Par Fr. Christian MANDEMBA\n";
-                    shareText += "Des enseignements profonds pour édifier votre foi.\n\n";
-                    shareText += "#Prédication #Enseignement #Bible #VieSpirituelle";
-                    break;
-                    
-                case 'program':
-                    shareText = "📅 PROGRAMMES DE LA SEMAINE\n";
-                    shareText += "Assemblée des Saints Réunis de Binanga\n\n";
-                    shareText += "MERCREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
-                    shareText += "JEUDI : 23h - 3h - NUIT DE PRIÈRE\n";
-                    shareText += "VENDREDI : 17h - 19h - ENSEIGNEMENT ET PRIÈRE\n";
-                    shareText += "SAMEDI : 8h - 12h - INTERCESSION\n";
-                    shareText += "DIMANCHE : 8h - 10h30 - CULTE D'ADORATION\n\n";
-                    shareText += "Venez nombreux ! #Programme #Culte #Prière #Église";
-                    break;
-            }
-            
-            // Vérifier si Web Share API est supporté
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Assemblée des Saints Réunis de Binanga',
-                    text: shareText,
-                    url: shareUrl
-                })
-                .then(() => {
-                    showNotification('Contenu partagé avec succès !', 'success');
-                })
-                .catch(error => {
-                    console.log('Erreur de partage:', error);
-                    fallbackShare(shareText);
-                });
-            } else {
-                fallbackShare(shareText);
-            }
-        }
-
-        function fallbackShare(shareText) {
-            navigator.clipboard.writeText(shareText)
-                .then(() => {
-                    showNotification('Contenu copié dans le presse-papier ! Vous pouvez maintenant le partager.', 'success');
-                })
-                .catch(err => {
-                    console.error('Erreur lors de la copie:', err);
-                    showNotification('Impossible de copier le contenu', 'error');
-                });
-        }
-
-        // ===============================
-        // FONCTIONS POUR LA SECTION PRIÈRE - NOUVELLE VERSION DYNAMIQUE
-        // ===============================
-        function initializePrayerSection() {
-            // Déterminer le thème basé sur la date actuelle
-            const now = new Date();
-            const day = now.getDate();
-            const month = now.getMonth() + 1; // Janvier = 0
-            
-            // Pour les tests, on peut forcer currentPrayerTheme à 0 ou 1
-            // currentPrayerTheme = 0; // Lundi 22
-            // currentPrayerTheme = 1; // Mardi 23
-            
-            // Logique réelle : si on est le 22, thème 0, si on est le 23, thème 1
-            // if (day === 22 && month === 12) {
-            //     currentPrayerTheme = 0;
-            // } else if (day === 23 && month === 12) {
-            //     currentPrayerTheme = 1;
-            // }
-            
-            // Pour démo, on utilise la date réelle
-            currentPrayerTheme = (day === 22 && month === 12) ? 0 : 1;
-            
-            const currentTheme = prayerThemes[currentPrayerTheme];
-            
-            // Mettre à jour le titre et le thème
-            document.getElementById('prayerDayTitle').textContent = `🙏 ${currentTheme.title}`;
-            document.getElementById('currentTheme').textContent = currentTheme.theme;
-            document.getElementById('currentDate').textContent = currentTheme.date;
-            
-            // Mettre à jour le texte de partage
-            updateShareButtonText();
-            
-            // Générer les sujets de prière
-            const prayerTopicsDiv = document.getElementById('prayerTopics');
-            prayerTopicsDiv.innerHTML = '';
-            
-            currentTheme.topics.forEach((topic, index) => {
-                const topicDiv = document.createElement('div');
-                topicDiv.className = 'prayer-topic';
-                topicDiv.id = `prayerTopic${index}`;
-                topicDiv.innerHTML = `
-                    <div class="verse">
-                        <strong>${topic.verse}</strong><br>
-                        ${topic.text}
-                    </div>
-                    <p>${topic.content}</p>
-                `;
-                prayerTopicsDiv.appendChild(topicDiv);
-            });
-            
-            // Réinitialiser les variables de prière
-            currentPrayerTopic = 0;
-            prayerTimeLeft = 600;
-            isPrayerPaused = false;
-            
-            // Mettre à jour l'interface
-            updatePrayerUI();
-        }
-
-        function updatePrayerUI() {
-            // Cacher tous les sujets
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            // Afficher le premier sujet
-            const firstTopic = document.getElementById('prayerTopic0');
-            if (firstTopic) {
-                firstTopic.classList.add('active');
-            }
-            
-            // Mettre à jour la progression
-            updatePrayerProgress();
-            
-            // Réinitialiser le timer
-            const prayerTimer = document.getElementById('prayerTimer');
-            if (prayerTimer) {
-                prayerTimer.textContent = formatTime(prayerTimeLeft);
-                prayerTimer.classList.remove('warning', 'hidden');
-            }
-            
-            // Réinitialiser les boutons
-            document.getElementById('startPrayerBtn').classList.remove('hidden');
-            document.getElementById('pausePrayerBtn').classList.add('hidden');
-            document.getElementById('resumePrayerBtn').classList.add('hidden');
-            document.getElementById('nextTopicBtn').classList.add('hidden');
-            document.getElementById('finishPrayerBtn').classList.add('hidden');
-            document.getElementById('prayerClosure').classList.add('hidden');
-        }
-
-        function updatePrayerProgress() {
-            const progress = ((currentPrayerTopic) / 7) * 100;
-            const progressFill = document.getElementById('progressFill');
-            const currentTopicNumber = document.getElementById('currentTopicNumber');
-            
-            if (progressFill) {
-                progressFill.style.width = `${progress}%`;
-            }
-            if (currentTopicNumber) {
-                currentTopicNumber.textContent = currentPrayerTopic + 1;
-            }
-        }
-
-        function startPrayer() {
-            currentPrayerTopic = 0;
-            prayerTimeLeft = 600;
-            isPrayerPaused = false;
-            
-            document.getElementById('startPrayerBtn').classList.add('hidden');
-            document.getElementById('pausePrayerBtn').classList.remove('hidden');
-            document.getElementById('nextTopicBtn').classList.remove('hidden');
-            document.getElementById('finishPrayerBtn').classList.add('hidden');
-            document.getElementById('prayerClosure').classList.add('hidden');
-            document.getElementById('resumePrayerBtn').classList.add('hidden');
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const firstTopic = document.getElementById('prayerTopic0');
-            if (firstTopic) {
-                firstTopic.classList.add('active');
-            }
-            
-            updatePrayerProgress();
-            
-            startPrayerTimer();
-            
-            showNotification("Prière démarrée! 10 minutes par sujet.", 'success');
-        }
-
-        function pausePrayer() {
-            if (prayerTimerInterval) {
-                clearInterval(prayerTimerInterval);
-                prayerTimerInterval = null;
-                isPrayerPaused = true;
-                document.getElementById('pausePrayerBtn').classList.add('hidden');
-                document.getElementById('resumePrayerBtn').classList.remove('hidden');
-                document.getElementById('prayerTimer').classList.add('warning');
-                showNotification("Prière en pause", 'warning');
-            }
-        }
-
-        function resumePrayer() {
-            if (isPrayerPaused) {
-                isPrayerPaused = false;
-                document.getElementById('resumePrayerBtn').classList.add('hidden');
-                document.getElementById('pausePrayerBtn').classList.remove('hidden');
-                document.getElementById('prayerTimer').classList.remove('warning');
-                startPrayerTimer();
-                showNotification("Prière reprise", 'success');
-            }
-        }
-
-        function nextPrayerTopic() {
-            currentPrayerTopic++;
-            
-            if (currentPrayerTopic >= 7) {
-                finishPrayer();
-                return;
-            }
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const nextTopic = document.getElementById(`prayerTopic${currentPrayerTopic}`);
-            if (nextTopic) {
-                nextTopic.classList.add('active');
-            }
-            
-            prayerTimeLeft = 600;
-            const prayerTimer = document.getElementById('prayerTimer');
-            if (prayerTimer) {
-                prayerTimer.textContent = formatTime(prayerTimeLeft);
-                prayerTimer.classList.remove('warning');
-            }
-            
-            updatePrayerProgress();
-            
-            if (currentPrayerTopic === 6) {
-                document.getElementById('nextTopicBtn').classList.add('hidden');
-                document.getElementById('finishPrayerBtn').classList.remove('hidden');
-                showNotification("Dernier sujet de prière! Terminez quand vous êtes prêt.", 'warning');
-            } else {
-                showNotification(`Sujet ${currentPrayerTopic + 1} sur 7`, 'success');
-            }
-        }
-
-        function finishPrayer() {
-            clearInterval(prayerTimerInterval);
-            prayerTimerInterval = null;
-            
-            document.querySelectorAll('.prayer-topic').forEach(topic => {
-                topic.classList.remove('active');
-            });
-            
-            const prayerTimer = document.getElementById('prayerTimer');
-            if (prayerTimer) {
-                prayerTimer.classList.add('hidden');
-            }
-            
-            document.getElementById('pausePrayerBtn').classList.add('hidden');
-            document.getElementById('resumePrayerBtn').classList.add('hidden');
-            document.getElementById('nextTopicBtn').classList.add('hidden');
-            document.getElementById('finishPrayerBtn').classList.add('hidden');
-            document.getElementById('prayerClosure').classList.remove('hidden');
-            
-            const progressFill = document.getElementById('progressFill');
-            if (progressFill) {
-                progressFill.style.width = '100%';
-            }
-            
-            const currentTopicNumber = document.getElementById('currentTopicNumber');
-            if (currentTopicNumber) {
-                currentTopicNumber.textContent = '7';
-            }
-            
-            showNotification("Prière terminée! Dieu vous bénisse!", 'success');
-            
-            // Animation de la section de clôture
-            const closureItems = document.querySelectorAll('#prayerClosure .message-item, #prayerClosure .reminder');
-            closureItems.forEach((item, index) => {
-                item.style.animation = `topicAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s both`;
-            });
-        }
-
-        function startPrayerTimer() {
-            clearInterval(prayerTimerInterval);
-            
-            prayerTimerInterval = setInterval(() => {
-                if (!isPrayerPaused) {
-                    prayerTimeLeft--;
-                    const prayerTimer = document.getElementById('prayerTimer');
-                    if (prayerTimer) {
-                        prayerTimer.textContent = formatTime(prayerTimeLeft);
-                    }
-                    
-                    if (prayerTimeLeft <= 30 && prayerTimeLeft > 0) {
-                        if (prayerTimer) {
-                            prayerTimer.classList.add('warning');
-                        }
-                    }
-                    
-                    if (prayerTimeLeft <= 0) {
-                        clearInterval(prayerTimerInterval);
-                        
-                        showNotification("Temps écoulé! Vous pouvez passer au sujet suivant.", 'warning');
-                        
-                        if (currentPrayerTopic === 6) {
-                            document.getElementById('pausePrayerBtn').classList.add('hidden');
-                            document.getElementById('nextTopicBtn').classList.add('hidden');
-                            document.getElementById('finishPrayerBtn').classList.remove('hidden');
-                        }
-                    }
-                }
-            }, 1000);
-        }
-
-        function updateShareButtonText() {
-            const currentTheme = prayerThemes[currentPrayerTheme];
-            const shareButton = document.querySelector('#prayerSection .share-button');
-            if (shareButton) {
-                shareButton.innerHTML = `<span class="icon">📤</span> Partager la prière du ${currentTheme.date.split(' ')[0]}`;
-            }
-        }
-
-        // ===============================
-        // FONCTIONS POUR LE QUIZ
-        // ===============================
-        function initializeQuizSection() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            if (levelIndicator) {
-                levelIndicator.innerHTML = '';
-                
-                for (let i = 0; i < 7; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'level-dot';
-                    dot.id = `levelDot${i}`;
-                    levelIndicator.appendChild(dot);
-                }
-            }
-            updateLevelIndicator();
-        }
-
-        function updateLevelIndicator() {
-            document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index === currentQuizLevel) {
-                    dot.classList.add('active');
-                } else if (index < currentQuizLevel) {
-                    dot.classList.add('completed');
-                }
-            });
-        }
-
-        function getQuestionsForLevel(level) {
-            const levelQuestions = allQuizQuestions.filter(q => q.level === level);
-            return shuffleArray(levelQuestions).slice(0, 10);
-        }
-
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        function startQuiz() {
-            currentQuizLevel = 0;
-            currentQuestionIndex = 0;
-            quizScore = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            isQuizActive = true;
-            quizCompletedLevels = 0;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('startQuizBtn').classList.add('hidden');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizResults').classList.add('hidden');
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-            document.getElementById('quizTimer').classList.remove('warning');
-            
-            // Cacher tous les boutons du résultat
-            document.getElementById('continueQuizBtn').classList.add('hidden');
-            document.getElementById('retryLevelBtn').classList.add('hidden');
-            document.getElementById('finishQuizBtn').classList.add('hidden');
-            document.getElementById('restartQuizBtn').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            
-            showNotification("Quiz démarré! Niveau 1 - 3 minutes pour répondre.", 'success');
-        }
-
-        function loadQuestion() {
-            if (currentQuestionIndex >= levelQuestions.length) {
-                evaluateLevelResults();
-                return;
-            }
-            
-            const question = levelQuestions[currentQuestionIndex];
-            
-            document.getElementById('questionText').textContent = 
-                `Niveau ${currentQuizLevel + 1} - Question ${currentQuestionIndex + 1}/10: ${question.question}`;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
-                optionDiv.onclick = () => selectAnswer(index, question.correct);
-                optionsContainer.appendChild(optionDiv);
-            });
-        }
-
-        function selectAnswer(selectedIndex, correctIndex) {
-            const options = document.querySelectorAll('.option');
-            
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            options.forEach((option, index) => {
-                if (index === selectedIndex) {
-                    if (selectedIndex === correctIndex) {
-                        option.classList.add('correct');
-                        currentLevelScore++;
-                    } else {
-                        option.classList.add('incorrect');
-                        options[correctIndex].classList.add('correct');
-                    }
-                }
-                option.classList.add('selected');
-            });
-            
-            // Attendre 1 seconde avant de passer à la question suivante
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex >= levelQuestions.length) {
-                    evaluateLevelResults();
-                } else {
-                    loadQuestion();
-                }
-            }, 1000);
-        }
-
-        function evaluateLevelResults() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            
-            const levelResult = document.getElementById('levelResult');
-            const resultLevelNumber = document.getElementById('resultLevelNumber');
-            const levelScore = document.getElementById('levelScore');
-            const levelMessage = document.getElementById('levelMessage');
-            
-            resultLevelNumber.textContent = currentQuizLevel + 1;
-            levelScore.textContent = `${currentLevelScore}/10`;
-            
-            // Ajouter le score du niveau au score total
-            quizScore += currentLevelScore;
-            
-            const isPerfectScore = currentLevelScore === 10;
-            
-            if (isPerfectScore) {
-                levelMessage.innerHTML = `
-                    <div class="level-message success">
-                        <strong>🎉 FÉLICITATIONS !</strong><br>
-                        Vous avez réussi le niveau ${currentQuizLevel + 1} avec un score parfait !<br>
-                        Score: ${currentLevelScore}/10<br><br>
-                        <small>Le prophète dit : "Celui qui médite la parole de Dieu jour et nuit réussira dans tout ce qu'il entreprend."</small>
-                    </div>
-                `;
-                
-                document.getElementById('continueQuizBtn').classList.remove('hidden');
-                document.getElementById('retryLevelBtn').classList.add('hidden');
-                document.getElementById('finishQuizBtn').classList.add('hidden');
-                document.getElementById('restartQuizBtn').classList.add('hidden');
-                
-                quizCompletedLevels++;
-                
-                // Mettre à jour l'indicateur de niveau
-                document.querySelectorAll('.level-dot').forEach((dot, index) => {
-                    if (index <= currentQuizLevel) {
-                        dot.classList.add('completed');
-                    }
-                });
-                
-            } else {
-                levelMessage.innerHTML = `
-                    <div class="level-message fail">
-                        <strong>❌ Niveau non réussi</strong><br>
-                        Score: ${currentLevelScore}/10<br>
-                        <strong>Vous devez obtenir 10/10 (toutes les réponses correctes) pour passer au niveau suivant.</strong><br><br>
-                        <small>Le prophète dit : "La parole de Dieu est une lampe à nos pieds et une lumière sur notre sentier."</small>
-                    </div>
-                `;
-                
-                document.getElementById('continueQuizBtn').classList.add('hidden');
-                document.getElementById('retryLevelBtn').classList.remove('hidden');
-                document.getElementById('finishQuizBtn').classList.add('hidden');
-                document.getElementById('restartQuizBtn').classList.add('hidden');
-            }
-            
-            levelResult.classList.add('visible');
-            
-            // Afficher les boutons principaux de quiz
-            document.getElementById('quizMainControls').classList.remove('hidden');
-        }
-
-        function continueToNextLevel() {
-            if (currentQuizLevel >= 6) {
-                showFinalResults();
-                return;
-            }
-            
-            currentQuizLevel++;
-            currentQuestionIndex = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            isQuizActive = true;
-            
-            showNotification(`Niveau ${currentQuizLevel + 1} - 3 minutes pour répondre.`, 'success');
-        }
-
-        function retryLevel() {
-            currentQuestionIndex = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizMainControls').classList.add('hidden');
-            
-            loadQuestion();
-            
-            startQuizTimer();
-            isQuizActive = true;
-            
-            showNotification(`Nouvelle tentative - Niveau ${currentQuizLevel + 1}`, 'success');
-        }
-
-        function showFinalResults() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-            
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('quizTimer').style.display = 'none';
-            document.getElementById('levelResult').classList.remove('visible');
-            
-            const totalPossibleScore = quizCompletedLevels * 10;
-            const percentage = totalPossibleScore > 0 ? Math.round((quizScore / totalPossibleScore) * 100) : 0;
-            
-            const resultsDiv = document.getElementById('quizResults');
-            resultsDiv.innerHTML = `
-                <div class="card">
-                    <h2>🏆 RÉSULTATS FINAUX DU QUIZ BIBLIQUE</h2>
-                    <div style="text-align: center; padding: 2rem;">
-                        <div class="level-score" style="font-size: 3rem; color: var(--gold-color);">
-                            ${quizCompletedLevels}/7
-                        </div>
-                        <p>Niveaux complétés avec succès</p>
-                        
-                        <div class="level-message ${percentage >= 100 ? 'success' : percentage >= 70 ? 'success' : 'fail'}" style="margin: 1.5rem 0;">
-                            ${quizCompletedLevels === 7 ? '🏆 CHAMPION ABSOLU ! Vous avez maîtrisé tous les niveaux de la Genèse !' : 
-                             quizCompletedLevels >= 5 ? '🌟 EXCELLENT ! Vous connaissez très bien la Genèse !' : 
-                             quizCompletedLevels >= 3 ? '👍 BON TRAVAIL ! Continuez à étudier la Parole de Dieu !' : 
-                             '📖 CONTINUEZ À ÉTUDIER ! Chaque jour dans la Parole vous rapproche de Dieu.'}
-                        </div>
-                        
-                        <div style="background: linear-gradient(135deg, rgba(106, 17, 203, 0.05), transparent); padding: 1.5rem; border-radius: var(--border-radius); margin: 1.5rem 0; border: 1px solid rgba(106, 17, 203, 0.1);">
-                            <p><strong>Score total :</strong> ${quizScore}/${totalPossibleScore} (${percentage}%)</p>
-                            <p><strong>Niveaux réussis :</strong> ${quizCompletedLevels}/7</p>
-                            <p><strong>Temps total :</strong> ${Math.round((7 - quizCompletedLevels) * 3 + quizCompletedLevels * 3)} minutes</p>
-                        </div>
-                        
-                        <div class="quiz-controls" style="margin-top: 2rem;">
-                            <button onclick="restartQuiz()" class="btn-start">🔄 Recommencer le quiz</button>
-                            <button onclick="showMainButtons()" class="btn-finish">🏠 Retour à l'accueil</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            resultsDiv.classList.remove('hidden');
-            
-            // Animation du résultat
-            resultsDiv.style.animation = 'resultAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            
-            // Cacher les boutons principaux
-            document.getElementById('quizMainControls').classList.add('hidden');
-        }
-
-        function restartQuiz() {
-            currentQuizLevel = 0;
-            currentQuestionIndex = 0;
-            quizScore = 0;
-            currentLevelScore = 0;
-            quizTimeLeft = 180;
-            isQuizActive = false;
-            quizCompletedLevels = 0;
-            levelQuestions = [];
-            
-            clearInterval(quizTimerInterval);
-            
-            document.getElementById('startQuizBtn').classList.remove('hidden');
-            document.getElementById('quizMainControls').classList.remove('hidden');
-            document.getElementById('levelResult').classList.remove('visible');
-            document.getElementById('quizResults').classList.add('hidden');
-            document.getElementById('questionContainer').style.display = 'block';
-            document.getElementById('quizTimer').style.display = 'block';
-            document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-            document.getElementById('quizTimer').classList.remove('warning');
-            
-            // Cacher tous les boutons du résultat
-            document.getElementById('continueQuizBtn').classList.add('hidden');
-            document.getElementById('retryLevelBtn').classList.add('hidden');
-            document.getElementById('finishQuizBtn').classList.add('hidden');
-            document.getElementById('restartQuizBtn').classList.add('hidden');
-            
-            updateLevelIndicator();
-            
-            levelQuestions = getQuestionsForLevel(currentQuizLevel);
-            loadQuestion();
-            
-            showNotification("Quiz réinitialisé!", 'success');
-        }
-
-        function startQuizTimer() {
-            clearInterval(quizTimerInterval);
-            
-            quizTimerInterval = setInterval(() => {
-                if (isQuizActive) {
-                    quizTimeLeft--;
-                    document.getElementById('quizTimer').textContent = formatTime(quizTimeLeft);
-                    
-                    if (quizTimeLeft <= 30 && quizTimeLeft > 0) {
-                        document.getElementById('quizTimer').classList.add('warning');
-                    }
-                    
-                    if (quizTimeLeft <= 0) {
-                        clearInterval(quizTimerInterval);
-                        showNotification("Temps écoulé pour ce niveau!", 'error');
-                        evaluateLevelResults();
-                    }
-                }
-            }, 1000);
-        }
-
-        function resetQuiz() {
-            clearInterval(quizTimerInterval);
-            isQuizActive = false;
-        }
-
-        // ===============================
-        // FONCTIONS POUR LA PUBLICITÉ - MIS À JOUR
-        // ===============================
-        function showAdvertisement() {
-            const currentSection = document.querySelector('.content-section.active-section');
-            const sectionId = currentSection ? currentSection.id : '';
-            
-            // Vérifier si on est dans les sections autorisées
-            const allowedSections = ['', 'programSection', 'sermonsSection']; // '' = écran d'accueil
-            
-            if (!allowedSections.includes(sectionId)) {
-                return;
-            }
-            
-            // Vérifier si assez de temps s'est écoulé depuis la dernière publicité (2 minutes)
-            const now = Date.now();
-            if (now - lastAdTime < 120000) { // 120000 ms = 2 minutes
-                return;
-            }
-            
-            lastAdTime = now;
-            adCountdown = 45;
-            
-            // Mettre à jour le contenu de la publicité
-            updateAdContent();
-            
-            const adElement = document.getElementById('advertisement');
-            const adCountdownElement = document.getElementById('adCountdown');
-            
-            adElement.classList.remove('hidden');
-            if (adCountdownElement) {
-                adCountdownElement.textContent = adCountdown;
-            }
-            
-            // Démarrer le compte à rebours
-            clearInterval(adCountdownInterval);
-            adCountdownInterval = setInterval(() => {
-                adCountdown--;
-                if (adCountdownElement) {
-                    adCountdownElement.textContent = adCountdown;
-                }
-                
-                if (adCountdown <= 0) {
-                    closeAd();
-                }
-            }, 1000);
-        }
-
-        function updateAdContent() {
-            const adElement = document.getElementById('advertisement');
-            if (!adElement) return;
-            
-            const today = new Date();
-            const day = today.getDate();
-            const month = today.getMonth() + 1; // Janvier = 0
-            const year = today.getFullYear();
-            const hour = today.getHours();
-            const minute = today.getMinutes();
-            
-            // Vérifier si on est après dimanche 21 décembre 2025 10h30
-            const isAfterSunday1030 = (year === 2025 && month === 12 && day >= 22) || 
-                                     (year === 2025 && month === 12 && day === 21 && hour >= 10 && minute >= 30);
-            
-            if (isAfterSunday1030) {
-                // Afficher le programme de la semaine prochaine (nuits de prière)
-                adElement.innerHTML = `
-                    <button class="ad-close" onclick="closeAd()">&times;</button>
-                    <h3>✨ SÉRIE SPÉCIALE DE PRIÈRE ✨</h3>
-                    <div class="ad-subtitle">DU LUNDI 22 AU DIMANCHE 28 DÉCEMBRE 2025</div>
-                    <div class="ad-time">00h00 - 3h00</div>
-                    <p><strong>"21 HEURES AVEC JESUS"</strong></p>
-                    
-                    <div class="ad-theme">
-                        <strong>🎯 THÈME : ALPHA ET OMÉGA</strong><br>
-                        <em>« Je suis l'alpha et l'oméga, le premier et le dernier, le commencement et la fin. »</em><br>
-                        <strong>Apocalypse 22:13</strong>
-                    </div>
-                    
-                    <p>Une semaine complète de prières nocturnes pour terminer l'année dans la présence de Dieu !</p>
-                    <p><strong>Venez nombreux pour ces nuits de percée spirituelle !</strong></p>
-                    
-                    <div class="ad-countdown">Cette annonce disparaîtra dans <span id="adCountdown">45</span> secondes</div>
-                `;
-            } else {
-                // Afficher l'annonce du culte de dimanche
-                adElement.innerHTML = `
-                    <button class="ad-close" onclick="closeAd()">&times;</button>
-                    <h3>✨ CULTE DE DIMANCHE ✨</h3>
-                    <div class="ad-subtitle">DIMANCHE 21 DÉCEMBRE 2025</div>
-                    <div class="ad-time">8h00 - 10h30</div>
-                    <p><strong>Venez nombreux célébrer le Seigneur !</strong></p>
-                    
-                    <div class="ad-theme">
-                        <strong>🎯 THÈME : ALPHA ET OMÉGA</strong><br>
-                        <em>« Je suis l'alpha et l'oméga, le premier et le dernier, le commencement et la fin. »</em><br>
-                        <strong>Apocalypse 22:13</strong>
-                    </div>
-                    
-                    <p>Un temps de louange, d'adoration et de communion fraternelle vous attend.</p>
-                    
-                    <div class="ad-theme" style="margin-top: 0.8rem; background: rgba(255, 215, 0, 0.15);">
-                        <strong>À PARTIR DU LUNDI 22 DÉCEMBRE :</strong><br>
-                        <strong>SÉRIE "21 HEURES AVEC JESUS"</strong><br>
-                        Du Lundi au Dimanche • 00h00 - 3h00
-                    </div>
-                    
-                    <div class="ad-countdown">Cette annonce disparaîtra dans <span id="adCountdown">45</span> secondes</div>
-                `;
-            }
-        }
-
-        function closeAd() {
-            const adElement = document.getElementById('advertisement');
-            adElement.style.animation = 'adPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
-            setTimeout(() => {
-                adElement.classList.add('hidden');
-                adElement.style.animation = '';
+                adBanner.style.display = 'none';
+                // Enregistrer que l'utilisateur a fermé la bannière
+                localStorage.setItem('adBannerClosed', 'true');
             }, 600);
-            clearInterval(adCountdownInterval);
         }
-
-        function startAdTimer() {
-            // Afficher la première publicité après 5 secondes
-            setTimeout(showAdvertisement, 5000);
+        
+        function checkAdBannerState() {
+            const adClosed = localStorage.getItem('adBannerClosed');
+            const adBanner = document.getElementById('adBanner');
             
-            // Puis toutes les 2 minutes
-            adInterval = setInterval(showAdvertisement, 120000);
+            if (adClosed === 'true' && adBanner) {
+                adBanner.style.display = 'none';
+            }
         }
-
+        
         // ===============================
-        // INITIALISATION PWA
+        // PWA INSTALLATION
         // ===============================
+        let deferredPrompt;
+        
         function initializePWA() {
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
                 
+                // Afficher un bouton d'installation personnalisé si nécessaire
                 setTimeout(() => {
-                    const installBanner = document.getElementById('installBanner');
-                    if (installBanner && deferredPrompt) {
-                        installBanner.classList.remove('hidden');
-                    }
-                }, 3000);
+                    showInstallPrompt();
+                }, 10000);
             });
-
+            
             window.addEventListener('appinstalled', () => {
                 deferredPrompt = null;
-                const installBanner = document.getElementById('installBanner');
-                if (installBanner) {
-                    installBanner.classList.add('hidden');
-                }
-                showNotification('Application installée avec succès!', 'success');
+                console.log('Application installée avec succès');
             });
-
-            const installBannerBtn = document.getElementById('installBannerBtn');
-            if (installBannerBtn) {
-                installBannerBtn.addEventListener('click', async () => {
-                    if (!deferredPrompt) return;
-                    
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    
-                    if (outcome === 'accepted') {
-                        console.log('Utilisateur a accepté l\'installation');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-
-            const dismissBannerBtn = document.getElementById('dismissBannerBtn');
-            if (dismissBannerBtn) {
-                dismissBannerBtn.addEventListener('click', () => {
-                    const installBanner = document.getElementById('installBanner');
-                    if (installBanner) {
-                        installBanner.classList.add('hidden');
-                    }
-                });
-            }
         }
-
+        
+        function showInstallPrompt() {
+            // Vous pouvez ajouter ici une bannière d'installation personnalisée
+            // si vous souhaitez encourager l'installation de l'application
+        }
+        
         // ===============================
-        // INITIALISATION DE L'APPLICATION
+        // ANIMATIONS ET INTERACTIONS
         // ===============================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Créer les particules
-            createParticles();
+        function initializeActionButtons() {
+            const actionButtons = document.querySelectorAll('.action-button');
             
-            // Initialiser PWA
-            initializePWA();
-            
-            // Initialiser les sections
-            initializePrayerSection();
-            initializeQuizSection();
-            
-            // Masquer toutes les sections de contenu au démarrage
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            
-            // Démarrer le timer pour les publicités
-            startAdTimer();
-            
-            // Gestionnaires d'événements - Boutons principaux
-            document.getElementById('prayerBtn').addEventListener('click', function() {
-                showSection('prayerSection');
-            });
-            
-            document.getElementById('bibleQuizBtn').addEventListener('click', function() {
-                showSection('quizSection');
-            });
-            
-            document.getElementById('programBtn').addEventListener('click', function() {
-                showSection('programSection');
-            });
-            
-            document.getElementById('sermonsBtn').addEventListener('click', function() {
-                showSection('sermonsSection');
-            });
-            
-            document.getElementById('pastorBtn').addEventListener('click', function() {
-                window.open('https://wa.me/243851729059?text=Bonjour%20Pasteur,%20je%20viens%20de%20l%27application%20de%20l%27%C3%A9glise', '_blank');
-            });
-            
-            // Gestionnaires - Prière
-            document.getElementById('startPrayerBtn').addEventListener('click', startPrayer);
-            document.getElementById('pausePrayerBtn').addEventListener('click', pausePrayer);
-            document.getElementById('resumePrayerBtn').addEventListener('click', resumePrayer);
-            document.getElementById('nextTopicBtn').addEventListener('click', nextPrayerTopic);
-            document.getElementById('finishPrayerBtn').addEventListener('click', finishPrayer);
-            
-            // Gestionnaires - Quiz
-            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
-            document.getElementById('continueQuizBtn').addEventListener('click', continueToNextLevel);
-            document.getElementById('retryLevelBtn').addEventListener('click', retryLevel);
-            document.getElementById('finishQuizBtn').addEventListener('click', function() {
-                showFinalResults();
-            });
-            document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
-            
-            // Effet de survol amélioré pour tous les boutons
-            const allButtons = document.querySelectorAll('button');
-            allButtons.forEach(button => {
+            actionButtons.forEach(button => {
                 button.addEventListener('mouseenter', function() {
-                    if (!this.disabled) {
-                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                    const icon = this.querySelector('.icon');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2) rotate(5deg)';
                     }
                 });
                 
                 button.addEventListener('mouseleave', function() {
-                    if (!this.disabled) {
-                        this.style.transform = '';
+                    const icon = this.querySelector('.icon');
+                    if (icon) {
+                        icon.style.transform = 'scale(1) rotate(0deg)';
                     }
                 });
             });
+        }
+        
+        function animatePageElements() {
+            // Animation séquentielle des cartes
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach((card, index) => {
+                card.style.animation = `contentReveal 0.8s ease-out ${index * 0.2 + 0.5}s both`;
+            });
             
-            // Afficher un message de bienvenue
+            // Effet de lumière sur le logo
+            const logo = document.querySelector('.church-logo') || document.querySelector('.logo-placeholder');
+            if (logo) {
+                setInterval(() => {
+                    logo.style.filter = `hue-rotate(${Math.random() * 20}deg) brightness(${1 + Math.random() * 0.1})`;
+                }, 3000);
+            }
+        }
+        
+        // ===============================
+        // NOTIFICATIONS
+        // ===============================
+        function showNotification(message, type = 'info') {
+            // Créer une notification temporaire
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--bronze-dark), var(--bronze-medium));
+                color: var(--gold-light);
+                padding: 1rem 1.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-heavy);
+                border-left: 4px solid var(--gold-primary);
+                z-index: 2000;
+                animation: notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Crimson Text', serif;
+                max-width: 300px;
+                backdrop-filter: blur(10px);
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.5rem;">
+                        ${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}
+                    </span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer la notification après 4 secondes
             setTimeout(() => {
-                const today = new Date();
-                const day = today.getDate();
-                const month = today.getMonth() + 1;
-                
-                if (day === 22 && month === 12) {
-                    showNotification("Aujourd'hui : Prière du Lundi 22 Décembre - Rester fidèles à Dieu", 'success');
-                } else if (day === 23 && month === 12) {
-                    showNotification("Aujourd'hui : Prière du Mardi 23 Décembre - Se préparer pour une nouvelle saison", 'success');
+                notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 500);
+            }, 4000);
+        }
+        
+        // Ajouter l'animation pour les notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes notificationSlide {
+                from { 
+                    transform: translateX(100%) translateY(-20px); 
+                    opacity: 0; 
                 }
-            }, 2000);
-        });
+                to { 
+                    transform: translateX(0) translateY(0); 
+                    opacity: 1; 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // ===============================
+        // PARTAGE DE L'APPLICATION
+        // ===============================
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Assemblée des Saints Réunis de Binanga',
+                    text: 'Découvrez l\'application de notre église pour la prière, les cultes et l\'étude biblique.',
+                    url: window.location.href
+                }).then(() => {
+                    showNotification('Application partagée avec succès!', 'success');
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => {
+                        showNotification('Lien copié dans le presse-papier!', 'success');
+                    })
+                    .catch(console.error);
+            }
+        }
     </script>
 </body>
 </html>
