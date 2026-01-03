@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <title>Prière du Jour - Assemblée des Saints Réunis de Binanga</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EK7FF535EK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EK7FF535EK');
+    </script>
+    
+    <!-- Styles - Cohérence avec le design de l'index -->
+    <style>
+        /* =============================== */
+        /* VARIABLES CSS - DESIGN ÉGLISE ANCIENNE */
+        /* =============================== */
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-secondary: #FFD700;
+            --gold-light: #FFF8DC;
+            --bronze-dark: #8B4513;
+            --bronze-medium: #A0522D;
+            --bronze-light: #DEB887;
+            --stained-glass-blue: #1E3A8A;
+            --stained-glass-purple: #4C1D95;
+            --stained-glass-red: #991B1B;
+            --stained-glass-green: #065F46;
+            --parchment: #F5EEDC;
+            --parchment-dark: #E8D5B5;
+            --stone-gray: #6B7280;
+            --stone-dark: #374151;
+            --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s ease;
+            --prayer-blue: #1E3A8A;
+            --prayer-purple: #4C1D95;
+        }
+
+        /* =============================== */
+        /* RESET ET STYLES DE BASE */
+        /* =============================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #2C1810;
+            background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, rgba(76, 29, 149, 0.05) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.03) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* =============================== */
+        /* CONTENEUR PRINCIPAL */
+        /* =============================== */
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 100px;
+        }
+
+        /* =============================== */
+        /* EN-TÊTE - DESIGN PRIÈRE */
+        /* =============================== */
+        .header {
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.95) 0%,
+                rgba(76, 29, 149, 0.95) 50%,
+                rgba(6, 95, 70, 0.95) 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-heavy);
+            border-bottom: 8px solid var(--gold-primary);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.1) 50%, transparent 80%),
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(212, 175, 55, 0.4);
+            transform: scale(1.1);
+        }
+
+        .prayer-title {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            font-size: 2.8rem;
+            margin: 0.5rem 0 1rem 0;
+            color: var(--gold-light);
+            font-weight: 700;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .prayer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--gold-primary), 
+                transparent);
+        }
+
+        .date-display {
+            font-size: 1.3rem;
+            color: var(--gold-secondary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .theme-container {
+            max-width: 800px;
+            margin: 1rem auto;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--gold-primary);
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .daily-theme {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .theme-verse {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* =============================== */
+        /* CONTENU PRINCIPAL */
+        /* =============================== */
+        .main-content {
+            padding: 2.5rem 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: contentReveal 1s ease-out;
+        }
+
+        @keyframes contentReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =============================== */
+        /* SÉLECTEUR DE DATE */
+        /* =============================== */
+        .date-selector {
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1) 0%, 
+                rgba(139, 69, 19, 0.05) 100%);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: var(--shadow-light);
+        }
+
+        .date-selector h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--bronze-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .date-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, 
+                var(--bronze-medium) 0%,
+                var(--bronze-dark) 100%);
+            color: var(--gold-light);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-light);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+            background: linear-gradient(135deg, 
+                var(--bronze-dark) 0%,
+                var(--bronze-medium) 100%);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .date-picker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .date-picker label {
+            font-weight: 600;
+            color: var(--bronze-dark);
+        }
+
+        .date-picker input {
+            padding: 0.8rem 1rem;
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            border-radius: var(--border-radius);
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--bronze-dark);
+            text-align: center;
+            transition: var(--transition-fast);
+        }
+
+        .date-picker input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        /* =============================== */
+        /* SECTION DES SUJETS DE PRIÈRE */
+        /* =============================== */
+        .prayer-instructions {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.1) 0%, 
+                rgba(76, 29, 149, 0.05) 100%);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(30, 58, 138, 0.2);
+        }
+
+        .prayer-instructions h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--prayer-blue);
+            margin-bottom: 1rem;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .instruction-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--prayer-purple);
+            box-shadow: var(--shadow-light);
+        }
+
+        .instruction-item .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--prayer-blue);
+        }
+
+        .prayer-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .prayer-topic {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(248, 240, 228, 0.9) 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(30, 58, 138, 0.2);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            animation: topicAppear 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes topicAppear {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .prayer-topic:nth-child(1) { animation-delay: 0.1s; }
+        .prayer-topic:nth-child(2) { animation-delay: 0.2s; }
+        .prayer-topic:nth-child(3) { animation-delay: 0.3s; }
+        .prayer-topic:nth-child(4) { animation-delay: 0.4s; }
+        .prayer-topic:nth-child(5) { animation-delay: 0.5s; }
+        .prayer-topic:nth-child(6) { animation-delay: 0.6s; }
+        .prayer-topic:nth-child(7) { animation-delay: 0.7s; }
+        .prayer-topic:nth-child(8) { animation-delay: 0.8s; }
+
+        .prayer-topic:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--prayer-blue);
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(30, 58, 138, 0.2);
+        }
+
+        .topic-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--prayer-blue);
+            font-weight: 700;
+            background: rgba(30, 58, 138, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+
+        .topic-timer {
+            font-weight: 600;
+            color: var(--bronze-dark);
+            background: rgba(212, 175, 55, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .topic-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--bronze-dark);
+            margin-bottom: 1rem;
+        }
+
+        .topic-content {
+            color: var(--stone-dark);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-scripture {
+            font-style: italic;
+            color: var(--prayer-purple);
+            padding: 1rem;
+            background: rgba(76, 29, 149, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--prayer-purple);
+            margin-top: 1rem;
+        }
+
+        .topic-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pray-button {
+            background: linear-gradient(135deg, 
+                var(--prayer-blue) 0%,
+                var(--prayer-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.8rem 1.5rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .pray-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+            background: linear-gradient(135deg, 
+                var(--prayer-purple) 0%,
+                var(--prayer-blue) 100%);
+        }
+
+        .timer-button {
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(139, 69, 19, 0.1) 100%);
+            color: var(--bronze-dark);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+            border-radius: var(--border-radius);
+            padding: 0.8rem 1.5rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .timer-button:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        /* =============================== */
+        /* COMPTEUR DE TEMPS GLOBAL */
+        /* =============================== */
+        .global-timer {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, 
+                var(--bronze-dark) 0%,
+                var(--prayer-purple) 100%);
+            color: var(--gold-light);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 2px solid var(--gold-primary);
+            animation: timerPulse 2s infinite alternate;
+        }
+
+        @keyframes timerPulse {
+            0% { box-shadow: var(--shadow-heavy); }
+            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        }
+
+        .timer-display {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timer-controls button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .timer-controls button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* =============================== */
+        /* PROGRESSION DE LA PRIÈRE */
+        /* =============================== */
+        .prayer-progress {
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(30, 58, 138, 0.2);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(30, 58, 138, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                var(--prayer-blue),
+                var(--prayer-purple));
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--stone-dark);
+            font-size: 0.9rem;
+        }
+
+        /* =============================== */
+        /* MODAL DE CONFIRMATION */
+        /* =============================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal {
+            background: linear-gradient(135deg, 
+                var(--parchment) 0%,
+                var(--parchment-dark) 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-heavy);
+            border: 2px solid var(--gold-primary);
+            animation: modalAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--bronze-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal p {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-button {
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+            min-width: 120px;
+        }
+
+        .modal-confirm {
+            background: linear-gradient(135deg, 
+                var(--prayer-blue) 0%,
+                var(--prayer-purple) 100%);
+            color: white;
+        }
+
+        .modal-cancel {
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--bronze-dark);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+        }
+
+        /* =============================== */
+        /* PIED DE PAGE */
+        /* =============================== */
+        .footer {
+            background: linear-gradient(135deg, 
+                var(--bronze-dark) 0%,
+                var(--stone-dark) 100%);
+            color: var(--gold-light);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: 4rem;
+            position: relative;
+            border-top: 6px solid var(--gold-primary);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* =============================== */
+        /* RESPONSIVE DESIGN */
+        /* =============================== */
+        @media (max-width: 768px) {
+            .header {
+                min-height: 240px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .prayer-title {
+                font-size: 2rem;
+                margin-top: 2rem;
+            }
+            
+            .date-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .global-timer {
+                position: static;
+                margin: 2rem auto;
+                width: 90%;
+                justify-content: center;
+            }
+            
+            .topic-actions {
+                flex-direction: column;
+            }
+            
+            .pray-button, .timer-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .prayer-title {
+                font-size: 1.8rem;
+            }
+            
+            .daily-theme {
+                font-size: 1.2rem;
+            }
+            
+            .prayer-topic {
+                padding: 1.5rem 1rem;
+            }
+            
+            .topic-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        /* =============================== */
+        /* UTILITAIRES */
+        /* =============================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .completed {
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .completed::after {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--prayer-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .active-prayer {
+            border-color: var(--gold-primary) !important;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+            100% { box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.4); }
+        }
+    </style>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Conteneur principal -->
+    <div class="container">
+        <!-- En-tête -->
+        <header class="header">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            
+            <h1 class="prayer-title">Prière du Jour</h1>
+            <div class="date-display" id="currentDate">Chargement...</div>
+            
+            <div class="theme-container">
+                <div class="daily-theme" id="dailyTheme">Thème du jour</div>
+                <div class="theme-verse" id="themeVerse">Verset biblique</div>
+            </div>
+        </header>
+        
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Sélecteur de date -->
+            <section class="date-selector">
+                <h3>Navigation des Prières</h3>
+                <div class="date-navigation">
+                    <button class="nav-button" id="prevDay">
+                        <i class="fas fa-chevron-left"></i> Jour précédent
+                    </button>
+                    
+                    <div class="date-picker">
+                        <label for="dateSelector">Sélectionnez une date :</label>
+                        <input type="date" id="dateSelector">
+                    </div>
+                    
+                    <button class="nav-button" id="nextDay">
+                        Jour suivant <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Instructions -->
+            <section class="prayer-instructions">
+                <h3>Guide de Prière - Janvier 2026</h3>
+                <p>Thème mensuel : <strong>"L'Année des Projets Divins - 2026"</strong></p>
+                <p>Chaque sujet de prière dure 10 minutes. Priez avec ferveur et foi!</p>
+                
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="icon">🙏</div>
+                        <p>Adoration et Louange</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="icon">✝️</div>
+                        <p>Repentance et Pardon</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="icon">🔥</div>
+                        <p>Prière de Combat</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="icon">📖</div>
+                        <p>Méditation Biblique</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Progression -->
+            <section class="prayer-progress">
+                <div class="progress-header">
+                    <h3>Progression de votre Prière</h3>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="completedTopics">0/8 sujets complétés</span>
+                    <span id="timeSpent">Temps : 0 min</span>
+                </div>
+            </section>
+            
+            <!-- Sujets de prière -->
+            <section class="prayer-topics" id="prayerTopics">
+                <!-- Les sujets seront générés par JavaScript -->
+            </section>
+        </main>
+        
+        <!-- Compteur de temps global -->
+        <div class="global-timer" id="globalTimer">
+            <div class="timer-display">
+                <i class="fas fa-clock"></i>
+                <span id="totalTimer">80:00</span>
+            </div>
+            <div class="timer-controls">
+                <button id="startTimer">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="pauseTimer">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button id="resetTimer">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Pied de page -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2026 Assemblée des Saints Réunis de Binanga</p>
+                <p>"Priez sans cesse" - 1 Thessaloniciens 5:17</p>
+                <p>Application de Prière - v2.0</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Modal de confirmation -->
+    <div class="modal-overlay hidden" id="completionModal">
+        <div class="modal">
+            <h3>🎉 Félicitations !</h3>
+            <p>Vous avez terminé votre session de prière du jour. Que Dieu bénisse votre engagement et exauce vos prières selon Sa volonté parfaite.</p>
+            <div class="modal-buttons">
+                <button class="modal-button modal-confirm" id="confirmCompletion">Amen !</button>
+                <button class="modal-button modal-cancel" id="cancelCompletion">Continuer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // ===============================
+        // BASE DE DONNÉES DES PRIÈRES
+        // ===============================
+        const prayerDatabase = {
+            // Format: "YYYY-MM-DD": {theme, verse, topics: [...]}
+            "2026-01-03": {
+                theme: "Consécration des Projets à Dieu",
+                verse: "Proverbes 16:3 - Recommande à l'Éternel tes œuvres, et tes projets réussiront.",
+                topics: [
+                    {
+                        title: "Adoration et Reconnaissance",
+                        content: "Commencez par adorer Dieu pour Sa grandeur et Sa fidélité. Remerciez-Le pour l'année 2026 et pour les projets qu'Il a préparés pour vous.",
+                        scripture: "Psaume 100:4 - Entrez dans ses portes avec des louanges, dans ses parvis avec des cantiques! Célébrez-le, bénissez son nom!",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance et Purification",
+                        content: "Confessez vos péchés et demandez pardon pour les projets égoïstes. Repentez-vous des plans faits sans consulter Dieu.",
+                        scripture: "1 Jean 1:9 - Si nous confessons nos péchés, il est fidèle et juste pour nous les pardonner, et pour nous purifier de toute iniquité.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande du Saint-Esprit",
+                        content: "Priez pour que le Saint-Esprit vous guide dans tous vos projets. Demandez Sa sagesse, Sa direction et Sa présence constante.",
+                        scripture: "Romains 8:14 - Car tous ceux qui sont conduits par l'Esprit de Dieu sont fils de Dieu.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet des Projets Humains",
+                        content: "Rejetez fermement tous vos projets personnels non-alignés avec Dieu. Abandonnez vos ambitions charnelles et égoïstes.",
+                        scripture: "Proverbes 19:21 - Il y a dans le cœur de l'homme beaucoup de projets, mais c'est le dessein de l'Éternel qui s'accomplit.",
+                        duration: 10
+                    },
+                    {
+                        title: "Adoption des Projets Divins",
+                        content: "Demandez à Dieu de vous révéler Ses projets pour 2026. Engagez-vous à suivre uniquement Ses plans parfaits.",
+                        scripture: "Jérémie 29:11 - Car je connais les projets que j'ai formés sur vous, dit l'Éternel, projets de paix et non de malheur.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Communauté",
+                        content: "Priez pour les projets de l'église et de votre communauté. Demandez à Dieu de bénir les entreprises collectives.",
+                        scripture: "Psaume 133:1 - Voici, qu'il est agréable, qu'il est doux pour des frères de demeurer ensemble!",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Obstacles",
+                        content: "Commandez la destruction de tout esprit qui combat les projets divins. Brisez les chaînes spirituelles entravant votre destinée.",
+                        scripture: "Ésaïe 54:17 - Toute arme forgée contre toi sera sans effet.",
+                        duration: 10
+                    },
+                    {
+                        title: "Engagement et Consécration Finale",
+                        content: "Consacrez votre année 2026 à Dieu. Promettez-Lui fidélité et obéissance. Scellez votre prière par le sang de Jésus.",
+                        scripture: "Romains 12:1 - Je vous exhorte donc, frères, par les compassions de Dieu, à offrir vos corps comme un sacrifice vivant.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-04": {
+                theme: "La Sagesse Divine pour Nos Projets",
+                verse: "Jacques 1:5 - Si quelqu'un d'entre vous manque de sagesse, qu'il la demande à Dieu...",
+                topics: [
+                    {
+                        title: "Louange pour la Sagesse de Dieu",
+                        content: "Adorez Dieu pour Sa sagesse infinie. Remerciez-Le pour les conseils divins qu'Il donne gratuitement.",
+                        scripture: "Romains 11:33 - O profondeur de la richesse, de la sagesse et de la science de Dieu!",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Autosuffisance",
+                        content: "Confessez les fois où vous avez compté sur votre propre intelligence au lieu de chercher la sagesse divine.",
+                        scripture: "Proverbes 3:5 - Confie-toi en l'Éternel de tout ton cœur, et ne t'appuie pas sur ta sagesse.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Discernement Spirituel",
+                        content: "Priez pour le don de discernement. Demandez à Dieu de vous aider à distinguer Ses projets des distractions.",
+                        scripture: "Philippiens 1:9 - Je prie que votre amour augmente de plus en plus en connaissance et en discernement.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de la Sagesse Mondaine",
+                        content: "Rejetez toute philosophie humaine contraire à la Parole de Dieu. Renoncez aux conseils non-bibliques.",
+                        scripture: "1 Corinthiens 3:19 - Car la sagesse de ce monde est folie devant Dieu.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de la Sagesse Céleste",
+                        content: "Demandez à Dieu de déverser Sa sagesse dans votre esprit pour prendre de bonnes décisions en 2026.",
+                        scripture: "Jacques 3:17 - La sagesse d'en haut est premièrement pure, puis pacifique, modérée, conciliante.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Décideurs",
+                        content: "Intercédez pour les leaders de l'église et de la communauté, qu'ils reçoivent la sagesse divine.",
+                        scripture: "1 Rois 3:9 - Donne donc à ton serviteur un cœur intelligent pour juger ton peuple.",
+                        duration: 10
+                    },
+                    {
+                        title: "Destruction des Esprits de Confusion",
+                        content: "Lie tout esprit de confusion cherchant à obscurcir votre compréhension des projets divins.",
+                        scripture: "1 Corinthiens 14:33 - Car Dieu n'est pas un Dieu de désordre, mais de paix.",
+                        duration: 10
+                    },
+                    {
+                        title: "Engagement à Marcher en Sagesse",
+                        content: "Consacrez votre intelligence à Christ. Promettez de consulter Dieu avant toute décision importante.",
+                        scripture: "Colossiens 2:3 - En qui sont cachés tous les trésors de la sagesse et de la science.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-05": {
+                theme: "La Provision Divine pour Nos Projets",
+                verse: "Philippiens 4:19 - Et mon Dieu pourvoira à tous vos besoins selon sa richesse...",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Pourvoyeur",
+                        content: "Célébrez Dieu pour Sa fidélité à pourvoir. Remerciez-Le pour toutes Ses bénédictions passées.",
+                        scripture: "Genèse 22:14 - L'Éternel pourvoira.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Incrédulité",
+                        content: "Confessez les moments de doute concernant la provision divine. Repentez-vous de l'anxiété matérielle.",
+                        scripture: "Matthieu 6:30 - Si Dieu revêt ainsi l'herbe des champs... ne vous vêtira-t-il pas à plus forte raison?",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Ressources pour les Œuvres",
+                        content: "Priez pour les ressources nécessaires à l'accomplissement des projets divins de 2026.",
+                        scripture: "2 Corinthiens 9:8 - Et Dieu peut vous combler de toutes sortes de grâces.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de l'Esprit de Pauvreté",
+                        content: "Commandez la destruction de tout esprit de pauvreté et de limitation financière sur votre vie.",
+                        scripture: "Deutéronome 8:18 - C'est lui qui te donne de la force pour acquérir des richesses.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception des Idées Créatives",
+                        content: "Demandez à Dieu des idées innovantes pour générer des ressources pour Ses projets.",
+                        scripture: "Exode 31:3 - Je l'ai rempli de l'Esprit de Dieu, de sagesse, d'intelligence.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Prospérité Collective",
+                        content: "Intercédez pour la prospérité de toute la communauté des croyants.",
+                        scripture: "3 Jean 1:2 - Je souhaite que tu prospères à tous égards.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Limitations",
+                        content: "Brisez par la foi toute barrière empêchant la provision divine pour les projets de Dieu.",
+                        scripture: "Malachie 3:10 - Je répandrai sur vous la bénédiction en abondance.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration des Ressources à Dieu",
+                        content: "Engagez-vous à utiliser toutes vos ressources pour la gloire de Dieu et l'avancement de Son royaume.",
+                        scripture: "1 Chroniques 29:14 - Tout vient de toi, et nous recevons de ta main ce que nous t'offrons.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-06": {
+                theme: "La Protection Divine sur Nos Projets",
+                verse: "Psaume 121:7 - L'Éternel te gardera de tout mal, il gardera ton âme.",
+                topics: [
+                    {
+                        title: "Louange au Dieu Protecteur",
+                        content: "Adorez Dieu pour Sa protection constante. Remerciez-Le pour les dangers dont Il vous a préservé.",
+                        scripture: "Psaume 91:1 - Celui qui demeure sous l'abri du Très-Haut repose à l'ombre du Tout-Puissant.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour la Présomption",
+                        content: "Confessez les fois où vous avez entrepris des projets sans demander la protection divine.",
+                        scripture: "Psaume 127:1 - Si l'Éternel ne garde la ville, celui qui la garde veille en vain.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de l'Armure Spirituelle",
+                        content: "Revêtez l'armure de Dieu par la prière. Priez pour être protégé contre les attaques spirituelles.",
+                        scripture: "Éphésiens 6:11 - Revêtez-vous de toutes les armes de Dieu.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet des Esprits Destructeurs",
+                        content: "Commandez le départ de tout esprit cherchant à détruire ou retarder les projets divins.",
+                        scripture: "Jean 10:10 - Le voleur ne vient que pour dérober, égorger et détruire.",
+                        duration: 10
+                    },
+                    {
+                        title: "Protection des Collaborateurs",
+                        content: "Priez pour la protection spirituelle et physique de tous ceux impliqués dans vos projets.",
+                        scripture: "2 Thessaloniciens 3:3 - Le Seigneur est fidèle, il vous affermira et vous gardera du malin.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Sécurité Communautaire",
+                        content: "Intercédez pour la protection de toute l'assemblée et de ses activités.",
+                        scripture: "Psaume 34:8 - L'ange de l'Éternel campe autour de ceux qui le craignent.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Malédictions",
+                        content: "Brisez par le sang de Jésus toute malédiction familiale ou personnelle sur vos projets.",
+                        scripture: "Galates 3:13 - Christ nous a rachetés de la malédiction de la loi.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration sous la Garde Divine",
+                        content: "Placez tous vos projets sous la garde divine. Confiez chaque étape à la protection de Dieu.",
+                        scripture: "Proverbes 18:10 - Le nom de l'Éternel est une tour forte; le juste s'y réfugie, et se trouve en sûreté.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-07": {
+                theme: "La Foi pour Accomplir les Projets",
+                verse: "Hébreux 11:1 - Or la foi est une ferme assurance des choses qu'on espère...",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Fidèle",
+                        content: "Célébrez Dieu pour Sa fidélité à accomplir Ses promesses. Remerciez-Le pour les victoires passées.",
+                        scripture: "1 Thessaloniciens 5:24 - Celui qui vous appelle est fidèle, et c'est lui qui le fera.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour le Doute",
+                        content: "Confessez les moments de doute et d'incrédulité concernant les projets de Dieu.",
+                        scripture: "Marc 9:24 - Je crois! viens au secours de mon incrédulité!",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Foi Renouvelée",
+                        content: "Priez pour une foi fraîche et audacieuse pour entreprendre les projets divins de 2026.",
+                        scripture: "Luc 17:5 - Augmente-nous la foi.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de l'Esprit de Peur",
+                        content: "Commandez le départ de tout esprit de crainte paralysant votre foi en Dieu.",
+                        scripture: "2 Timothée 1:7 - Car ce n'est pas un esprit de timidité que Dieu nous a donné.",
+                        duration: 10
+                    },
+                    {
+                        title: "Activation de la Foi en Action",
+                        content: "Priez pour la capacité de mettre votre foi en action dans l'accomplissement des projets.",
+                        scripture: "Jacques 2:17 - La foi, si elle n'a pas les œuvres, est morte en elle-même.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Foi Collective",
+                        content: "Intercédez pour que toute l'assemblée grandisse en foi et en audace spirituelle.",
+                        scripture: "Romains 10:17 - La foi vient de ce qu'on entend, et ce qu'on entend vient de la parole de Christ.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Découragements",
+                        content: "Brisez tout esprit de découragement et d'abandon face aux difficultés.",
+                        scripture: "Galates 6:9 - Ne nous lassons pas de faire le bien; car nous moissonnerons au temps convenable.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à Marcher par la Foi",
+                        content: "Engagez-vous à marcher par la foi et non par la vue dans tous vos projets.",
+                        scripture: "2 Corinthiens 5:7 - Car nous marchons par la foi et non par la vue.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-08": {
+                theme: "L'Unité pour les Projets Communs",
+                verse: "Psaume 133:1 - Voici, qu'il est agréable, qu'il est doux pour des frères de demeurer ensemble!",
+                topics: [
+                    {
+                        title: "Louange pour l'Unité en Christ",
+                        content: "Adorez Dieu pour l'unité qu'Il donne à Son corps. Remerciez-Le pour la communauté des croyants.",
+                        scripture: "Éphésiens 4:3 - Vous efforçant de conserver l'unité de l'esprit par le lien de la paix.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour la Division",
+                        content: "Confessez tout esprit de division, de rivalité ou de compétition malsaine dans les projets.",
+                        scripture: "1 Corinthiens 1:10 - Qu'il n'y ait point de divisions parmi vous.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de l'Esprit d'Unité",
+                        content: "Priez pour un esprit d'unité et de coopération dans tous les projets collectifs de 2026.",
+                        scripture: "Philippiens 2:2 - Ayez un même sentiment, un même amour, une même âme.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet des Esprits de Division",
+                        content: "Commandez le départ de tout esprit cherchant à diviser l'église et à saboter les projets communs.",
+                        scripture: "Romains 16:17 - Éloignez-vous des fauteurs de divisions.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception des Collaborateurs Divins",
+                        content: "Demandez à Dieu d'envoyer les bonnes personnes pour collaborer à Ses projets.",
+                        scripture: "Ecclésiaste 4:9 - Deux valent mieux qu'un, parce qu'ils retirent un bon salaire de leur travail.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Relations Fraternelles",
+                        content: "Intercédez pour des relations saines et édifiantes entre tous les membres de l'assemblée.",
+                        scripture: "1 Pierre 3:8 - Ayez de l'affection les uns pour les autres.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Conflits",
+                        content: "Brisez par la prière tout conflit latent ou manifeste dans la communauté.",
+                        scripture: "Matthieu 5:9 - Heureux ceux qui procurent la paix, car ils seront appelés fils de Dieu!",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à l'Unité",
+                        content: "Engagez-vous à être un artisan d'unité dans tous vos projets et relations.",
+                        scripture: "Colossiens 3:14 - Mais par-dessus toutes ces choses, revêtez-vous de l'amour.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-09": {
+                theme: "La Persévérance dans les Projets",
+                verse: "Galates 6:9 - Ne nous lassons pas de faire le bien; car nous moissonnerons au temps convenable.",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Patient",
+                        content: "Célébrez Dieu pour Sa patience infinie. Remerciez-Le pour ne pas abandonner Ses projets pour vous.",
+                        scripture: "2 Pierre 3:9 - Le Seigneur ne tarde pas dans l'accomplissement de sa promesse.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Abandon",
+                        content: "Confessez les projets abandonnés par manque de persévérance. Repentez-vous de l'impatience.",
+                        scripture: "Hébreux 10:36 - Car vous avez besoin de persévérance.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande d'Endurance Spirituelle",
+                        content: "Priez pour la grâce de persévérer jusqu'à l'accomplissement des projets divins.",
+                        scripture: "Jacques 1:12 - Heureux l'homme qui supporte patiemment la tentation.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de l'Esprit d'Abandon",
+                        content: "Commandez le départ de tout esprit d'abandon, de découragement et de lassitude.",
+                        scripture: "Ésaïe 40:31 - Mais ceux qui se confient en l'Éternel renouvellent leur force.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de la Force Nouvelle",
+                        content: "Demandez à Dieu de renouveler vos forces chaque jour pour continuer les projets.",
+                        scripture: "Colossiens 1:11 - Fortifiés à tous égards par sa puissance glorieuse.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Fatigués",
+                        content: "Intercédez pour tous ceux qui sont fatigués dans l'œuvre de Dieu, qu'ils soient restaurés.",
+                        scripture: "Matthieu 11:28 - Venez à moi, vous tous qui êtes fatigués et chargés.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Retards Spirituels",
+                        content: "Brisez par la prière tout retard spirituel sur l'accomplissement des projets divins.",
+                        scripture: "Habakuk 2:3 - Car c'est une prophétie dont le temps est déjà fixé, elle marche vers son terme.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à la Persévérance",
+                        content: "Engagez-vous à persévérer jusqu'à la fin dans tous les projets que Dieu vous confie.",
+                        scripture: "Apocalypse 2:10 - Sois fidèle jusqu'à la mort, et je te donnerai la couronne de vie.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-10": {
+                theme: "Le Témoignage par Nos Projets",
+                verse: "Matthieu 5:16 - Que votre lumière luise ainsi devant les hommes...",
+                topics: [
+                    {
+                        title: "Louange pour l'Impact Spirituel",
+                        content: "Adorez Dieu pour l'opportunité d'impacter le monde par vos projets. Remerciez-Le pour votre témoignage.",
+                        scripture: "1 Pierre 2:9 - Vous êtes... afin que vous annonciez les vertus de celui qui vous a appelés.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Égoïsme",
+                        content: "Confessez les projets entrepris pour votre gloire personnelle plutôt que pour le témoignage de Christ.",
+                        scripture: "Philippiens 2:3 - Ne faites rien par esprit de parti ou par vaine gloire.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande d'Impact Évangélique",
+                        content: "Priez pour que vos projets soient des portes ouvertes pour partager l'Évangile.",
+                        scripture: "Colossiens 4:3 - Priez en même temps pour nous, afin que Dieu nous ouvre une porte pour la parole.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet des Projets Sans Impact",
+                        content: "Rejetez tout projet qui n'honore pas Dieu ou n'avance pas Son royaume.",
+                        scripture: "1 Corinthiens 10:31 - Soit donc que vous mangiez, soit que vous buviez, faites tout pour la gloire de Dieu.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de Stratégies de Témoignage",
+                        content: "Demandez à Dieu des idées créatives pour intégrer le témoignage chrétien dans vos projets.",
+                        scripture: "1 Pierre 3:15 - Soyez toujours prêts à défendre l'espérance qui est en vous.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Non-Croyants",
+                        content: "Intercédez pour les personnes qui seront touchées par le témoignage de vos projets.",
+                        scripture: "2 Pierre 3:9 - Il use de patience envers vous, ne voulant pas qu'aucun périsse.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement de la Honte Évangélique",
+                        content: "Brisez tout esprit de timidité ou de honte à témoigner de Christ à travers vos projets.",
+                        scripture: "Romains 1:16 - Car je n'ai point honte de l'Évangile: c'est une puissance de Dieu.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration au Témoignage",
+                        content: "Engagez-vous à utiliser tous vos projets comme plateformes pour glorifier Dieu et témoigner de Christ.",
+                        scripture: "Matthieu 28:19 - Allez, faites de toutes les nations des disciples.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-11": {
+                theme: "La Grâce pour Nos Projets",
+                verse: "2 Corinthiens 12:9 - Ma grâce te suffit, car ma puissance s'accomplit dans la faiblesse.",
+                topics: [
+                    {
+                        title: "Adoration du Dieu de Grâce",
+                        content: "Célébrez Dieu pour Sa grâce surabondante. Remerciez-Le pour les projets qu'Il accomplit par Sa grâce seule.",
+                        scripture: "Éphésiens 1:7 - En qui nous avons la rédemption par son sang, le pardon des péchés, selon la richesse de sa grâce.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Œuvre Charnelle",
+                        content: "Confessez les fois où vous avez compté sur vos propres forces plutôt que sur la grâce de Dieu.",
+                        scripture: "Zacharie 4:6 - Ce n'est ni par la puissance ni par la force, mais c'est par mon esprit.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Grâce pour l'Exécution",
+                        content: "Priez pour une mesure abondante de grâce pour accomplir les projets divins de 2026.",
+                        scripture: "Hébreux 4:16 - Approchons-nous donc avec assurance du trône de la grâce.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de l'Esprit de Performance",
+                        content: "Rejetez tout esprit de performance et de perfectionnisme humain dans vos projets.",
+                        scripture: "Galates 3:3 - Êtes-vous tellement dépourvus de sens? Après avoir commencé par l'Esprit, voulez-vous maintenant finir par la chair?",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de la Puissance de Grâce",
+                        content: "Demandez à Dieu de manifester Sa puissance parfaite à travers vos faiblesses et limitations.",
+                        scripture: "2 Corinthiens 9:8 - Dieu peut vous combler de toutes sortes de grâces.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Faibles",
+                        content: "Intercédez pour tous ceux qui se sentent inadéquats pour les projets que Dieu leur confie.",
+                        scripture: "1 Corinthiens 1:27 - Dieu a choisi les choses faibles du monde pour confondre les fortes.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Condamnations",
+                        content: "Brisez toute condamnation et sentiment d'échec lié à des projets passés.",
+                        scripture: "Romains 8:1 - Il n'y a donc maintenant aucune condamnation pour ceux qui sont en Jésus-Christ.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à la Grâce",
+                        content: "Engagez-vous à dépendre entièrement de la grâce de Dieu dans tous vos projets.",
+                        scripture: "2 Corinthiens 3:5 - Ce n'est pas à dire que nous soyons par nous-mêmes capables de concevoir quelque chose.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-12": {
+                theme: "L'Excellence dans Nos Projets",
+                verse: "Colossiens 3:23 - Tout ce que vous faites, faites-le de bon cœur, comme pour le Seigneur...",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Parfait",
+                        content: "Adorez Dieu pour Sa perfection et Son excellence. Remerciez-Le pour Son œuvre parfaite en vous.",
+                        scripture: "Deutéronome 32:4 - Toutes ses voies sont justes; c'est un Dieu fidèle et sans iniquité.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour la Médiocrité",
+                        content: "Confessez les fois où vous avez fait du travail médiocre dans les projets de Dieu.",
+                        scripture: "Malachie 1:8 - Si vous offrez en sacrifice une bête aveugle, n'est-ce pas mal?",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de l'Esprit d'Excellence",
+                        content: "Priez pour un esprit d'excellence dans tous vos projets, comme Daniel en avait.",
+                        scripture: "Daniel 6:3 - Il surpassait les autres satrapes et les gouverneurs, parce qu'il avait en lui un esprit supérieur.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de la Compromission",
+                        content: "Rejetez tout esprit de compromission et de bâclage dans l'exécution des projets divins.",
+                        scripture: "Aggée 1:4 - Est-ce le temps pour vous d'habiter vos maisons lambrissées?",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de Compétences Excellentes",
+                        content: "Demandez à Dieu de vous équiper avec les compétences nécessaires pour exceller dans Ses projets.",
+                        scripture: "Exode 31:3 - Je l'ai rempli de l'Esprit de Dieu, de sagesse, d'intelligence.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Qualité",
+                        content: "Intercédez pour que tous les projets de l'église soient marqués par l'excellence et la qualité.",
+                        scripture: "1 Corinthiens 14:40 - Mais que tout se fasse avec bienséance et avec ordre.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement de la Paresse",
+                        content: "Brisez tout esprit de paresse, de négligence et de procrastination dans vos projets.",
+                        scripture: "Proverbes 6:6 - Va vers la fourmi, paresseux; considère ses voies, et deviens sage.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à l'Excellence",
+                        content: "Engagez-vous à faire tout votre travail avec excellence, comme pour le Seigneur Lui-même.",
+                        scripture: "1 Corinthiens 10:31 - Soit donc que vous mangiez, soit que vous buviez, faites tout pour la gloire de Dieu.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-13": {
+                theme: "La Joie dans l'Exécution des Projets",
+                verse: "Néhémie 8:10 - ...car la joie de l'Éternel sera votre force.",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Joyeux",
+                        content: "Adorez Dieu pour Sa joie parfaite. Remerciez-Le pour la joie du salut et du service.",
+                        scripture: "Psaume 16:11 - Il y a d'abondantes joies dans ta présence.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour la Plainte",
+                        content: "Confessez les plaintes et murmures dans l'exécution des projets divins.",
+                        scripture: "Philippiens 2:14 - Faites toutes choses sans murmures ni hésitations.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Joie Renouvelée",
+                        content: "Priez pour que la joie du Seigneur soit votre force dans tous vos projets.",
+                        scripture: "Romains 15:13 - Que le Dieu de l'espérance vous remplisse de toute joie et de toute paix.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de l'Esprit de Lourdeur",
+                        content: "Rejetez tout esprit de lourdeur, d'ennui et d'obligation dans le service pour Dieu.",
+                        scripture: "2 Corinthiens 3:17 - Or, le Seigneur c'est l'Esprit; et là où est l'Esprit du Seigneur, là est la liberté.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de Joie Céleste",
+                        content: "Demandez à Dieu de remplir votre cœur de Sa joie divine pendant l'exécution des projets.",
+                        scripture: "Jean 15:11 - Je vous ai dit ces choses, afin que ma joie soit en vous.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour les Découragés",
+                        content: "Intercédez pour tous ceux qui ont perdu la joie dans le service de Dieu.",
+                        scripture: "Psaume 51:12 - Rends-moi la joie de ton salut.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement des Dépressions",
+                        content: "Brisez tout esprit de dépression et de tristesse paralysant les projets divins.",
+                        scripture: "Ésaïe 61:3 - Pour leur donner un diadème au lieu de la cendre, une huile de joie au lieu du deuil.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration à la Joie",
+                        content: "Engagez-vous à servir Dieu avec joie et enthousiasme dans tous vos projets.",
+                        scripture: "Psaume 100:2 - Servez l'Éternel avec joie, venez avec allégresse en sa présence!",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-14": {
+                theme: "Le Fruit Durable des Projets",
+                verse: "Jean 15:16 - Ce n'est pas vous qui m'avez choisi; mais moi, je vous ai choisis, et je vous ai établis, afin que vous alliez, et que vous portiez du fruit, et que votre fruit demeure.",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Productif",
+                        content: "Adorez Dieu pour Sa productivité éternelle. Remerciez-Le pour le fruit spirituel produit en vous.",
+                        scripture: "Galates 5:22 - Mais le fruit de l'Esprit, c'est l'amour, la joie, la paix, la patience.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour le Stérile",
+                        content: "Confessez les projets stériles et sans fruit durable pour le royaume de Dieu.",
+                        scripture: "Luc 13:7 - Voilà trois ans que je viens chercher du fruit à ce figuier, et je n'en trouve point.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Fructification",
+                        content: "Priez pour que vos projets portent un fruit abondant et durable pour l'éternité.",
+                        scripture: "Jean 15:5 - Celui qui demeure en moi et en qui je demeure porte beaucoup de fruit.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet des Projets Éphémères",
+                        content: "Rejetez tout projet qui ne produit pas de fruit durable pour le royaume de Dieu.",
+                        scripture: "1 Corinthiens 3:13 - L'œuvre de chacun sera manifestée.",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de Semences Fécondes",
+                        content: "Demandez à Dieu de vous donner des idées de projets qui produiront un héritage éternel.",
+                        scripture: "2 Corinthiens 9:10 - Celui qui fournit de la semence au semeur... multipliera votre semence.",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Moisson",
+                        content: "Intercédez pour une grande moisson d'âmes et de disciples à travers les projets de l'église.",
+                        scripture: "Matthieu 9:37 - La moisson est grande, mais il y a peu d'ouvriers.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement de la Stérilité",
+                        content: "Brisez tout esprit de stérilité spirituelle sur votre vie et vos projets.",
+                        scripture: "Psaume 113:9 - De la stérile il fait une mère joyeuse au milieu de sa famille.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration au Fruit Durable",
+                        content: "Engagez-vous à investir dans des projets qui produiront un fruit durable pour l'éternité.",
+                        scripture: "1 Corinthiens 15:58 - Ainsi, mes frères bien-aimés, soyez fermes, inébranlables, travaillant de mieux en mieux à l'œuvre du Seigneur.",
+                        duration: 10
+                    }
+                ]
+            },
+            "2026-01-15": {
+                theme: "La Gloire de Dieu dans Nos Projets",
+                verse: "1 Corinthiens 10:31 - Soit donc que vous mangiez, soit que vous buviez, faites tout pour la gloire de Dieu.",
+                topics: [
+                    {
+                        title: "Adoration du Dieu Glorieux",
+                        content: "Adorez Dieu pour Sa gloire infinie. Remerciez-Le pour l'honneur de participer à Son œuvre glorieuse.",
+                        scripture: "Apocalypse 4:11 - Tu es digne, notre Seigneur et notre Dieu, de recevoir la gloire.",
+                        duration: 10
+                    },
+                    {
+                        title: "Repentance pour l'Autoglorification",
+                        content: "Confessez les fois où vous avez cherché votre propre gloire dans vos projets.",
+                        scripture: "Ésaïe 42:8 - Je suis l'Éternel, c'est là mon nom; et je ne donnerai pas ma gloire à un autre.",
+                        duration: 10
+                    },
+                    {
+                        title: "Demande de Révélation Glorieuse",
+                        content: "Priez pour que Dieu soit glorifié à travers tous vos projets de 2026.",
+                        scripture: "Matthieu 5:16 - Que votre lumière luise ainsi devant les hommes, afin qu'ils voient vos bonnes œuvres, et qu'ils glorifient votre Père qui est dans les cieux.",
+                        duration: 10
+                    },
+                    {
+                        title: "Rejet de la Vaine Gloire",
+                        content: "Rejetez tout esprit de vaine gloire, d'orgueil et de recherche d'approbation humaine.",
+                        scripture: "Galates 1:10 - Étant maintenant avec les hommes ou avec Dieu? Ou est-ce que je cherche à plaire aux hommes?",
+                        duration: 10
+                    },
+                    {
+                        title: "Réception de la Présence Glorieuse",
+                        content: "Demandez la présence manifeste de Dieu dans l'exécution de tous vos projets.",
+                        scripture: "Exode 33:18 - Moïse dit: Fais-moi voir ta gloire!",
+                        duration: 10
+                    },
+                    {
+                        title: "Prières pour la Manifestation Divine",
+                        content: "Intercédez pour que les projets de l'église manifestent visiblement la gloire de Dieu.",
+                        scripture: "Habakuk 2:14 - Car la terre sera remplie de la connaissance de la gloire de l'Éternel.",
+                        duration: 10
+                    },
+                    {
+                        title: "Brisement de l'Égo",
+                        content: "Brisez tout esprit d'égoïsme, d'orgueil et d'auto-promotion dans vos projets.",
+                        scripture: "Proverbes 16:18 - L'orgueil précède la chute, et l'arrogance précède la ruine.",
+                        duration: 10
+                    },
+                    {
+                        title: "Consécration Totale à la Gloire de Dieu",
+                        content: "Consacrez totalement l'année 2026 et tous vos projets à la seule gloire de Dieu. Scellez cet engagement par le sang de Jésus.",
+                        scripture: "1 Corinthiens 6:20 - Car vous avez été rachetés à un grand prix. Glorifiez donc Dieu dans votre corps.",
+                        duration: 10
+                    }
+                ]
+            }
+        };
+
+        // ===============================
+        // ÉTAT GLOBAL DE L'APPLICATION
+        // ===============================
+        let currentDate = new Date();
+        let prayerState = {
+            currentTopicIndex: 0,
+            completedTopics: new Set(),
+            totalTimeSpent: 0,
+            timerRunning: false,
+            totalTimer: 80 * 60, // 80 minutes en secondes
+            topicTimers: {}
+        };
+
+        // ===============================
+        // FONCTIONS D'INITIALISATION
+        // ===============================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser la date actuelle
+            updateDateDisplay();
+            
+            // Initialiser les contrôles de date
+            initializeDateControls();
+            
+            // Initialiser les sujets de prière
+            loadPrayerTopics();
+            
+            // Initialiser le timer global
+            initializeGlobalTimer();
+            
+            // Initialiser la progression
+            updateProgress();
+            
+            // Vérifier l'état sauvegardé
+            loadPrayerState();
+        });
+
+        // ===============================
+        // GESTION DES DATES
+        // ===============================
+        function updateDateDisplay() {
+            const dateStr = formatDate(currentDate);
+            document.getElementById('currentDate').textContent = formatDateForDisplay(currentDate);
+            
+            // Mettre à jour le sélecteur de date
+            const dateSelector = document.getElementById('dateSelector');
+            dateSelector.value = dateStr;
+            
+            // Mettre à jour le thème
+            updateTheme();
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDateForDisplay(date) {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return date.toLocaleDateString('fr-FR', options);
+        }
+
+        function initializeDateControls() {
+            // Bouton jour précédent
+            document.getElementById('prevDay').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updateDateDisplay();
+                loadPrayerTopics();
+                resetPrayerState();
+            });
+
+            // Bouton jour suivant
+            document.getElementById('nextDay').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updateDateDisplay();
+                loadPrayerTopics();
+                resetPrayerState();
+            });
+
+            // Sélecteur de date
+            document.getElementById('dateSelector').addEventListener('change', (e) => {
+                currentDate = new Date(e.target.value);
+                updateDateDisplay();
+                loadPrayerTopics();
+                resetPrayerState();
+            });
+        }
+
+        // ===============================
+        // GESTION DES THÈMES
+        // ===============================
+        function updateTheme() {
+            const dateStr = formatDate(currentDate);
+            const prayerData = prayerDatabase[dateStr];
+            
+            if (prayerData) {
+                document.getElementById('dailyTheme').textContent = prayerData.theme;
+                document.getElementById('themeVerse').textContent = prayerData.verse;
+            } else {
+                document.getElementById('dailyTheme').textContent = "Pas de thème disponible pour cette date";
+                document.getElementById('themeVerse').textContent = "Proverbes 16:3 - Recommande à l'Éternel tes œuvres...";
+            }
+        }
+
+        // ===============================
+        // GESTION DES SUJETS DE PRIÈRE
+        // ===============================
+        function loadPrayerTopics() {
+            const dateStr = formatDate(currentDate);
+            const prayerData = prayerDatabase[dateStr];
+            const topicsContainer = document.getElementById('prayerTopics');
+            
+            if (!prayerData || !prayerData.topics) {
+                topicsContainer.innerHTML = `
+                    <div class="prayer-topic">
+                        <div class="topic-title">Aucun sujet de prière disponible pour cette date</div>
+                        <div class="topic-content">Veuillez sélectionner une autre date ou revenir demain pour de nouveaux sujets de prière.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            topicsContainer.innerHTML = '';
+            
+            prayerData.topics.forEach((topic, index) => {
+                const isCompleted = prayerState.completedTopics.has(index);
+                const isActive = prayerState.currentTopicIndex === index;
+                
+                const topicElement = document.createElement('div');
+                topicElement.className = `prayer-topic ${isCompleted ? 'completed' : ''} ${isActive ? 'active-prayer' : ''}`;
+                topicElement.innerHTML = `
+                    <div class="topic-header">
+                        <div class="topic-number">Sujet ${index + 1}</div>
+                        <div class="topic-timer">${topic.duration} minutes</div>
+                    </div>
+                    <div class="topic-title">${topic.title}</div>
+                    <div class="topic-content">${topic.content}</div>
+                    <div class="topic-scripture">${topic.scripture}</div>
+                    <div class="topic-actions">
+                        <button class="pray-button" onclick="startTopicPrayer(${index})">
+                            <i class="fas fa-pray"></i>
+                            ${isCompleted ? 'Re-prier' : 'Commencer à prier'}
+                        </button>
+                        <button class="timer-button" onclick="startTopicTimer(${index})">
+                            <i class="fas fa-hourglass-start"></i>
+                            Minuteur (${topic.duration} min)
+                        </button>
+                    </div>
+                `;
+                
+                topicsContainer.appendChild(topicElement);
+            });
+        }
+
+        // ===============================
+        // FONCTIONS DE PRIÈRE
+        // ===============================
+        function startTopicPrayer(topicIndex) {
+            prayerState.currentTopicIndex = topicIndex;
+            
+            // Marquer comme complété
+            prayerState.completedTopics.add(topicIndex);
+            savePrayerState();
+            
+            // Recharger les sujets pour mettre à jour l'affichage
+            loadPrayerTopics();
+            
+            // Mettre à jour la progression
+            updateProgress();
+            
+            // Notification
+            showNotification(`Sujet ${topicIndex + 1} marqué comme prié!`);
+            
+            // Si tous les sujets sont complétés
+            if (prayerState.completedTopics.size === 8) {
+                showCompletionModal();
+            }
+        }
+
+        function startTopicTimer(topicIndex) {
+            const dateStr = formatDate(currentDate);
+            const prayerData = prayerDatabase[dateStr];
+            const topic = prayerData.topics[topicIndex];
+            
+            if (!topic) return;
+            
+            const duration = topic.duration * 60; // Convertir en secondes
+            
+            // Démarrer le timer pour ce sujet
+            prayerState.topicTimers[topicIndex] = {
+                remaining: duration,
+                running: true,
+                interval: setInterval(() => {
+                    prayerState.topicTimers[topicIndex].remaining--;
+                    
+                    if (prayerState.topicTimers[topicIndex].remaining <= 0) {
+                        clearInterval(prayerState.topicTimers[topicIndex].interval);
+                        showNotification(`Temps écoulé pour le sujet ${topicIndex + 1}!`);
+                        startTopicPrayer(topicIndex);
+                    }
+                }, 1000)
+            };
+            
+            showNotification(`Minuteur démarré pour le sujet ${topicIndex + 1} (${topic.duration} minutes)`);
+        }
+
+        // ===============================
+        // GESTION DU TIMER GLOBAL
+        // ===============================
+        function initializeGlobalTimer() {
+            const timerDisplay = document.getElementById('totalTimer');
+            const startBtn = document.getElementById('startTimer');
+            const pauseBtn = document.getElementById('pauseTimer');
+            const resetBtn = document.getElementById('resetTimer');
+            
+            // Format initial
+            updateTimerDisplay();
+            
+            // Événements
+            startBtn.addEventListener('click', startGlobalTimer);
+            pauseBtn.addEventListener('click', pauseGlobalTimer);
+            resetBtn.addEventListener('click', resetGlobalTimer);
+        }
+
+        let globalTimerInterval = null;
+
+        function startGlobalTimer() {
+            if (globalTimerInterval) return;
+            
+            prayerState.timerRunning = true;
+            globalTimerInterval = setInterval(() => {
+                if (prayerState.totalTimer > 0) {
+                    prayerState.totalTimer--;
+                    updateTimerDisplay();
+                    
+                    // Mettre à jour le temps total passé
+                    prayerState.totalTimeSpent++;
+                    updateProgress();
+                    
+                    // Sauvegarder l'état
+                    savePrayerState();
+                } else {
+                    clearInterval(globalTimerInterval);
+                    showNotification("Temps de prière terminé! Amen!");
+                    showCompletionModal();
+                }
+            }, 1000);
+            
+            showNotification("Timer global démarré!");
+        }
+
+        function pauseGlobalTimer() {
+            if (globalTimerInterval) {
+                clearInterval(globalTimerInterval);
+                globalTimerInterval = null;
+                prayerState.timerRunning = false;
+                showNotification("Timer mis en pause");
+            }
+        }
+
+        function resetGlobalTimer() {
+            pauseGlobalTimer();
+            prayerState.totalTimer = 80 * 60; // 80 minutes
+            updateTimerDisplay();
+            showNotification("Timer réinitialisé");
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(prayerState.totalTimer / 60);
+            const seconds = prayerState.totalTimer % 60;
+            document.getElementById('totalTimer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ===============================
+        // GESTION DE LA PROGRESSION
+        // ===============================
+        function updateProgress() {
+            const completed = prayerState.completedTopics.size;
+            const total = 8;
+            const percent = Math.round((completed / total) * 100);
+            
+            // Mettre à jour l'affichage
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+            document.getElementById('completedTopics').textContent = `${completed}/${total} sujets complétés`;
+            
+            // Mettre à jour le temps passé
+            const minutesSpent = Math.floor(prayerState.totalTimeSpent / 60);
+            document.getElementById('timeSpent').textContent = `Temps : ${minutesSpent} min`;
+        }
+
+        // ===============================
+        // MODAL DE CONFIRMATION
+        // ===============================
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.classList.remove('hidden');
+            
+            document.getElementById('confirmCompletion').addEventListener('click', () => {
+                modal.classList.add('hidden');
+                showNotification("Gloire à Dieu pour cette séance de prière!");
+                
+                // Réinitialiser pour demain
+                setTimeout(() => {
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    updateDateDisplay();
+                    loadPrayerTopics();
+                    resetPrayerState();
+                }, 1000);
+            });
+            
+            document.getElementById('cancelCompletion').addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        }
+
+        // ===============================
+        // GESTION DE L'ÉTAT (LOCALSTORAGE)
+        // ===============================
+        function savePrayerState() {
+            const state = {
+                currentTopicIndex: prayerState.currentTopicIndex,
+                completedTopics: Array.from(prayerState.completedTopics),
+                totalTimeSpent: prayerState.totalTimeSpent,
+                timerRunning: prayerState.timerRunning,
+                totalTimer: prayerState.totalTimer,
+                lastDate: formatDate(currentDate)
+            };
+            
+            localStorage.setItem('prayerState', JSON.stringify(state));
+        }
+
+        function loadPrayerState() {
+            const saved = localStorage.getItem('prayerState');
+            
+            if (saved) {
+                const state = JSON.parse(saved);
+                const savedDate = state.lastDate;
+                const currentDateStr = formatDate(currentDate);
+                
+                // Ne charger que si c'est la même date
+                if (savedDate === currentDateStr) {
+                    prayerState.currentTopicIndex = state.currentTopicIndex;
+                    prayerState.completedTopics = new Set(state.completedTopics);
+                    prayerState.totalTimeSpent = state.totalTimeSpent;
+                    prayerState.timerRunning = state.timerRunning;
+                    prayerState.totalTimer = state.totalTimer;
+                    
+                    // Si le timer était en cours, le redémarrer
+                    if (state.timerRunning) {
+                        startGlobalTimer();
+                    }
+                    
+                    updateProgress();
+                    loadPrayerTopics();
+                } else {
+                    // Nouveau jour, réinitialiser
+                    resetPrayerState();
+                }
+            }
+        }
+
+        function resetPrayerState() {
+            prayerState = {
+                currentTopicIndex: 0,
+                completedTopics: new Set(),
+                totalTimeSpent: 0,
+                timerRunning: false,
+                totalTimer: 80 * 60,
+                topicTimers: {}
+            };
+            
+            // Arrêter tous les timers de sujet
+            Object.values(prayerState.topicTimers).forEach(timer => {
+                if (timer.interval) clearInterval(timer.interval);
+            });
+            
+            // Arrêter le timer global
+            pauseGlobalTimer();
+            
+            updateProgress();
+            updateTimerDisplay();
+            savePrayerState();
+        }
+
+        // ===============================
+        // NOTIFICATIONS
+        // ===============================
+        function showNotification(message) {
+            // Créer une notification temporaire
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--prayer-blue), var(--prayer-purple));
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-heavy);
+                border-left: 4px solid var(--gold-primary);
+                z-index: 2000;
+                animation: notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Crimson Text', serif;
+                max-width: 300px;
+                backdrop-filter: blur(10px);
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.5rem;">🔔</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer après 4 secondes
+            setTimeout(() => {
+                notification.style.animation = 'notificationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) reverse forwards';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 500);
+            }, 4000);
+        }
+
+        // Ajouter l'animation pour les notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes notificationSlide {
+                from { 
+                    transform: translateX(100%) translateY(-20px); 
+                    opacity: 0; 
+                }
+                to { 
+                    transform: translateX(0) translateY(0); 
+                    opacity: 1; 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ===============================
+        // EXPOSER LES FONCTIONS GLOBALES
+        // ===============================
+        window.startTopicPrayer = startTopicPrayer;
+        window.startTopicTimer = startTopicTimer;
+    </script>
+</body>
+</html>
